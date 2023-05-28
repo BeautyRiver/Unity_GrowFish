@@ -8,38 +8,43 @@ public class EnemyMove : MonoBehaviour
 {        
     public float speed;
     public int checkEnemy;
+    bool isMoveTure;
     GameManager manager;    
     
     Animator animator;
     int moveDir = -1;
 
     void Awake()
-    {
-    
+    {    
         manager = FindObjectOfType<GameManager>();
-        animator = GetComponentInChildren<Animator>();
-
-        
+        animator = GetComponentInChildren<Animator>();        
     }
     void Start()
-    {                               
+    {      
+        //enemyFishsì˜ ë°°ì—´ ê¸¸ì´ ë§Œí¼ ë°˜ë³µ 
         for (int i = 0; i < manager.enemyFishs.Length; i++)
         {
+            //í•´ë‹¹ë¬¼ê³ ê¸° ì¸ì§€ ì²´í¬í›„ í•´ë‹¹ ì• ë‹ˆë©”ì´ì…˜ í• ë‹¹ 
             if (checkEnemy == i)
             {
                 animator.SetInteger("EnemyValue", i);
                 break;
             }
         }
+
+        if (checkEnemy == 4 || checkEnemy == 5)
+        {
+            isMoveTure = true;
+        }
         
-        //¿ŞÂÊ½ºÆù½Ã ½ºÇÁ¶óÀÌÆ® ¹æÇâ ¹İ´ë(±âÁ¸ ¿À¸¥ÂÊ), ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÒ¼ö ÀÖ°Ô moveDir À½¼öÁöÁ¤
-        if (transform.position.x < 0) //¿ŞÂÊ½ºÆù
+        //ì™¼ìª½ìŠ¤í°ì‹œ ìŠ¤í”„ë¼ì´íŠ¸ ë°©í–¥ ë°˜ëŒ€(ê¸°ì¡´ ì˜¤ë¥¸ìª½), ì™¼ìª½ìœ¼ë¡œ ì´ë™í• ìˆ˜ ìˆê²Œ moveDir ìŒìˆ˜ì§€ì •
+        if (transform.position.x < 0) //ì™¼ìª½ìŠ¤í°
         {
             transform.localScale = new Vector3(-1, 1, 1);
             moveDir = -1;
         }
 
-        else //¿À¸¥ÂÊ½ºÆù
+        else //ì˜¤ë¥¸ìª½ìŠ¤í°
         {
             transform.localScale = new Vector3(1, 1, 1);
             moveDir = 1;
@@ -48,11 +53,11 @@ public class EnemyMove : MonoBehaviour
     
     void Update()
     {        
-        //moveDirÀ» ÅëÇÑ ¿ŞÂÊ ¿À¸¥ÂÊ ÀÌµ¿ Á¶Á¤
+        //moveDirì„ í†µí•œ ì™¼ìª½ ì˜¤ë¥¸ìª½ ì´ë™ ì¡°ì •
         transform.Translate(Vector3.left * moveDir * speed * Time.deltaTime,Space.World);
                      
 
-        //x¹üÀ§ ¹ş¾î³¯½Ã Àû »èÁ¦
+        //xë²”ìœ„ ë²—ì–´ë‚ ì‹œ ì  ì‚­ì œ
         if (transform.position.x > manager.xRange + 1|| transform.position.x < -(manager.xRange) - 1)
             Destroy(gameObject);
     }
