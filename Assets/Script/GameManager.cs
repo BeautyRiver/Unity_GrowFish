@@ -10,9 +10,14 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyFishs; 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hpText;
+    public GameObject Player;
+    public PlayerMove PlayerMoveScript; 
+    public GameObject levelEffectPrefab;
+    public Transform effectGroup;
+
     public int hp = 0;
     public int score = 0; 
-    public bool isHpZero = false;
+    public bool isGameOver = false;
     //스테이지 레벨관리 
     public bool[] levels = new bool[5];
 
@@ -25,30 +30,52 @@ public class GameManager : MonoBehaviour
 
     //적 점수들
     public int ShrimpPt = 60;
-    public int SardinePt = 350;
-    public int DommyPt = 1000;
-    public int TunaPt = 3500;
+    public int SardinePt = 500;
+    public int DommyPt = 2000;
+    public int TunaPt = 4500;
     void Start()
     {
         StartCoroutine(SpawnEnemy());        
     }
 
+    //레벨업 파티클
+    void LevelUp(int level)
+    {
+        GameObject instantEffectObj = Instantiate(levelEffectPrefab, effectGroup);
+        ParticleSystem effect = instantEffectObj.GetComponent<ParticleSystem>();
+        PlayerMoveScript.playerScale += 0.3f;
+        effect.transform.position = Player.transform.position;
+        effect.transform.localScale = transform.localScale;
+        effect.Play();
+        levels[level] = true;        
+    }
+
+   
     void Update()
     {
-        if (hp <= 0)        
-            isHpZero = true;
+        if (hp <= 0)
+            isGameOver = true;
 
-        if (score >= 45000)
-            levels[4] = true;
-            
-        else if (score >= 15000)
-            levels[3] = true;
 
-        else if (score >= 4000)
-            levels[2] = true;
+        if (score >= 45000 && !levels[4])
+        {
+            LevelUp(4);
+        }
 
-        else if (score >= 500)
-            levels[1] = true;
+        else if (score >= 15000 && !levels[3])
+        {
+            LevelUp(3);
+        }
+
+        else if (score >= 4000 && !levels[2])
+        {
+            LevelUp(2);
+        }
+
+        else if (score >= 500 && !levels[1])
+        {
+            LevelUp(1);
+        }
 
         else if (score >= 0)
             levels[0] = true;

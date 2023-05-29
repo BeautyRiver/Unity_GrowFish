@@ -9,15 +9,18 @@ public class PlayerMove : MonoBehaviour
     public float maxSpeed;
     public float speed;
     public float playerScale = 0.3f; //플레이어 크기
+    
     public GameObject LineBottom;
     public GameManager manager;
+    public ParticleSystem effect;
+
     Rigidbody2D rb;
     Animator playerAni; //플레이어 애니메이터
     SpriteRenderer spriteRenderer;
     bool isMoveOk; //움직임 가능 체크 변수
-
+    float lastDirection = 1f; //마지막 방향 체크 변수
     void Start()
-    {
+    {        
         rb = GetComponent<Rigidbody2D>();
         playerAni = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -43,15 +46,26 @@ public class PlayerMove : MonoBehaviour
         if (rb.velocity.magnitude > maxSpeed)
             rb.velocity = rb.velocity.normalized * maxSpeed;
 
-        //Flip
-        if (x > 0) transform.localScale = new Vector3(-playerScale, playerScale, 0);
-        else if (x < 0) transform.localScale = new Vector3(playerScale, playerScale, 0);
+        // Flip
+        if (x > 0)
+        {
+            transform.localScale = new Vector3(-playerScale, playerScale, 1);
+            lastDirection = -1f;
+        }
+        else if (x < 0)
+        {
+            transform.localScale = new Vector3(playerScale, playerScale, 1);
+            lastDirection = 1f;
+        }
+        else
+        {
+            transform.localScale = new Vector3(lastDirection * playerScale, playerScale, 1);
+        }
 
         //DieCheck
-        if (manager.isHpZero)
-        {
+        if (manager.isGameOver)
             isDie();
-        }
+
     }
     //먹을 수 있는지 없는지 검
     void EatFish(string tagName, Collider2D collision, int plusScore)
@@ -82,7 +96,10 @@ public class PlayerMove : MonoBehaviour
     {       
         playerAni.Play("PlayerDamaged");
         manager.hp -= 1;
+
+
         manager.hpText.text = "Hp: " + manager.hp.ToString();
+        
 
         //레이어변경
         gameObject.layer = 7;
