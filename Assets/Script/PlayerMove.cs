@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -102,7 +101,7 @@ public class PlayerMove : MonoBehaviour
         playerAni.Play("PlayerDamaged");
         manager.hp -= 1;
              
-        //레이어변경
+        //레이어변경해서 충돌무시
         gameObject.layer = 7;
 
         //투명하게

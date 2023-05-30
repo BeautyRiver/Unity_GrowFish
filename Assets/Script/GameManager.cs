@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 //GAME MANAGER SCRIPT
 public class GameManager : MonoBehaviour
@@ -47,12 +48,8 @@ public class GameManager : MonoBehaviour
     public Text lastScore;
 
     //GamePause관련
-
-    void Start()
-    {
-        StartCoroutine(SpawnEnemy());        
-    }
-
+    bool isPauseScreenOn = false;
+    public GameObject pauseBtns;    
     //레벨업 파티클
     void LevelUp(int level)
     {
@@ -62,14 +59,14 @@ public class GameManager : MonoBehaviour
         effect.transform.position = Player.transform.position;
         effect.transform.localScale = transform.localScale;
         effect.Play();
-        levels[level] = true;        
+        levels[level] = true;
     }
     //GameOver
     void GameOver()
     {
         blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
         finalWindow.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetDelay(0.5f);
-        if (score > PlayerPrefs.GetInt("BS")) 
+        if (score > PlayerPrefs.GetInt("BS"))
         {
             PlayerPrefs.SetInt("BS", score);
         }
@@ -96,37 +93,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
+    //버튼들
+    public void InputContinue()
     {
-        //체력 체크
-        if (!isGameOver)
-        {
-            HpCheck();
-
-            if (score >= 45000 && !levels[4])
-            {
-                LevelUp(4);
-            }
-
-            else if (score >= 15000 && !levels[3])
-            {
-                LevelUp(3);
-            }
-
-            else if (score >= 4000 && !levels[2])
-            {
-                LevelUp(2);
-            }
-
-            else if (score >= 500 && !levels[1])
-            {
-                LevelUp(1);
-            }
-
-            else if (score >= 0)
-                levels[0] = true;
-        }
+        Time.timeScale = 1;
+        pauseBtns.gameObject.SetActive(false);
+        isPauseScreenOn = false;
     }
+    public void InputStop()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);       
+    }
+    public void InputRetry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     //코루틴 함수
     IEnumerator SpawnEnemy()
     {
@@ -173,5 +156,51 @@ public class GameManager : MonoBehaviour
             return Random.Range(0, 2);
         else
             return 0;
+    }
+    void Start()
+    {
+        DOTween.KillAll();
+        StartCoroutine(SpawnEnemy());
+    }
+    void Update()
+    {
+        if (!isPauseScreenOn)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Time.timeScale = 0;
+                pauseBtns.gameObject.SetActive(true);
+                isPauseScreenOn = true;
+            }
+        }
+
+        //체력 체크
+        if (!isGameOver)
+        {
+            HpCheck();
+
+            if (score >= 45000 && !levels[4])
+            {
+                LevelUp(4);
+            }
+
+            else if (score >= 15000 && !levels[3])
+            {
+                LevelUp(3);
+            }
+
+            else if (score >= 4000 && !levels[2])
+            {
+                LevelUp(2);
+            }
+
+            else if (score >= 500 && !levels[1])
+            {
+                LevelUp(1);
+            }
+
+            else if (score >= 0)
+                levels[0] = true;
+        }
     }
 }
