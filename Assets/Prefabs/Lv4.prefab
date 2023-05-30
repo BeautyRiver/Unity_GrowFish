@@ -106,7 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!60 &1721712427693306189
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -232,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c8aa52e83c6e644af37d82b48c1b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   checkEnemy: 3
 --- !u!50 &887505794035632416
 Rigidbody2D:

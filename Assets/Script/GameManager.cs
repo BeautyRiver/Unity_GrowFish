@@ -147,9 +147,9 @@ public class GameManager : MonoBehaviour
         if (levels[4])
             return Random.Range(3, 6);
         else if (levels[3])
-            return Random.Range(2, 5);
+            return Random.Range(2, 6);
         else if (levels[2])
-            return Random.Range(1, 4);
+            return Random.Range(1, 5);
         else if (levels[1])
             return Random.Range(0, 3);
         else if (levels[0])

@@ -30,7 +30,10 @@ public class EnemyMove : MonoBehaviour
                 break;
             }
         }
-               
+
+        if (gameObject.transform.GetChild(0).CompareTag("BlowFish"))
+            StartCoroutine(BlowFishRanSpeed());
+
         //왼쪽스폰시 스프라이트 방향 반대(기존 오른쪽), 왼쪽으로 이동할수 있게 moveDir 음수지정
         if (transform.position.x < 0) //왼쪽스폰
         {
@@ -56,6 +59,11 @@ public class EnemyMove : MonoBehaviour
             Destroy(gameObject);
     }
 
-    
-    
+    IEnumerator BlowFishRanSpeed()
+    {
+        speed = Random.Range(2.9f, 5.4f);
+        yield return new WaitForSeconds(Random.Range(1f, 1.5f));
+    }
+
+
 }
