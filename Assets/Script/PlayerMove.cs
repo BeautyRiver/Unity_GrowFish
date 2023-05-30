@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
@@ -75,7 +76,7 @@ public class PlayerMove : MonoBehaviour
             Destroy(collision.gameObject);
             playerAni.Play("PlayerDoEat");
             manager.score += plusScore;
-            manager.scoreText.text = "Score:" + manager.score.ToString();
+            manager.scoreText.text = manager.score.ToString();
         }                
     }
 
@@ -83,6 +84,10 @@ public class PlayerMove : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         string tagName = collision.gameObject.tag;
+
+        //상어에 닿으면 즉사
+        if (tagName == "Shark") manager.hp = 1;
+
         if (tagName == "Shrimp" && manager.levels[0]) EatFish(tagName, collision, manager.ShrimpPt);
         else if (tagName == "Sardine" && manager.levels[1]) EatFish(tagName, collision, manager.SardinePt);
         else if (tagName == "Dommy" && manager.levels[2]) EatFish(tagName, collision, manager.DommyPt);
@@ -96,11 +101,7 @@ public class PlayerMove : MonoBehaviour
     {       
         playerAni.Play("PlayerDamaged");
         manager.hp -= 1;
-
-
-        manager.hpText.text = "Hp: " + manager.hp.ToString();
-        
-
+             
         //레이어변경
         gameObject.layer = 7;
 
@@ -108,7 +109,7 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
 
         //화면 흔들리게
-        iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("x", 0.2, "y", 0.2, "time", 0.5f));
+        Camera.main.transform.DOShakePosition(0.5f, new Vector3(0.3f, 0.3f, 0));
 
         //부딪힐시 딜레이
         isMoveOk = false;

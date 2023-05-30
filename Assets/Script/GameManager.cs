@@ -2,37 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 //GAME MANAGER SCRIPT
 public class GameManager : MonoBehaviour
-{
-    //적프리팹 관리 배열
-    public GameObject[] enemyFishs; 
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI hpText;
-    public GameObject Player;
-    public PlayerMove PlayerMoveScript; 
+{        
+    //이펙트 관련 변수들
     public GameObject levelEffectPrefab;
-    public Transform effectGroup;
+    public Transform effectGroup;   
 
-    public int hp = 0;
-    public int score = 0; 
-    public bool isGameOver = false;
-    //스테이지 레벨관리 
-    public bool[] levels = new bool[5];
+    //적 관련 변수들
+    public bool isGameOver = false;    
+    public bool[] levels = new bool[5]; //스테이지 레벨관리    
+    public float xRange, yRange;    //적 생성 위치 범위     
+    float spawnX, spawnY;   //적 생성 위치       
+    public float ranSpawnPt;    //좌,우 생성 결정 변수
 
-    //적 생성 위치 범위  
-    public float xRange, yRange;    
-    //적 생성 위치   
-    float spawnX, spawnY;
-    //좌,우 생성 결정 변수
-    public float ranSpawnPt;
+    public GameObject[] enemyFishs; //적프리팹 관리 배열
+    public GameObject Player;
+    public PlayerMove PlayerMoveScript;
 
     //적 점수들
     public int ShrimpPt = 60;
     public int SardinePt = 500;
     public int DommyPt = 2000;
     public int TunaPt = 4500;
+
+    //UI 관련 변수들
+    //점수관련
+    public Text scoreText;
+    public int score = 0;
+
+    //하트 관련
+    public int hp = 0;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
+
+    //GameOver관련
+    public GameObject blackScreen;
+    public GameObject finalWindow;
+    public Text bestScore;
+    public Text lastScore;
+
+    //GamePause관련
+
     void Start()
     {
         StartCoroutine(SpawnEnemy());        
@@ -49,36 +64,68 @@ public class GameManager : MonoBehaviour
         effect.Play();
         levels[level] = true;        
     }
+    //GameOver
+    void GameOver()
+    {
+        blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
+        finalWindow.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetDelay(0.5f);
+        if (score > PlayerPrefs.GetInt("BS")) 
+        {
+            PlayerPrefs.SetInt("BS", score);
+        }
+        lastScore.text = score.ToString();
+        bestScore.text = PlayerPrefs.GetInt("BS").ToString();
+    }
+    //Hp검사
+    void HpCheck()
+    {
+        foreach (Image img in hearts)
+        {
+            img.sprite = emptyHeart;
+        }
 
-   
+        for (int i = 0; i < hp; i++)
+        {
+            hearts[i].sprite = fullHeart;
+        }
+
+        if (hp <= 0)
+        {
+            isGameOver = true;
+            GameOver();
+        }
+    }
+
     void Update()
     {
-        if (hp <= 0)
-            isGameOver = true;
-
-
-        if (score >= 45000 && !levels[4])
+        //체력 체크
+        if (!isGameOver)
         {
-            LevelUp(4);
-        }
+            HpCheck();
 
-        else if (score >= 15000 && !levels[3])
-        {
-            LevelUp(3);
-        }
+            if (score >= 45000 && !levels[4])
+            {
+                LevelUp(4);
+            }
 
-        else if (score >= 4000 && !levels[2])
-        {
-            LevelUp(2);
-        }
+            else if (score >= 15000 && !levels[3])
+            {
+                LevelUp(3);
+            }
 
-        else if (score >= 500 && !levels[1])
-        {
-            LevelUp(1);
-        }
+            else if (score >= 4000 && !levels[2])
+            {
+                LevelUp(2);
+            }
 
-        else if (score >= 0)
-            levels[0] = true;
+            else if (score >= 500 && !levels[1])
+            {
+                LevelUp(1);
+            }
+
+            else if (score >= 0)
+                levels[0] = true;
+        }
     }
     //코루틴 함수
     IEnumerator SpawnEnemy()

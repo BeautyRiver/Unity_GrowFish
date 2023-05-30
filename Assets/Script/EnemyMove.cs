@@ -8,7 +8,6 @@ public class EnemyMove : MonoBehaviour
 {        
     public float speed;
     public int checkEnemy;
-    bool isMoveTure;
     GameManager manager;    
     
     Animator animator;
@@ -31,11 +30,7 @@ public class EnemyMove : MonoBehaviour
                 break;
             }
         }
-
-        if (checkEnemy == 4 || checkEnemy == 5)
-        {
-            isMoveTure = true;
-        }
+       
         
         //왼쪽스폰시 스프라이트 방향 반대(기존 오른쪽), 왼쪽으로 이동할수 있게 moveDir 음수지정
         if (transform.position.x < 0) //왼쪽스폰
