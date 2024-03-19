@@ -9,61 +9,52 @@ public class PlayerMove : MonoBehaviour
     public float maxSpeed;
     public float speed;
     public float playerScale = 0.3f; //플레이어 크기
-    
+
     public GameObject LineBottom;
-    public GameManager manager;
+    public GameManager gameManager;
+    public UIManager uiManager;
     public ParticleSystem effect;
 
     Rigidbody2D rb;
     Animator playerAni; //플레이어 애니메이터
     SpriteRenderer spriteRenderer;
     bool isMoveOk; //움직임 가능 체크 변수
-    float lastDirection = 1f; //마지막 방향 체크 변수
     void Start()
-    {        
+    {
         rb = GetComponent<Rigidbody2D>();
         playerAni = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isMoveOk = true;
     }
-    
+
     void Update()
     {
-        float x = 0, y = 0;
         //이동관련
-        if (isMoveOk)
-        {
-            x = Input.GetAxis("Horizontal");
-            y = Input.GetAxis("Vertical");
-        }
+        if (!isMoveOk)
+            return;
         
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        
+
         Vector2 playerMove = new Vector2(x, y);
 
-        //isMoveOk가 활성화 되어야 움직일 수 있음
         rb.AddForce(playerMove * speed, ForceMode2D.Impulse);
 
-        //최고속도 제한
+        // 최고속도 제한
         if (rb.velocity.magnitude > maxSpeed)
             rb.velocity = rb.velocity.normalized * maxSpeed;
 
         // Flip
-        if (x > 0)
+        if (x != 0)
         {
-            transform.localScale = new Vector3(-playerScale, playerScale, 1);
-            lastDirection = -1f;
-        }
-        else if (x < 0)
-        {
-            transform.localScale = new Vector3(playerScale, playerScale, 1);
-            lastDirection = 1f;
-        }
-        else
-        {
-            transform.localScale = new Vector3(lastDirection * playerScale, playerScale, 1);
+            spriteRenderer.flipX = x == -1;
         }
 
-        //DieCheck
-        if (manager.isGameOver)
+        playerAni.SetBool("isWalk", x != 0);
+
+        // DieCheck
+        if (gameManager.isGameOver)
             isDie();
 
     }
@@ -74,9 +65,9 @@ public class PlayerMove : MonoBehaviour
         {
             Destroy(collision.gameObject);
             playerAni.Play("PlayerDoEat");
-            manager.score += plusScore;
-            manager.scoreText.text = manager.score.ToString();
-        }                
+            uiManager.score += plusScore;
+            uiManager.scoreText.text = uiManager.score.ToString();
+        }
     }
 
     //Enemy와 충돌했을때
@@ -85,59 +76,55 @@ public class PlayerMove : MonoBehaviour
         string tagName = collision.gameObject.tag;
 
         //상어에 닿으면 즉사
-        if (tagName == "Shark") manager.hp = 1;
+        if (tagName == "Shark") uiManager.hp = 1;
 
-        if (tagName == "Shrimp" && manager.levels[0]) EatFish(tagName, collision, manager.ShrimpPt);
-        else if (tagName == "Sardine" && manager.levels[1]) EatFish(tagName, collision, manager.SardinePt);
-        else if (tagName == "Dommy" && manager.levels[2]) EatFish(tagName, collision, manager.DommyPt);
-        else if (tagName == "Tuna" && manager.levels[3]) EatFish(tagName, collision, manager.TunaPt);
+        if (tagName == "Shrimp" && gameManager.levels[0]) EatFish(tagName, collision, gameManager.ShrimpPt);
+        else if (tagName == "Sardine" && gameManager.levels[1]) EatFish(tagName, collision, gameManager.SardinePt);
+        else if (tagName == "Dommy" && gameManager.levels[2]) EatFish(tagName, collision, gameManager.DommyPt);
+        else if (tagName == "Tuna" && gameManager.levels[3]) EatFish(tagName, collision, gameManager.TunaPt);
 
-        else OnDamaged(collision.transform.position);
+        else
+        {
+            // 플레이어와 몬스터 간의 위치 차이를 계산
+            Vector2 bounceDirection = transform.position - collision.transform.position;
+            bounceDirection.Normalize(); // 방향 벡터를 정규화
+            OnDamaged(bounceDirection);
+        }
     }
 
     //플레이어가 데미지를 입었을때
     void OnDamaged(Vector2 targetPos)
-    {       
+    {
         playerAni.Play("PlayerDamaged");
-        manager.hp -= 1;
-             
-        //레이어변경해서 충돌무시
-        gameObject.layer = 7;
-
-        //투명하게
-        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
-
-        //화면 흔들리게
-        Camera.main.transform.DOShakePosition(0.5f, new Vector3(0.3f, 0.3f, 0));
+        uiManager.hp -= 1;        
+        gameObject.layer = 7;                            //레이어변경해서 충돌무시
+        //spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 투명
+        Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게
 
         //부딪힐시 딜레이
         isMoveOk = false;
-        Invoke("OnMoveOk", 0.8f);
+        rb.velocity = Vector3.zero;
+        Invoke("OnMoveOk", 0.6f);
 
         //뒤로 밀려나게
-        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rb.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
 
-        Invoke("OffDamaged", 2f);
+        int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
+        rb.AddForce(targetPos * 5f, ForceMode2D.Impulse);
+
+        Invoke("OffDamaged", 1f);
     }
 
     //사망할때
     void isDie()
     {
         playerAni.enabled = false;
-        //조작불가
-        isMoveOk = false;
-        //투명도 변경
-        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
-        //방향 아래로 뒤집기
-        spriteRenderer.flipY = true;
-        //아래로 추락시키기 
-        rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse);
-        //레이어 수정으로 몹들과의 충돌 x
-        gameObject.layer = 7;
+        isMoveOk = false;                                   // 조작불가
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);    // 투명도 변경
+        spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
+        rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
+        gameObject.layer = 7;                               // 레이어 수정으로 몹들과의 충돌 x
+        LineBottom.SetActive(false);                        // 바닥 더 아래로(떨어지는 연출)
 
-        //바닥 더 아래로(떨어지는 연출)
-        LineBottom.SetActive(false);
     }
     //무적 종료
     void OffDamaged()

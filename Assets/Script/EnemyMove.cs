@@ -5,7 +5,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyMove : MonoBehaviour
-{        
+{
+    [SerializeField]
+    private enum EnemyNames
+    {
+        
+    }
     public float speed;
     public int checkEnemy;
     GameManager manager;    

@@ -8,9 +8,34 @@ using UnityEngine.SceneManagement;
 
 //GAME MANAGER SCRIPT
 public class GameManager : MonoBehaviour
-{        
+{
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     //이펙트 관련 변수들
     public GameObject levelEffectPrefab;
+    public UIManager uiManager;
     public Transform effectGroup;   
 
     //적 관련 변수들
@@ -28,30 +53,11 @@ public class GameManager : MonoBehaviour
     public int ShrimpPt = 60;
     public int SardinePt = 500;
     public int DommyPt = 2000;
-    public int TunaPt = 4500;
+    public int TunaPt = 4500;   
 
-    //UI 관련 변수들
-    //점수관련
-    public Text scoreText;
-    public int score = 0;
 
-    //하트 관련
-    public int hp = 0;
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
-
-    //GameOver관련
-    public GameObject blackScreen;
-    public GameObject finalWindow;
-    public Text bestScore;
-    public Text lastScore;
-
-    //GamePause관련
-    bool isPauseScreenOn = false;
-    public GameObject pauseBtns;    
     //레벨업 파티클
-    void LevelUp(int level)
+    public void LevelUp(int level)
     {
         GameObject instantEffectObj = Instantiate(levelEffectPrefab, effectGroup);
         ParticleSystem effect = instantEffectObj.GetComponent<ParticleSystem>();
@@ -61,54 +67,7 @@ public class GameManager : MonoBehaviour
         effect.Play();
         levels[level] = true;
     }
-    //GameOver
-    void GameOver()
-    {
-        blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
-        finalWindow.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetDelay(0.5f);
-        if (score > PlayerPrefs.GetInt("BS"))
-        {
-            PlayerPrefs.SetInt("BS", score);
-        }
-        lastScore.text = score.ToString();
-        bestScore.text = PlayerPrefs.GetInt("BS").ToString();
-    }
-    //Hp검사
-    void HpCheck()
-    {
-        foreach (Image img in hearts)
-        {
-            img.sprite = emptyHeart;
-        }
-
-        for (int i = 0; i < hp; i++)
-        {
-            hearts[i].sprite = fullHeart;
-        }
-
-        if (hp <= 0)
-        {
-            isGameOver = true;
-            GameOver();
-        }
-    }
-
-    //버튼들
-    public void InputContinue()
-    {
-        Time.timeScale = 1;
-        pauseBtns.gameObject.SetActive(false);
-        isPauseScreenOn = false;
-    }
-    public void InputStop()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(0);       
-    }
-    public void InputRetry()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+   
 
     //코루틴 함수
     IEnumerator SpawnEnemy()
@@ -162,45 +121,5 @@ public class GameManager : MonoBehaviour
         DOTween.KillAll();
         StartCoroutine(SpawnEnemy());
     }
-    void Update()
-    {
-        if (!isPauseScreenOn)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Time.timeScale = 0;
-                pauseBtns.gameObject.SetActive(true);
-                isPauseScreenOn = true;
-            }
-        }
-
-        //체력 체크
-        if (!isGameOver)
-        {
-            HpCheck();
-
-            if (score >= 45000 && !levels[4])
-            {
-                LevelUp(4);
-            }
-
-            else if (score >= 15000 && !levels[3])
-            {
-                LevelUp(3);
-            }
-
-            else if (score >= 4000 && !levels[2])
-            {
-                LevelUp(2);
-            }
-
-            else if (score >= 500 && !levels[1])
-            {
-                LevelUp(1);
-            }
-
-            else if (score >= 0)
-                levels[0] = true;
-        }
-    }
+   
 }
