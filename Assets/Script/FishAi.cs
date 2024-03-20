@@ -3,18 +3,21 @@ using UnityEngine;
 public class FishAI : MonoBehaviour
 {
     public float moveSpeed = 2f;
-    public float runAwaySpeed = 5f;
-    public float detectionRadius = 5f; // 플레이어 감지 범위
+    public float runAwaySpeed = 4f;
+    public float detectionRadius = 5f;
     public Transform playerTransform;
     private Rigidbody2D rb;
-    private Vector2 movementDirection;
+    private Vector2 currentDirection;
     private bool isRunningAway = false;
+    private SpriteRenderer spriteRenderer; // 스프라이트 렌더러 추가
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        InvokeRepeating("ChangeDirection", 0f, 2f); // 게임 시작 시 즉시 무작위 방향 선택, 그 후 2초마다 방향 변경
+        SetNewDirection(); // 초기 방향 설정
     }
 
     void Update()
@@ -23,39 +26,32 @@ public class FishAI : MonoBehaviour
 
         if (distanceToPlayer < detectionRadius && !isRunningAway)
         {
-            // 플레이어를 감지하면 반대 방향으로 도망
-            Vector2 runDirection = (transform.position - playerTransform.position).normalized;
-            movementDirection = runDirection;
+            // 플레이어 감지 시 반대 방향으로 도망
+            spriteRenderer.flipX = currentDirection.x < 0; // 이동 방향에 따라 스프라이트 뒤집기
             isRunningAway = true;
-            CancelInvoke("ChangeDirection"); // 도망치는 동안은 무작위 이동 중지
-            Invoke("EnableRandomMovement", 2f); // 2초 후에 다시 무작위 이동 시작
+            currentDirection = new Vector2(-currentDirection.x,currentDirection.y); // 현재 방향을 반대로 변경
+            Invoke(nameof(ChangeDirAfterRunning), 3.5f); // 2초 후 방향 변경
         }
     }
 
     void FixedUpdate()
-    {
-        // 현재 방향으로 이동한 후의 예상 위치 계산
-        Vector2 newPosition = rb.position + movementDirection * moveSpeed * Time.fixedDeltaTime;
-
-        // 예상 위치가 지정된 범위를 벗어나지 않도록 조정
-        newPosition.x = Mathf.Clamp(newPosition.x, -16f, 16f);
-        newPosition.y = Mathf.Clamp(newPosition.y, -10f, 10f);
-
-        // 조정된 위치로 물고기 이동
-        rb.MovePosition(newPosition);
+    {        
+        rb.MovePosition(rb.position + currentDirection * (isRunningAway ? runAwaySpeed : moveSpeed) * Time.fixedDeltaTime);
     }
 
-    void ChangeDirection()
+    void SetNewDirection()
     {
-        // 무작위 방향으로 이동 설정
-        movementDirection = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f)).normalized;
-        isRunningAway = false; // 도망 상태 해제
+        // 무작위 초기 방향 설정
+        currentDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-0.2f, 0.2f)).normalized;
     }
-
-    void EnableRandomMovement()
+    
+    void ChangeDirAfterRunning()
     {
-        // 다시 무작위 이동 시작
-        isRunningAway = false;
-        InvokeRepeating("ChangeDirection", 0f, 2f);
+        if (isRunningAway)
+        {
+            // 도망 상태 종료 후 방향 반대로 바꾸기
+            isRunningAway = false;
+            currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.2f, 0.2f)).normalized; 
+        }
     }
 }
