@@ -9,6 +9,8 @@ public class PlayerMove : MonoBehaviour
     public float maxSpeed;
     public float speed;
     public float playerScale = 0.3f; //플레이어 크기
+    public float x;
+    public float y;
 
     public GameObject LineBottom;
     public GameManager gameManager;
@@ -19,6 +21,9 @@ public class PlayerMove : MonoBehaviour
     Animator playerAni; //플레이어 애니메이터
     SpriteRenderer spriteRenderer;
     bool isMoveOk; //움직임 가능 체크 변수
+
+    /* 대쉬 구현 */
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,8 +38,8 @@ public class PlayerMove : MonoBehaviour
         if (!isMoveOk)
             return;
         
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+       x = Input.GetAxisRaw("Horizontal");
+        y = Input.GetAxisRaw("Vertical");
         
 
         Vector2 playerMove = new Vector2(x, y);
