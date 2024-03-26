@@ -5,28 +5,20 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     public Transform player;
-    float smoothing = 0.2f;
-    public float maxX;
+    public float smoothing = 1f;
     public float maxY;
 
     void FixedUpdate()
     {
-        float targetX = player.position.x;
         float targetY = player.position.y;
 
-        // x축 범위 조정
-        if (player.position.x >= maxX)
-            targetX = maxX;
-        else if (player.position.x <= -maxX)
-            targetX = -maxX;
-
         // y축 범위 조정
-        if (player.position.y >= maxY)
-            targetY = maxY;
+        if (player.position.y >= 2f)
+            targetY = 2.3f;
         else if (player.position.y <= -maxY)
             targetY = -maxY;
 
-        Vector3 targetPos = new Vector3(targetX, targetY, -10);
+        Vector3 targetPos = new Vector3(player.transform.position.x, targetY, transform.position.z);
 
         transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
     }
