@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     //적 관련 변수들
     public bool isGameOver = false;    
-    public bool[] levels = new bool[5]; //스테이지 레벨관리    
+    public bool[] levels; //스테이지 레벨관리    
     public float xRange, yRange;    //적 생성 위치 범위     
     float spawnX, spawnY;   //적 생성 위치       
     public float ranSpawnPt;    //좌,우 생성 결정 변수

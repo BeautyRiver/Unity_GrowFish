@@ -8,13 +8,13 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    public GameManager gameManager;    
     //점수관련
     public Text scoreText;
     public int score = 0;
 
     //하트 관련
-    public int hp = 0;
+    public Slider healthBarSlider;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
@@ -29,6 +29,12 @@ public class UIManager : MonoBehaviour
     //GameOver관련
     public GameObject blackScreen;
     public GameObject finalWindow;
+
+    public void UpdateHealthBar(float currentHp, int maxHp)
+    {
+        float healthPercentage = currentHp / maxHp;
+        healthBarSlider.DOValue(healthPercentage, 0.5f); // 0.5초 동안 목표값으로 부드럽게 이동합니다.        
+    }
 
     void Update()
     {
@@ -45,8 +51,6 @@ public class UIManager : MonoBehaviour
         //체력 체크
         if (!gameManager.isGameOver)
         {
-            HpCheck();
-
             if (score >= 45000 && !gameManager.levels[4])
             {
                 gameManager.LevelUp(4);
@@ -70,29 +74,10 @@ public class UIManager : MonoBehaviour
             else if (score >= 0)
                 gameManager.levels[0] = true;
         }
-    }
-    //Hp검사
-    void HpCheck()
-    {
-        foreach (Image img in hearts)
-        {
-            img.sprite = emptyHeart;
-        }
-
-        for (int i = 0; i < hp; i++)
-        {
-            hearts[i].sprite = fullHeart;
-        }
-
-        if (hp <= 0)
-        {
-            gameManager.isGameOver = true;
-            GameOverScreen();
-        }
-    }
+    }    
 
     //GameOver
-    void GameOverScreen()
+    public void GameOverScreen()
     {
         blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
         finalWindow.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetDelay(0.5f);

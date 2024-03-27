@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : FishAI
 {
     [SerializeField]
     private enum EnemyNames
@@ -70,5 +70,25 @@ public class EnemyMove : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(1f, 1.5f));
     }
 
+   
 
+    // 플레이어 감지 시 도망 처리: 현재 방향의 x 값을 반전하여 반대 방향으로 설정
+    private void ChangeDirRunningStart()
+    {
+        isRunningAway = true;
+        currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.1f, 0.1f)); // 현재 방향을 반대로 변경
+        spriteRenderer.flipX = currentDirection.x > 0; // 이동 방향에 따라 스프라이트 뒤집기
+    }
+
+    // 도망 상태 종료 후 방향 변경: x축 방향 반전, y축은 새로운 무작위 값으로 설정
+    private void ChangeDirAfterRunning()
+    {
+        if (isRunningAway)
+        {
+            // 도망 상태 종료 후 방향 반대로 바꾸기
+            isRunningAway = false;
+            currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.1f, 0.1f)).normalized;
+            spriteRenderer.flipX = currentDirection.x > 0; // 이동 방향에 따라 스프라이트 뒤집기
+        }
+    }
 }

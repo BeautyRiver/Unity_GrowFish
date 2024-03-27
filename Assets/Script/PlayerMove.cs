@@ -12,6 +12,10 @@ public class PlayerMove : MonoBehaviour
     public float x;
     public float y;
 
+    public int maxHp = 100; // 최대 체력값 추가
+    public float hp;
+    private float healthDecreaseRate = 4f; // 체력이 감소하는 비율(초당)
+
     public GameObject LineBottom;
     public GameManager gameManager;
     public UIManager uiManager;
@@ -29,23 +33,28 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAni = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        hp = maxHp;
         isMoveOk = true;
     }
 
     void Update()
     {
+        HpCheck();
+        DecreaseHealthOverTime();
+        uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 (해당 함수는 UIManager 스크립트에 정의되어 있어야 함)
+
         //이동관련
         if (!isMoveOk)
             return;
         
-       x = Input.GetAxisRaw("Horizontal");
+        x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
         
 
         Vector2 playerMove = new Vector2(x, y);
 
         rb.AddForce(playerMove * speed, ForceMode2D.Impulse);
-
+        rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -9.1f, 8f));
         // 최고속도 제한
         if (rb.velocity.magnitude > maxSpeed)
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -61,8 +70,14 @@ public class PlayerMove : MonoBehaviour
         // DieCheck
         if (gameManager.isGameOver)
             isDie();
-
     }
+    private void DecreaseHealthOverTime()
+    {
+        // 체력을 초당 healthDecreaseRate만큼 감소시킵니다.
+        hp -= healthDecreaseRate * Time.deltaTime;
+        hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 합니다.
+    }
+
     //먹을 수 있는지 없는지 검
     void EatFish(string tagName, Collider2D collision, int plusScore)
     {
@@ -81,7 +96,7 @@ public class PlayerMove : MonoBehaviour
         string tagName = collision.gameObject.tag;
 
         //상어에 닿으면 즉사
-        if (tagName == "Shark") uiManager.hp = 1;
+        if (tagName == "Shark") hp = 1;
 
         if (tagName == "Shrimp" && gameManager.levels[0]) EatFish(tagName, collision, gameManager.ShrimpPt);
         else if (tagName == "Sardine" && gameManager.levels[1]) EatFish(tagName, collision, gameManager.SardinePt);
@@ -101,7 +116,10 @@ public class PlayerMove : MonoBehaviour
     void OnDamaged(Vector2 targetPos)
     {
         playerAni.Play("PlayerDamaged");
-        uiManager.hp -= 1;        
+
+        hp -= maxHp * 0.3f; // 최대 체력의 30%를 감소
+        hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 합니다.
+   
         gameObject.layer = 7;                            //레이어변경해서 충돌무시
         //spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 투명
         Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게
@@ -143,4 +161,13 @@ public class PlayerMove : MonoBehaviour
         isMoveOk = true;
     }
 
+    //Hp검사
+    void HpCheck()
+    {        
+        if (hp <= 0)
+        {
+            gameManager.isGameOver = true;
+            uiManager.GameOverScreen();
+        }
+    }
 }
