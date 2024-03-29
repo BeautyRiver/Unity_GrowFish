@@ -16,20 +16,21 @@ public class PlayerMove : MonoBehaviour
     public float hp;
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율(초당)
 
-    public GameObject LineBottom;
-    public GameManager gameManager;
     public UIManager uiManager;
     public ParticleSystem effect;
+    public VariableJoystick joystick;
 
-    Rigidbody2D rb;
-    Animator playerAni; //플레이어 애니메이터
-    SpriteRenderer spriteRenderer;
-    bool isMoveOk; //움직임 가능 체크 변수
+    private GameManager gm;
+    private Rigidbody2D rb;
+    private Animator playerAni; //플레이어 애니메이터
+    private SpriteRenderer spriteRenderer;
+    private bool isMoveOk; //움직임 가능 체크 변수
 
     /* 대쉬 구현 */
 
-    void Start()
+    private void Start()
     {
+        gm = GameManager.Instance;
         rb = GetComponent<Rigidbody2D>();
         playerAni = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -37,71 +38,90 @@ public class PlayerMove : MonoBehaviour
         isMoveOk = true;
     }
 
-    void Update()
+    private void Update()
     {
-        HpCheck();
-        DecreaseHealthOverTime();
-        uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 (해당 함수는 UIManager 스크립트에 정의되어 있어야 함)
-
-        //이동관련
-        if (!isMoveOk)
-            return;
-        
-        x = Input.GetAxisRaw("Horizontal");
-        y = Input.GetAxisRaw("Vertical");
-        
-
-        Vector2 playerMove = new Vector2(x, y);
-
-        rb.AddForce(playerMove * speed, ForceMode2D.Impulse);
-        rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -9.1f, 8f));
-        // 최고속도 제한
-        if (rb.velocity.magnitude > maxSpeed)
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-
-        // Flip
-        if (x != 0)
+        if (!uiManager.isPauseScreenOn && !gm.isGameOver)
         {
-            spriteRenderer.flipX = x == -1;
+            HpCheck();
+            DecreaseHealthOverTime();
+            uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 (해당 함수는 UIManager 스크립트에 정의되어 있어야 함)
+
+            //이동관련
+            if (isMoveOk)
+            {
+                x = joystick.Horizontal;
+                y = joystick.Vertical;
+            }
+
+
+            Vector2 playerMove = new Vector2(x, y);
+
+            rb.AddForce(playerMove * speed, ForceMode2D.Impulse);
+            rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -9.1f, 8f));
+            // 최고속도 제한
+            if (rb.velocity.magnitude > maxSpeed)
+                rb.velocity = rb.velocity.normalized * maxSpeed;
+
+            // Flip
+            if (x != 0)
+            {
+                spriteRenderer.flipX = x < 0;
+            }
+
+            playerAni.SetBool("isWalk", x != 0);
+
+            // DieCheck
+            if (gm.isGameOver)
+                isDie();
         }
-
-        playerAni.SetBool("isWalk", x != 0);
-
-        // DieCheck
-        if (gameManager.isGameOver)
-            isDie();
     }
     private void DecreaseHealthOverTime()
     {
-        // 체력을 초당 healthDecreaseRate만큼 감소시킵니다.
+        // 체력을 초당 healthDecreaseRate만큼 감소
         hp -= healthDecreaseRate * Time.deltaTime;
-        hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 합니다.
+        hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 함
     }
 
     //먹을 수 있는지 없는지 검
-    void EatFish(string tagName, Collider2D collision, int plusScore)
+    private void EatFish(string tagName, Collider2D collision, int plusScore)
     {
         if (collision.CompareTag(tagName))
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             playerAni.Play("PlayerDoEat");
-            uiManager.score += plusScore;
-            uiManager.scoreText.text = uiManager.score.ToString();
+            gm.score += plusScore;
+            uiManager.scoreText.text = gm.score.ToString();
+            hp += maxHp * 0.2f;
         }
     }
 
     //Enemy와 충돌했을때
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         string tagName = collision.gameObject.tag;
 
         //상어에 닿으면 즉사
         if (tagName == "Shark") hp = 1;
 
-        if (tagName == "Shrimp" && gameManager.levels[0]) EatFish(tagName, collision, gameManager.ShrimpPt);
-        else if (tagName == "Sardine" && gameManager.levels[1]) EatFish(tagName, collision, gameManager.SardinePt);
-        else if (tagName == "Dommy" && gameManager.levels[2]) EatFish(tagName, collision, gameManager.DommyPt);
-        else if (tagName == "Tuna" && gameManager.levels[3]) EatFish(tagName, collision, gameManager.TunaPt);
+        if (tagName == "Shrimp" && gm.levels[0])
+        {
+            EatFish(tagName, collision, gm.Level_1);
+        }
+
+        else if (tagName == "Sardine" && gm.levels[1])
+        {
+            EatFish(tagName, collision, gm.Level_2);
+        }
+
+        else if (tagName == "Dommy" && gm.levels[2])
+        {
+            EatFish(tagName, collision, gm.Level_3);
+        }
+
+        else if (tagName == "Tuna" && gm.levels[3])
+        {
+            EatFish(tagName, collision, gm.Level_4);
+        }
 
         else
         {
@@ -113,13 +133,13 @@ public class PlayerMove : MonoBehaviour
     }
 
     //플레이어가 데미지를 입었을때
-    void OnDamaged(Vector2 targetPos)
+    private void OnDamaged(Vector2 targetPos)
     {
         playerAni.Play("PlayerDamaged");
 
         hp -= maxHp * 0.3f; // 최대 체력의 30%를 감소
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 합니다.
-   
+
         gameObject.layer = 7;                            //레이어변경해서 충돌무시
         //spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 투명
         Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게
@@ -127,46 +147,42 @@ public class PlayerMove : MonoBehaviour
         //부딪힐시 딜레이
         isMoveOk = false;
         rb.velocity = Vector3.zero;
-        Invoke("OnMoveOk", 0.6f);
+        StartCoroutine(Hited());
 
         //뒤로 밀려나게
-
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rb.AddForce(targetPos * 5f, ForceMode2D.Impulse);
-
-        Invoke("OffDamaged", 1f);
     }
 
     //사망할때
-    void isDie()
+    private void isDie()
     {
+        rb.velocity = Vector2.zero;
+        joystick.gameObject.SetActive(false);
         playerAni.enabled = false;
+        gm.isGameOver = true;
         isMoveOk = false;                                   // 조작불가
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);    // 투명도 변경
         spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
         rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
         gameObject.layer = 7;                               // 레이어 수정으로 몹들과의 충돌 x
-        LineBottom.SetActive(false);                        // 바닥 더 아래로(떨어지는 연출)
-
     }
-    //무적 종료
-    void OffDamaged()
+    //맞았을때
+    IEnumerator Hited()
     {
-        gameObject.layer = 6;
-        spriteRenderer.color = new Color(1, 1, 1, 1f);
-    }
-    //움직임 가능
-    void OnMoveOk()
-    {
-        isMoveOk = true;
+        yield return new WaitForSeconds(0.6f);
+        isMoveOk = true; // 움직일 수 있게
+        yield return new WaitForSeconds(1f);
+        gameObject.layer = 6; // 레이어 다시 Player로
+        spriteRenderer.color = new Color(1, 1, 1, 1f); // 색상 다시 돌리기
     }
 
     //Hp검사
-    void HpCheck()
-    {        
+    private void HpCheck()
+    {
         if (hp <= 0)
         {
-            gameManager.isGameOver = true;
+            gm.isGameOver = true;
             uiManager.GameOverScreen();
         }
     }

@@ -13,8 +13,8 @@ public class CameraMove : MonoBehaviour
         float targetY = player.position.y;
 
         // y축 범위 조정
-        if (player.position.y >= 2f)
-            targetY = 2.3f;
+        if (player.position.y >= 2.35f)
+            targetY = 2.35f;
         else if (player.position.y <= -maxY)
             targetY = -maxY;
 
