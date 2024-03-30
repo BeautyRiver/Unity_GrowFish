@@ -17,7 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text bestScore;
     [SerializeField] private Text lastScore;
 
+    // 물고기 섭취
     [Header("물고기 목표 섭취")]
+    [SerializeField] private GameObject fishTargetObj;
     [SerializeField] private TextMeshProUGUI[] fishTargetText;
     [SerializeField] private Image[] fishTargetImg;
 
@@ -30,6 +32,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject blackScreen;
     [SerializeField] private GameObject finalWindow;
 
+    public void setFishTargetImgChange()
+    {
+
+    }
     public void UpdateHealthBar(float currentHp, int maxHp)
     {
         float healthPercentage = currentHp / maxHp;
@@ -41,11 +47,11 @@ public class UIManager : MonoBehaviour
     {
         blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
         finalWindow.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetDelay(0.5f);
-        if (GameManager.Instance.score > PlayerPrefs.GetInt("BS"))
+        if (GameManager.Instance.Score > PlayerPrefs.GetInt("BS"))
         {
-            PlayerPrefs.SetInt("BS", GameManager.Instance.score);
+            PlayerPrefs.SetInt("BS", GameManager.Instance.Score);
         }
-        lastScore.text = GameManager.Instance.score.ToString();
+        lastScore.text = GameManager.Instance.Score.ToString();
         bestScore.text = PlayerPrefs.GetInt("BS").ToString();
     }
 

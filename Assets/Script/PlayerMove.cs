@@ -40,7 +40,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if (!uiManager.isPauseScreenOn && !gm.isGameOver)
+        if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
         {
             HpCheck();
             DecreaseHealthOverTime();
@@ -65,13 +65,13 @@ public class PlayerMove : MonoBehaviour
             // Flip
             if (x != 0)
             {
-                spriteRenderer.flipX = x < 0;
+                spriteRenderer.flipX = x > 0;
             }
 
             playerAni.SetBool("isWalk", x != 0);
 
             // DieCheck
-            if (gm.isGameOver)
+            if (gm.IsGameOver)
                 isDie();
         }
     }
@@ -82,16 +82,17 @@ public class PlayerMove : MonoBehaviour
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 함
     }
 
-    //먹을 수 있는지 없는지 검
+    //먹을 수 있는지 없는지 검사
     private void EatFish(string tagName, Collider2D collision, int plusScore)
     {
         if (collision.CompareTag(tagName))
         {
             collision.gameObject.SetActive(false);
             playerAni.Play("PlayerDoEat");
-            gm.score += plusScore;
-            uiManager.scoreText.text = gm.score.ToString();
+            gm.Score += plusScore;
+            uiManager.scoreText.text = gm.Score.ToString();
             hp += maxHp * 0.2f;
+            hp = Mathf.Min(hp, 100);
         }
     }
 
@@ -101,24 +102,24 @@ public class PlayerMove : MonoBehaviour
         string tagName = collision.gameObject.tag;
 
         //상어에 닿으면 즉사
-        if (tagName == "Shark") hp = 1;
+        if (tagName == "Shark") hp = 0;
 
-        if (tagName == "Shrimp" && gm.levels[0])
+        if (tagName == "Shrimp" && gm.Levels[0])
         {
             EatFish(tagName, collision, gm.Level_1);
         }
 
-        else if (tagName == "Sardine" && gm.levels[1])
+        else if (tagName == "Sardine" && gm.Levels[1])
         {
             EatFish(tagName, collision, gm.Level_2);
         }
 
-        else if (tagName == "Dommy" && gm.levels[2])
+        else if (tagName == "Dommy" && gm.Levels[2])
         {
             EatFish(tagName, collision, gm.Level_3);
         }
 
-        else if (tagName == "Tuna" && gm.levels[3])
+        else if (tagName == "Tuna" && gm.Levels[3])
         {
             EatFish(tagName, collision, gm.Level_4);
         }
@@ -160,7 +161,7 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = Vector2.zero;
         joystick.gameObject.SetActive(false);
         playerAni.enabled = false;
-        gm.isGameOver = true;
+        gm.IsGameOver = true;
         isMoveOk = false;                                   // 조작불가
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);    // 투명도 변경
         spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
@@ -182,7 +183,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (hp <= 0)
         {
-            gm.isGameOver = true;
+            gm.IsGameOver = true;
             uiManager.GameOverScreen();
         }
     }
