@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 8225475313531613562}
   - component: {fileID: 1027252064700910100}
   - component: {fileID: 3403465886126829196}
-  - component: {fileID: 7619527914912706317}
-  m_Layer: 0
+  - component: {fileID: 1416240054649960095}
+  - component: {fileID: -7274707007243357369}
+  m_Layer: 8
   m_Name: FishLevel_4
-  m_TagString: Untagged
+  m_TagString: Lv4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +104,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -181,7 +182,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 14.3069725, y: 10.410348}
   m_EdgeRadius: 0
---- !u!114 &7619527914912706317
+--- !u!210 &1416240054649960095
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163789521835676353}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_SortAtRoot: 0
+--- !u!114 &-7274707007243357369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2163789521835676353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c8aa52e83c6e644af37d82b48c1b2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d60121c4082f114d8c92642656831e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
@@ -198,4 +211,7 @@ MonoBehaviour:
   detectionRadius: 5
   maxDistance: 25
   player: {fileID: 0}
+  currentDirection: {x: 0, y: 0}
+  isRunningAway: 0
   distanceToPlayer: 0
+  fishType: 0

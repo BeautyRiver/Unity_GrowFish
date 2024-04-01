@@ -17,7 +17,6 @@ public class PlayerMove : MonoBehaviour
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율(초당)
 
     public UIManager uiManager;
-    public ParticleSystem effect;
     public VariableJoystick joystick;
 
     private GameManager gm;
@@ -25,6 +24,8 @@ public class PlayerMove : MonoBehaviour
     private Animator playerAni; //플레이어 애니메이터
     private SpriteRenderer spriteRenderer;
     private bool isMoveOk; //움직임 가능 체크 변수
+
+    [SerializeField] private GameObject spawner;
 
     /* 대쉬 구현 */
 
@@ -40,24 +41,24 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        // ESC나 게임오버가 아닐때
         if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
         {
-            HpCheck();
-            DecreaseHealthOverTime();
+            HpCheck(); // 체력 체크
+            DecreaseHealthSecond(); // 초당 체력감소
             uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 (해당 함수는 UIManager 스크립트에 정의되어 있어야 함)
-
+            spawner.transform.position = transform.position;
             //이동관련
             if (isMoveOk)
             {
                 x = joystick.Horizontal;
                 y = joystick.Vertical;
             }
-
-
             Vector2 playerMove = new Vector2(x, y);
 
             rb.AddForce(playerMove * speed, ForceMode2D.Impulse);
             rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -9.1f, 8f));
+
             // 최고속도 제한
             if (rb.velocity.magnitude > maxSpeed)
                 rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -65,94 +66,121 @@ public class PlayerMove : MonoBehaviour
             // Flip
             if (x != 0)
             {
-                spriteRenderer.flipX = x > 0;
+                // 현재 localScale 값을 가져옴
+                Vector3 localScale = transform.localScale;
+
+                // x가 양수인 경우 오른쪽을 향하므로 localScale.x를 양수로 설정
+                // x가 음수인 경우 왼쪽을 향하므로 localScale.x를 음수로 설정
+                // localScale.x의 절대값은 그대로 유지하면서 부호만 x의 부호와 일치시킴
+                localScale.x = Mathf.Abs(localScale.x) * (x < 0 ? 1 : -1);
+
+                // 수정된 localScale을 다시 설정
+                transform.localScale = localScale;
             }
 
             playerAni.SetBool("isWalk", x != 0);
 
-            // DieCheck
+            // 사망체크
             if (gm.IsGameOver)
                 isDie();
         }
     }
-    private void DecreaseHealthOverTime()
+
+    // Fish와 충돌했을때
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        string tagName = collision.gameObject.tag;
+
+        if (tagName == "Lv1" && gm.CurrentMission >= 0) // 레벨1 물고기는 미션1 (0) 부터 먹을 수 있음
+        {
+            gm.UpdateFishCount(0); // 0번(Level_1) 물고기 인지 체크
+            EatFish(collision, gm.Level_1);
+            collision.gameObject.SetActive(false);
+        }
+        else if (tagName == "Lv2" && gm.CurrentMission >= 2) // 레벨2 물고기는 미션3 (2) 부터 먹을 수 있음
+        {
+            gm.UpdateFishCount(1); // 1번(Level_2) 물고기 인지 체크
+            EatFish(collision, gm.Level_2);
+            collision.gameObject.SetActive(false);
+        }
+        else if (tagName == "Lv3" && gm.CurrentMission >= 4) // 레벨3 물고기는 미션5 (4) 부터 먹을 수 있음
+        {
+            gm.UpdateFishCount(2); // 2번(Level_3) 물고기 인지 체크
+            EatFish(collision, gm.Level_2);
+            collision.gameObject.SetActive(false);
+        }
+        else if (tagName == "Lv4" && gm.CurrentMission >= 6) // 레벨4 물고기는 미션7 (6) 부터 먹을 수 있음
+        {
+            gm.UpdateFishCount(3); // 3번(Level_4) 물고기 인지 체크
+            EatFish(collision, gm.Level_2);
+            collision.gameObject.SetActive(false);
+        }
+        else if (tagName == "Shark") // 샤크는 즉시 사망
+        {
+            OnDamaged(collision.gameObject.transform, 100); // 체력 100% 감소
+        }
+
+        else if (tagName == "BlowFish") // 복어는 체력 절반 삭제
+        {
+            OnDamaged(collision.gameObject.transform, 50); // 체력 50% 감소
+        }
+        else if (tagName == "SharkMouth") // 상어 입에 감지되었을때
+        {
+            collision.gameObject.GetComponentInParent<Shark_Ai>().isRunningAway = true;
+        }
+        else
+        {
+            OnDamaged(collision.gameObject.transform, 30); // 체력 30% 감소
+        }
+
+        
+    }
+
+    private void DecreaseHealthSecond()
     {
         // 체력을 초당 healthDecreaseRate만큼 감소
         hp -= healthDecreaseRate * Time.deltaTime;
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 함
     }
 
-    //먹을 수 있는지 없는지 검사
-    private void EatFish(string tagName, Collider2D collision, int plusScore)
+    // 물고기 먹기
+    private void EatFish(Collider2D collision, int plusScore)
     {
-        if (collision.CompareTag(tagName))
-        {
-            collision.gameObject.SetActive(false);
-            playerAni.Play("PlayerDoEat");
-            gm.Score += plusScore;
-            uiManager.scoreText.text = gm.Score.ToString();
-            hp += maxHp * 0.2f;
-            hp = Mathf.Min(hp, 100);
-        }
-    }
 
-    //Enemy와 충돌했을때
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        string tagName = collision.gameObject.tag;
+        collision.gameObject.SetActive(false);
+        playerAni.Play("PlayerDoEat");
+        gm.Score += plusScore;
+        uiManager.scoreText.text = gm.Score.ToString();
+        hp += maxHp * 0.2f;
+        hp = Mathf.Min(hp, 100);
 
-        //상어에 닿으면 즉사
-        if (tagName == "Shark") hp = 0;
-
-        if (tagName == "Shrimp" && gm.Levels[0])
-        {
-            EatFish(tagName, collision, gm.Level_1);
-        }
-
-        else if (tagName == "Sardine" && gm.Levels[1])
-        {
-            EatFish(tagName, collision, gm.Level_2);
-        }
-
-        else if (tagName == "Dommy" && gm.Levels[2])
-        {
-            EatFish(tagName, collision, gm.Level_3);
-        }
-
-        else if (tagName == "Tuna" && gm.Levels[3])
-        {
-            EatFish(tagName, collision, gm.Level_4);
-        }
-
-        else
-        {
-            // 플레이어와 몬스터 간의 위치 차이를 계산
-            Vector2 bounceDirection = transform.position - collision.transform.position;
-            bounceDirection.Normalize(); // 방향 벡터를 정규화
-            OnDamaged(bounceDirection);
-        }
-    }
+    }    
 
     //플레이어가 데미지를 입었을때
-    private void OnDamaged(Vector2 targetPos)
+    private void OnDamaged(Transform collision, float damage)
     {
+        // 플레이어와 몬스터 간의 위치 차이를 계산
+        Vector2 targetPos = transform.position - collision.transform.position;
+        targetPos.Normalize(); // 방향 벡터를 정규화
+
         playerAni.Play("PlayerDamaged");
 
-        hp -= maxHp * 0.3f; // 최대 체력의 30%를 감소
+        hp -= maxHp * (damage * 0.01f); // 최대 체력의 damage%를 감소
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 합니다.
-
-        gameObject.layer = 7;                            //레이어변경해서 충돌무시
-        //spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 투명
-        Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게
 
         //부딪힐시 딜레이
         isMoveOk = false;
         rb.velocity = Vector3.zero;
         StartCoroutine(Hited());
 
-        //뒤로 밀려나게
+        //뒤로 밀려나게 + 색 투명
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rb.AddForce(targetPos * 5f, ForceMode2D.Impulse);
+        spriteRenderer.color = new Color(1, 1, 1, 0.2f);
+
+        gameObject.layer = 7;                            //레이어변경해서 충돌무시
+        //spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 투명
+        Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게        
     }
 
     //사망할때

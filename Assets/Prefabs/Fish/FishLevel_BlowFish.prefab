@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 6811124797314511687}
   - component: {fileID: 480875875263826720}
   - component: {fileID: 9195287931392519704}
-  - component: {fileID: 4868273306563852637}
-  m_Layer: 0
+  - component: {fileID: 6239435761408880817}
+  - component: {fileID: -2985068007768012554}
+  m_Layer: 8
   m_Name: FishLevel_BlowFish
-  m_TagString: Untagged
+  m_TagString: BlowFish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +104,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -168,7 +169,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6955404, y: 0.09935808}
+  m_Offset: {x: -0.048333406, y: 0.068538696}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -179,9 +180,21 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14.3069725, y: 10.410348}
+  m_Size: {x: 2.7805228, y: 1.9658365}
   m_EdgeRadius: 0
---- !u!114 &4868273306563852637
+--- !u!210 &6239435761408880817
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894225792241836892}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_SortAtRoot: 0
+--- !u!114 &-2985068007768012554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7894225792241836892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c8aa52e83c6e644af37d82b48c1b2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d60121c4082f114d8c92642656831e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
@@ -198,4 +211,7 @@ MonoBehaviour:
   detectionRadius: 5
   maxDistance: 25
   player: {fileID: 0}
+  currentDirection: {x: 0, y: 0}
+  isRunningAway: 0
   distanceToPlayer: 0
+  fishType: 0

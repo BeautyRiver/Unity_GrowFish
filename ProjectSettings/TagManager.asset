@@ -4,12 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Shrimp
-  - Sardine
-  - BlowFish
-  - Dommy
-  - Tuna
+  - Undefined
   - Shark
+  - BlowFish
+  - Lv1
+  - Lv2
+  - Lv3
+  - Lv4
+  - SharkMouth
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - UI
   - Player
   - PlayerDamaged
-  - Enemy
+  - Fish
   - 
   - 
   - 

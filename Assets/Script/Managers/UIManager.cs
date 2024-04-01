@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using static GameManager;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,9 +20,9 @@ public class UIManager : MonoBehaviour
 
     // 물고기 섭취
     [Header("물고기 목표 섭취")]
-    [SerializeField] private GameObject fishTargetObj;
-    [SerializeField] private TextMeshProUGUI[] fishTargetText;
-    [SerializeField] private Image[] fishTargetImg;
+    [SerializeField] private Sprite[] fishImages; // 이 이미지들을 할당할거라는 뜻      
+    [SerializeField] private TextMeshProUGUI[] fishTargetText; // 목표 물고기 개수
+    [SerializeField] private Image[] fishTargetImg; // 이미지 할당될 장소
 
     //GamePause관련
     public bool isPauseScreenOn = false;
@@ -32,10 +33,33 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject blackScreen;
     [SerializeField] private GameObject finalWindow;
 
-    public void setFishTargetImgChange()
+    private void Update()
     {
-
+        for (int i = 0; i < fishTargetImg.Length; i++)
+        {
+            if (Instance.missionTargets.TryGetValue(Instance.CurrentMission, out List<TargetFishInfo> targetFishList))
+            {
+                // 미션의 타겟 물고기보다 인덱스가 크면 더 이상 표시할 물고기가 없다는 의미이므로 UI를 비활성화
+                if (i >= targetFishList.Count) 
+                {
+                    for (int j = i; j < fishTargetImg.Length; j++)
+                    {
+                        fishTargetImg[j].gameObject.SetActive(false);
+                        fishTargetText[j].gameObject.SetActive(false);
+                    }                                      
+                }
+                else
+                {
+                    // 타겟 물고기의 이미지와 남은 개수를 UI에 설정
+                    fishTargetImg[i].sprite = fishImages[targetFishList[i].targetFish];
+                    fishTargetText[i].text = targetFishList[i].targetFishCounts.ToString();
+                    fishTargetImg[i].gameObject.SetActive(true);
+                    fishTargetText[i].gameObject.SetActive(true);
+                }
+            }
+        }                        
     }
+    
     public void UpdateHealthBar(float currentHp, int maxHp)
     {
         float healthPercentage = currentHp / maxHp;

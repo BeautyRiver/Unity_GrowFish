@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8261576609333697613}
   - component: {fileID: 3419354285849910771}
   - component: {fileID: 830825902186035784}
-  m_Layer: 0
+  - component: {fileID: 5189267554783816751}
+  m_Layer: 8
   m_Name: FishLevel_1
-  m_TagString: Shrimp
+  m_TagString: Lv1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +104,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -198,4 +199,19 @@ MonoBehaviour:
   detectionRadius: 5
   maxDistance: 25
   player: {fileID: 0}
+  currentDirection: {x: 0, y: 0}
+  isRunningAway: 0
   distanceToPlayer: 0
+  fishType: 0
+--- !u!210 &5189267554783816751
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367764768641369722}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
