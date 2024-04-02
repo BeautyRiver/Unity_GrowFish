@@ -171,7 +171,7 @@ public class PlayerMove : MonoBehaviour
         //부딪힐시 딜레이
         isMoveOk = false;
         rb.velocity = Vector3.zero;
-        StartCoroutine(Hited());
+        StartCoroutine(Hited(1f));
 
         //뒤로 밀려나게 + 색 투명
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
@@ -186,6 +186,7 @@ public class PlayerMove : MonoBehaviour
     //사망할때
     private void isDie()
     {
+        StopCoroutine(nameof(OnDamaged));
         rb.velocity = Vector2.zero;
         joystick.gameObject.SetActive(false);
         playerAni.enabled = false;
@@ -193,26 +194,45 @@ public class PlayerMove : MonoBehaviour
         isMoveOk = false;                                   // 조작불가
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);    // 투명도 변경
         spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
-        rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
+        //rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
+        rb.gravityScale = -1;
         gameObject.layer = 7;                               // 레이어 수정으로 몹들과의 충돌 x
     }
-    //맞았을때
-    IEnumerator Hited()
+
+    // 광고보고 살아나기
+    public void SawAd()
     {
-        yield return new WaitForSeconds(0.6f);
-        isMoveOk = true; // 움직일 수 있게
-        yield return new WaitForSeconds(1f);
-        gameObject.layer = 6; // 레이어 다시 Player로
-        spriteRenderer.color = new Color(1, 1, 1, 1f); // 색상 다시 돌리기
+        rb.velocity = Vector2.zero;
+        transform.position = Vector3.zero;
+        joystick.gameObject.SetActive(true);
+        playerAni.enabled = true;
+        gm.IsGameOver = false;
+        spriteRenderer.flipY = false; // 방향 다시 뒤집기
+        rb.gravityScale = 0;
+        hp = maxHp;
+        uiManager.OffGameOverScreen();
+        StartCoroutine(Hited(1.7f));
+    }
+    //맞았을때
+    IEnumerator Hited(float immortalTime)
+    {
+        if (hp > 0)
+        {
+            yield return new WaitForSeconds(0.6f);
+            isMoveOk = true; // 움직일 수 있게
+            yield return new WaitForSeconds(immortalTime);
+            gameObject.layer = 6; // 레이어 다시 Player로
+            spriteRenderer.color = new Color(1, 1, 1, 1f); // 색상 다시 돌리기
+        }
     }
 
     //Hp검사
     private void HpCheck()
     {
-        if (hp <= 0)
+        if (hp <= 0 && !gm.IsGameOver)
         {
             gm.IsGameOver = true;
-            uiManager.GameOverScreen();
+            uiManager.OnGameOverScreen();
         }
     }
 }

@@ -30,8 +30,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject joyStick;
 
     //GameOver관련
-    [SerializeField] private GameObject blackScreen;
-    [SerializeField] private GameObject finalWindow;
+    //[SerializeField] private GameObject blackScreen;
+    [SerializeField] private GameObject gameOverPanel;
 
     private void Update()
     {
@@ -66,7 +66,17 @@ public class UIManager : MonoBehaviour
         healthBarSlider.DOValue(healthPercentage, 0.5f); // 0.5초 동안 목표값으로 부드럽게 이동합니다.        
     }
 
-    //GameOver
+    public void OnGameOverScreen()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void OffGameOverScreen()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
+    /*//GameOver
     public void GameOverScreen()
     {
         blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
@@ -77,7 +87,7 @@ public class UIManager : MonoBehaviour
         }
         lastScore.text = GameManager.Instance.Score.ToString();
         bestScore.text = PlayerPrefs.GetInt("BS").ToString();
-    }
+    }*/
 
     //버튼들
     public void InputPause()

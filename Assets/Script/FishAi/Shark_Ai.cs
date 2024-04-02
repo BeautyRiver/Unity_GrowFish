@@ -17,6 +17,10 @@ public class Shark_Ai : FishAI
     new private void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (!GameManager.Instance.IsGameOver)
+            isRunningAway = false;
+
         if (isRunningAway)
         {
             // 플레이어 위치를 향한 방향 벡터 계산

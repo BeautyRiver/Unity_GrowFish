@@ -65,7 +65,12 @@ public class FishAI : MonoBehaviour
             {
                 if (!IsMovingTowardsPlayer())
                 {
-                    currentDirection.x = -currentDirection.x;
+                    // 플레이어가 오른쪽을 바라보고 있으면 왼쪽으로, 왼쪽을 바라보고 있으면 오른쪽으로 이동
+                    float newPosX = player.transform.localScale.x > 0 ? player.transform.position.x - 30 : player.transform.position.x + 30;
+                    // 현재 y 위치 유지
+                    float newPosY = transform.position.y;
+                    // 새 위치 설정
+                    transform.position = new Vector2(newPosX, newPosY);
                     SetRandomY();
                 }
             }
@@ -111,9 +116,9 @@ public class FishAI : MonoBehaviour
     // 플레이어와 같은 방향으로 이동 검사 (양수 = 플레이어 향해 이동)
     protected bool IsMovingTowardsPlayer()
     {
-        Vector2 toPlayer = (player.transform.position - transform.position).normalized;
         // Dot Product를 사용하여 방향을 체크
         // Dot Product가 양수라면 물고기는 플레이어를 향해 이동 중
+        Vector2 toPlayer = (player.transform.position - transform.position).normalized;
         return Vector2.Dot(toPlayer, currentDirection) > 0;
     }
 
