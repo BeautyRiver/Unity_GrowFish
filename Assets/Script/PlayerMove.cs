@@ -194,8 +194,7 @@ public class PlayerMove : MonoBehaviour
         isMoveOk = false;                                   // 조작불가
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);    // 투명도 변경
         spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
-        //rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
-        rb.gravityScale = -1;
+        rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
         gameObject.layer = 7;                               // 레이어 수정으로 몹들과의 충돌 x
     }
 
@@ -208,7 +207,6 @@ public class PlayerMove : MonoBehaviour
         playerAni.enabled = true;
         gm.IsGameOver = false;
         spriteRenderer.flipY = false; // 방향 다시 뒤집기
-        rb.gravityScale = 0;
         hp = maxHp;
         uiManager.OffGameOverScreen();
         StartCoroutine(Hited(1.7f));

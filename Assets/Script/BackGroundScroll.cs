@@ -19,7 +19,7 @@ public class BackGroundScroll : MonoBehaviour
         lastPlayerX = player.position.x;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 플레이어의 이동 방향 판단 (오른쪽 또는 왼쪽 이동)
         bool movingRight = (player.position.x > lastPlayerX);

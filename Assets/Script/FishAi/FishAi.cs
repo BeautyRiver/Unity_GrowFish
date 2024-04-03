@@ -57,7 +57,8 @@ public class FishAI : MonoBehaviour
         // 거리가 maxDistance보다 크면 이 게임 오브젝트를 비활성화
         if (distanceToPlayer > maxDistance)
         {
-            // 몬스터면 비활성화
+            gameObject.SetActive(false);
+            /*// 몬스터면 비활성화
             if (fishType == TypeOfFish.Enemy)
                 gameObject.SetActive(false);
             // 물고기면 U턴
@@ -65,15 +66,16 @@ public class FishAI : MonoBehaviour
             {
                 if (!IsMovingTowardsPlayer())
                 {
-                    // 플레이어가 오른쪽을 바라보고 있으면 왼쪽으로, 왼쪽을 바라보고 있으면 오른쪽으로 이동
+                    *//*// 플레이어가 오른쪽을 바라보고 있으면 왼쪽으로, 왼쪽을 바라보고 있으면 오른쪽으로 이동
                     float newPosX = player.transform.localScale.x > 0 ? player.transform.position.x - 30 : player.transform.position.x + 30;
                     // 현재 y 위치 유지
                     float newPosY = transform.position.y;
                     // 새 위치 설정
-                    transform.position = new Vector2(newPosX, newPosY);
+                    transform.position = new Vector2(newPosX, newPosY);*//*
+                    currentDirection = new Vector2(-currentDirection.x, currentDirection.y);
                     SetRandomY();
                 }
-            }
+            }*/
         }
     }
     protected void FixedUpdate()
