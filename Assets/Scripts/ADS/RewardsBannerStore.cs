@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RewardsBannerStore : MonoBehaviour
+public class RewardsBanner : MonoBehaviour
 {
-    [SerializeField] private PlayerMove player;
     public void Start()
     {
-
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(initStatus => { });
         LoadRewardedAd();
@@ -91,7 +89,7 @@ public class RewardsBannerStore : MonoBehaviour
         {
             _rewardedAd.Show((Reward reward) =>
             {
-                player.SawAd();
+
             });
         }
     }      

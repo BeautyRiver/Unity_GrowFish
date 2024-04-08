@@ -12,6 +12,7 @@ TagManager:
   - Lv3
   - Lv4
   - SharkMouth
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Fish
+    uniqueID: 341368005
+    locked: 0
+  - name: BG
+    uniqueID: 3682627647
     locked: 0

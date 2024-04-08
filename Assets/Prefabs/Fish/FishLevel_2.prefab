@@ -126,7 +126,7 @@ Animator:
   m_GameObject: {fileID: 999908012388346594}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d3599a14e0e2e64799bd7291e6301d2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -190,8 +190,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999908012388346594}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 341368005
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!114 &5227432102054232270
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d60121c4082f114d8c92642656831e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 2.3
   runAwaySpeed: 4
   detectionRadius: 5
   maxDistance: 25

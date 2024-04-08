@@ -11,7 +11,7 @@ public class BackGroundScroll : MonoBehaviour
     private float backgroundWidth; // 배경의 너비
     private float lastPlayerX; // 이전 프레임에서 플레이어의 x 위치
 
-    void Start()
+    private void Start()
     {
         // 배경의 너비를 계산합니다 (가정: 배경 스프라이트의 너비 사용)
         backgroundWidth = background1.GetComponent<SpriteRenderer>().bounds.size.x;
@@ -19,7 +19,7 @@ public class BackGroundScroll : MonoBehaviour
         lastPlayerX = player.position.x;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         // 플레이어의 이동 방향 판단 (오른쪽 또는 왼쪽 이동)
         bool movingRight = (player.position.x > lastPlayerX);

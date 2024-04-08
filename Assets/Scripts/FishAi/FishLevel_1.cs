@@ -14,9 +14,11 @@ public class FishLevel_1 : FishAI
     new private void Update()
     {
         base.Update();
+        
         // 플레이어가 감지 범위 내에 있고 도망 상태가 아니라면 도망 시작
         if (distanceToPlayer < detectionRadius && !isRunningAway && IsMovingTowardsPlayer())
         {
+            anim.SetTrigger("Lv1_Run");
             ChangeDirRunningStart(); // 도망 시작
             Invoke(nameof(ChangeDirAfterRunning), 2f); // 2초 후 방향 변경
         }
@@ -36,6 +38,7 @@ public class FishLevel_1 : FishAI
         if (isRunningAway)
         {
             // 도망 상태 종료 후 방향 반대로 바꾸기
+            anim.SetTrigger("Lv1_Swim");
             isRunningAway = false;
             SetReverseX();
         }

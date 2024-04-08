@@ -18,7 +18,7 @@ public class Shark_Ai : FishAI
     {
         base.FixedUpdate();
 
-        if (!GameManager.Instance.IsGameOver)
+        if (GameManager.Instance.IsGameOver)
             isRunningAway = false;
 
         if (isRunningAway)
@@ -37,6 +37,7 @@ public class Shark_Ai : FishAI
     private void FindPlayerOff()
     {
         SetRandomY();
+        SetReverseX();
         isRunningAway = false;
     }
 }

@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 6088470900752878088}
   - component: {fileID: 6508471220079239666}
   - component: {fileID: 9842586081429741}
-  - component: {fileID: 4039836682128325566}
-  - component: {fileID: 3479303473238888447}
   - component: {fileID: 2239653947426723121}
+  - component: {fileID: 7720530447142132732}
   m_Layer: 8
   m_Name: FishLevel_Shark
   m_TagString: Shark
@@ -33,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.8, y: -1.3, z: 0}
-  m_LocalScale: {x: 0.31, y: 0.31, z: 0.31}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.46, y: 0.46, z: 0.46}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3474636794350320298}
   m_Father: {fileID: 0}
@@ -80,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 0007d51514c0c9b49b99a6f56fa53250, type: 3}
+  m_Sprite: {fileID: 1172649963, guid: 8d5fe9f28f86ac44cabeb0c42fa10dcc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 21.939999, y: 11.67485}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -147,90 +146,10 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5146251942772243073}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 341368005
+  m_SortingLayer: 1
   m_SortingOrder: 5
   m_SortAtRoot: 0
---- !u!58 &4039836682128325566
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5146251942772243073}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -10.75, y: -1.01}
-  serializedVersion: 2
-  m_Radius: 4.67
---- !u!61 &3479303473238888447
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5146251942772243073}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -1.7977972, y: -0.8598139}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 35.71424, y: 19.88}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 15.547659, y: 10.343868}
-  m_EdgeRadius: 0
 --- !u!114 &2239653947426723121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f9dd090c6db5640abb62b4d621770f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 2.5
   runAwaySpeed: 4
   detectionRadius: 5
   maxDistance: 25
@@ -253,6 +172,54 @@ MonoBehaviour:
   distanceToPlayer: 0
   fishType: 1
   findPlayer: 0
+--- !u!68 &7720530447142132732
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5146251942772243073}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 7.1310434, y: -4.854489}
+  - {x: 3.6281004, y: -2.6742299}
+  - {x: -5.0151815, y: -4.2194977}
+  - {x: -10.668428, y: 0.9247912}
+  - {x: -4.636463, y: 2.3595152}
+  - {x: 1.0559332, y: 1.9229871}
+  - {x: 6.5132465, y: 0.38089627}
+  - {x: 8.303691, y: 2.18145}
+  - {x: 7.131043, y: -4.854489}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &6004487732357645413
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +231,7 @@ GameObject:
   - component: {fileID: 3474636794350320298}
   - component: {fileID: 4046528470122905144}
   m_Layer: 8
-  m_Name: GameObject
+  m_Name: Scan
   m_TagString: SharkMouth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,7 +284,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -14.784544, y: 0.42868614}
+  m_Offset: {x: -12.56304, y: 0.08928871}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -328,5 +295,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11.630466, y: 19.89748}
+  m_Size: {x: 7.6811266, y: 17.737682}
   m_EdgeRadius: 0

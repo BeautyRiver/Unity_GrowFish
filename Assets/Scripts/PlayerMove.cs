@@ -6,47 +6,69 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float maxSpeed;
-    public float speed;
+    
+    // 플레이어의 기본 속성
+    [Header("플레이어 속성")]
     public float playerScale = 0.3f; //플레이어 크기
-    public float x;
-    public float y;
-
     public int maxHp = 100; // 최대 체력값 추가
-    public float hp;
-    private float healthDecreaseRate = 4f; // 체력이 감소하는 비율(초당)
+    public float hp; // 플레이어 현재 체력
+    private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
+    private bool isMoveOk = true; //움직임 가능 체크 변수  
 
-    public UIManager uiManager;
-    public VariableJoystick joystick;
+    // 플레이어 이동 관련 속성
+    [Header("플레이어 이동")]
+    public float maxSpeedNormal;    // 일반 이동 시 최대 속도
+    public float maxClampTop;       // 플레이어 Y축 상단 제한 범위
+    public float maxClampBottom;    // 플레이어 Y축 하단 제한 범위
+    public float speed;             // 플레이어 현재 속도
+    Vector2 playerDir;              // 플레이어의 이동 방향
+    public float currentMaxSpeed;   // 현재 적용되는 최대 속도
+    public float x;                 
+    public float y;                 
 
-    private GameManager gm;
-    private Rigidbody2D rb;
-    private Animator playerAni; //플레이어 애니메이터
-    private SpriteRenderer spriteRenderer;
-    private bool isMoveOk; //움직임 가능 체크 변수
+    // 대쉬 관련 속성
+    [Header("대쉬")]
+    public float maxDashSpeed = 10f;    // 대쉬 중 최대 속도
+    private bool isDashing = false;     // 대쉬 상태인지 여부
+    public float dashTime = 0.2f;       // 대쉬 지속 시간
+    private Vector2 dashDirection;      // 대쉬 방향
 
-    [SerializeField] private GameObject spawner;
+    // 외부 참조
+    [Header("외부 참조")]
+    public UIManager uiManager;         // UI 매니저 참조
+    public VariableJoystick joystick;   // 조이스틱 컨트롤러 참조
+    public GameObject spawner;          // 물고기 스포너 오브젝트 참조
+    private GameManager gm;             // GM 인스턴스 담을 변수
 
-    /* 대쉬 구현 */
+    // 내부 컴포넌트
+    [Header("내부 컴포넌트")]
+    private Rigidbody2D rb;     // Rigidbody2D 
+    private Animator playerAni; // 플레이어 애니메이터
+    private SpriteRenderer spriteRenderer; // 스프라이트 랜더러
 
     private void Start()
     {
-        gm = GameManager.Instance;
-        rb = GetComponent<Rigidbody2D>();
-        playerAni = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        hp = maxHp;
-        isMoveOk = true;
+        gm = GameManager.Instance; // 게임 매니저 할당
+        rb = GetComponent<Rigidbody2D>(); // Rigidbody2D 컴포넌트 할당
+        playerAni = GetComponent<Animator>(); // Animator 컴포넌트 할당
+        spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 컴포넌트 할당
+        hp = maxHp; // 초기 체력 설정
+        currentMaxSpeed = maxSpeedNormal; // 초기 최대 속도 설정
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        {
+            StartCoroutine(Dash());
+        }
+        
         // ESC나 게임오버가 아닐때
         if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
         {
             HpCheck(); // 체력 체크
             DecreaseHealthSecond(); // 초당 체력감소
-            uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 (해당 함수는 UIManager 스크립트에 정의되어 있어야 함)
+            uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 
             spawner.transform.position = transform.position;
             //이동관련
             if (isMoveOk)
@@ -54,14 +76,14 @@ public class PlayerMove : MonoBehaviour
                 x = joystick.Horizontal;
                 y = joystick.Vertical;
             }
-            Vector2 playerMove = new Vector2(x, y);
+            playerDir = new Vector2(x, y);
 
-            rb.AddForce(playerMove * speed, ForceMode2D.Impulse);
-            rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -9.1f, 8f));
+            rb.AddForce(playerDir * speed, ForceMode2D.Force);
+            rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -maxClampBottom, maxClampTop));
 
             // 최고속도 제한
-            if (rb.velocity.magnitude > maxSpeed)
-                rb.velocity = rb.velocity.normalized * maxSpeed;
+            if (rb.velocity.magnitude > currentMaxSpeed)
+                rb.velocity = rb.velocity.normalized * currentMaxSpeed;
 
             // Flip
             if (x != 0)
@@ -69,9 +91,8 @@ public class PlayerMove : MonoBehaviour
                 // 현재 localScale 값을 가져옴
                 Vector3 localScale = transform.localScale;
 
-                // x가 양수인 경우 오른쪽을 향하므로 localScale.x를 양수로 설정
-                // x가 음수인 경우 왼쪽을 향하므로 localScale.x를 음수로 설정
-                // localScale.x의 절대값은 그대로 유지하면서 부호만 x의 부호와 일치시킴
+                // x가 음수인 경우 오른쪽을 향하므로 localScale.x를 음수로 설정 (기존그림이 왼쪽 볼때 기준)
+                // x가 양수인 경우 왼쪽을 향하므로 localScale.x를 양수로 설정
                 localScale.x = Mathf.Abs(localScale.x) * (x < 0 ? 1 : -1);
 
                 // 수정된 localScale을 다시 설정
@@ -131,10 +152,32 @@ public class PlayerMove : MonoBehaviour
         else
         {
             OnDamaged(collision.gameObject.transform, 30); // 체력 30% 감소
+        }        
+    }
+
+    // 대쉬 기능 
+    IEnumerator Dash()
+    {
+        isDashing = true; // 대쉬 상태 시작
+        currentMaxSpeed = maxDashSpeed; // 대쉬 속도로 속도 변경
+        dashDirection = playerDir; // 플레이어가 바라보는 방향으로 대쉬 방향 설정
+        rb.AddForce(dashDirection * speed, ForceMode2D.Impulse); // 대쉬 방향으로 순간적으로 힘을 가함
+
+        // 대쉬 지속 시간 동안 대기
+        yield return new WaitForSeconds(dashTime);
+
+        // 대쉬 후 속도 점진적으로 감소
+        float startTime = Time.time;
+        while (Time.time - startTime < dashTime) // 대쉬가 끝난 후 속도를 서서히 원래 속도로 복귀시킴
+        {
+            currentMaxSpeed = Mathf.Lerp(maxDashSpeed, maxSpeedNormal, (Time.time - startTime) / dashTime);
+            yield return null;
         }
 
-        
+        currentMaxSpeed = maxSpeedNormal; // 속도를 원래대로 복구
+        isDashing = false; // 대쉬 상태 종료
     }
+
 
     private void DecreaseHealthSecond()
     {
@@ -179,7 +222,6 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer.color = new Color(1, 1, 1, 0.2f);
 
         gameObject.layer = 7;                            //레이어변경해서 충돌무시
-        //spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 투명
         Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게        
     }
 
