@@ -30,8 +30,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject joyStick;
 
     //GameOver관련
-    //[SerializeField] private GameObject blackScreen;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject abilityBtn; // 능력버튼
 
     private void Update()
     {
@@ -66,31 +66,23 @@ public class UIManager : MonoBehaviour
         healthBarSlider.DOValue(healthPercentage, 0.5f); // 0.5초 동안 목표값으로 부드럽게 이동합니다.        
     }
 
+    // 게임오버스크린 띄우기
     public void OnGameOverScreen()
     {
         gameOverPanel.SetActive(true);
+        abilityBtn.SetActive(false);
     }
 
+    // 게임오버스크린 끄기
     public void OffGameOverScreen()
     {
         gameOverPanel.SetActive(false);
+        abilityBtn.SetActive(true);
     }
 
-    /*//GameOver
-    public void GameOverScreen()
-    {
-        blackScreen.GetComponent<SpriteRenderer>().DOFade(180 / 255f, 0.5f).SetDelay(0.1f); //0.7만큼 어둡게
-        finalWindow.GetComponent<RectTransform>().DOAnchorPosY(0, 0.5f).SetDelay(0.5f);
-        if (GameManager.Instance.Score > PlayerPrefs.GetInt("BS"))
-        {
-            PlayerPrefs.SetInt("BS", GameManager.Instance.Score);
-        }
-        lastScore.text = GameManager.Instance.Score.ToString();
-        bestScore.text = PlayerPrefs.GetInt("BS").ToString();
-    }*/
-
     //버튼들
-    public void InputPause()
+    // 일시정지 버튼
+    public void InputPause() 
     {
         if (!isPauseScreenOn)
         {
@@ -98,6 +90,7 @@ public class UIManager : MonoBehaviour
             joyStick.SetActive(false);
             pauseBtns.gameObject.SetActive(true);
             isPauseScreenOn = true;
+            abilityBtn.SetActive(false);
         }
     }
     public void InputContinue()
@@ -106,6 +99,7 @@ public class UIManager : MonoBehaviour
         joyStick.SetActive(true);
         pauseBtns.gameObject.SetActive(false);
         isPauseScreenOn = false;
+        abilityBtn.SetActive(true);
     }
     public void InputStop()
     {

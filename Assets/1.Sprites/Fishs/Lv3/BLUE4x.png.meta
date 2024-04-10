@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 69f06b9e86a9027478ab3fd50cb19a2c
+guid: 03ef40a53a4fb9a4a913a5436f7d5129
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,43 +110,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OG_Swim@4x_1
+      name: BLUE4x_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 132
-        width: 1682
-        height: 894
+        x: 102
+        y: 162
+        width: 1512
+        height: 975
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 562ae41f98a65b847bd01df6cf028512
-      internalID: -2120490033
+      spriteID: c43e7af688c8fc746b621ae514e25194
+      internalID: 201250059
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OG_Swim@4x_2
+      name: BLUE4x_1
       rect:
         serializedVersion: 2
-        x: 2002
-        y: 156
-        width: 1521
-        height: 886
+        x: 2090
+        y: 163
+        width: 1587
+        height: 975
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58de7b153533418458ea00d9da36dfe1
-      internalID: 1691605646
+      spriteID: 0b0bf8645f1ac8145a9255cfc3acd8ff
+      internalID: -1834033624
       vertices: []
       indices: 
       edges: []
@@ -162,9 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      OG_Swim@4x_0: 1210322555
-      OG_Swim@4x_1: -2120490033
-      OG_Swim@4x_2: 1691605646
+      BLUE4x_0: 201250059
+      BLUE4x_1: -1834033624
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

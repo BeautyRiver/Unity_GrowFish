@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f666ddcbe43ff39469270492972bf0ad
+guid: 75760d9aa7adc434783f1c16cf25d4a2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 103
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -82,19 +82,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LBeta_Swim@4x_0
+      name: Beta1_Eat@4x_0
       rect:
         serializedVersion: 2
-        x: 121
-        y: 217
-        width: 2048
-        height: 1596
+        x: 115
+        y: 234
+        width: 1640
+        height: 1032
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34d68a60520673c44a628de1d726bf7d
-      internalID: -1803634917
+      spriteID: e892d8499c8da4d4594e5401e36fa244
+      internalID: -1345114480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LBeta_Swim@4x_1
+      name: Beta1_Eat@4x_1
       rect:
         serializedVersion: 2
-        x: 2499
-        y: 232
-        width: 1756
-        height: 1554
+        x: 2606
+        y: 238
+        width: 1636
+        height: 1031
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,50 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebfce768329ff9b48aebc0d79db95662
-      internalID: 512971404
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LBeta_Swim@4x_2
-      rect:
-        serializedVersion: 2
-        x: 4693
-        y: 217
-        width: 2052
-        height: 1585
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57d0c669f01346d4ca1a3ec251e2bf21
-      internalID: 1176697431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LBeta_Swim@4x_3
-      rect:
-        serializedVersion: 2
-        x: 7298
-        y: 232
-        width: 1695
-        height: 1554
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d75096cc5d4c8148871bb072b67fc2e
-      internalID: 1961088691
+      spriteID: dfe0aeecba4966b4d990d134ba65a84d
+      internalID: -1112716352
       vertices: []
       indices: 
       edges: []
@@ -217,11 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LBeta_Swim@4x_0: -1803634917
-      LBeta_Swim@4x_1: 512971404
-      LBeta_Swim@4x_2: 1176697431
-      LBeta_Swim@4x_3: 1961088691
-      LBeta_Swim@4x_4: 1207359903
+      Beta1_Eat@4x_0: -1345114480
+      Beta1_Eat@4x_1: -1112716352
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

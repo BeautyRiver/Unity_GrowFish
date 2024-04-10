@@ -21,7 +21,8 @@ public class PlayerMove : MonoBehaviour
     public float maxClampTop;       // 플레이어 Y축 상단 제한 범위
     public float maxClampBottom;    // 플레이어 Y축 하단 제한 범위
     public float speed;             // 플레이어 현재 속도
-    Vector2 playerDir;              // 플레이어의 이동 방향
+    private Vector2 playerDir;              // 플레이어의 이동 방향
+    private Vector2 lastDirection; // 마지막 방향을 저장하는 변수
     public float currentMaxSpeed;   // 현재 적용되는 최대 속도
     public float x;                 
     public float y;                 
@@ -29,7 +30,7 @@ public class PlayerMove : MonoBehaviour
     // 대쉬 관련 속성
     [Header("대쉬")]
     public float maxDashSpeed = 10f;    // 대쉬 중 최대 속도
-    private bool isDashing = false;     // 대쉬 상태인지 여부
+    public bool isDashing = false;     // 대쉬 상태인지 여부
     public float dashTime = 0.2f;       // 대쉬 지속 시간
     private Vector2 dashDirection;      // 대쉬 방향
 
@@ -57,25 +58,29 @@ public class PlayerMove : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
-        {
-            StartCoroutine(Dash());
-        }
-        
+    {                
         // ESC나 게임오버가 아닐때
         if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
         {
+            if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+            {
+                StartCoroutine(Dash());
+            }
             HpCheck(); // 체력 체크
             DecreaseHealthSecond(); // 초당 체력감소
             uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 
             spawner.transform.position = transform.position;
+
             //이동관련
             if (isMoveOk)
             {
                 x = joystick.Horizontal;
                 y = joystick.Vertical;
+
+                if (!(x == 0 || y == 0))               
+                    lastDirection = playerDir;
             }
+
             playerDir = new Vector2(x, y);
 
             rb.AddForce(playerDir * speed, ForceMode2D.Force);
@@ -91,8 +96,7 @@ public class PlayerMove : MonoBehaviour
                 // 현재 localScale 값을 가져옴
                 Vector3 localScale = transform.localScale;
 
-                // x가 음수인 경우 오른쪽을 향하므로 localScale.x를 음수로 설정 (기존그림이 왼쪽 볼때 기준)
-                // x가 양수인 경우 왼쪽을 향하므로 localScale.x를 양수로 설정
+                // x가 음수인 경우 오른쪽을 향하므로 localScale.x를 음수로 설정 (기존그림이 왼쪽 볼때 기준) x가 양수인 경우 왼쪽을 향하므로 localScale.x를 양수로 설정
                 localScale.x = Mathf.Abs(localScale.x) * (x < 0 ? 1 : -1);
 
                 // 수정된 localScale을 다시 설정
@@ -144,10 +148,11 @@ public class PlayerMove : MonoBehaviour
         else if (tagName == "BlowFish") // 복어는 체력 절반 삭제
         {
             OnDamaged(collision.gameObject.transform, 50); // 체력 50% 감소
+            collision.gameObject.GetComponent<BlowFish_Ai>().isAttack = true; // 복어 공격 애니메이션 키기
         }
         else if (tagName == "SharkMouth") // 상어 입에 감지되었을때
         {
-            collision.gameObject.GetComponentInParent<Shark_Ai>().isRunningAway = true;
+            collision.gameObject.GetComponentInParent<Shark_Ai>().isRunningAway = true; // 상어 달리기 On
         }
         else
         {
@@ -155,30 +160,7 @@ public class PlayerMove : MonoBehaviour
         }        
     }
 
-    // 대쉬 기능 
-    IEnumerator Dash()
-    {
-        isDashing = true; // 대쉬 상태 시작
-        currentMaxSpeed = maxDashSpeed; // 대쉬 속도로 속도 변경
-        dashDirection = playerDir; // 플레이어가 바라보는 방향으로 대쉬 방향 설정
-        rb.AddForce(dashDirection * speed, ForceMode2D.Impulse); // 대쉬 방향으로 순간적으로 힘을 가함
-
-        // 대쉬 지속 시간 동안 대기
-        yield return new WaitForSeconds(dashTime);
-
-        // 대쉬 후 속도 점진적으로 감소
-        float startTime = Time.time;
-        while (Time.time - startTime < dashTime) // 대쉬가 끝난 후 속도를 서서히 원래 속도로 복귀시킴
-        {
-            currentMaxSpeed = Mathf.Lerp(maxDashSpeed, maxSpeedNormal, (Time.time - startTime) / dashTime);
-            yield return null;
-        }
-
-        currentMaxSpeed = maxSpeedNormal; // 속도를 원래대로 복구
-        isDashing = false; // 대쉬 상태 종료
-    }
-
-
+    // 초당 체력 캄소
     private void DecreaseHealthSecond()
     {
         // 체력을 초당 healthDecreaseRate만큼 감소
@@ -194,7 +176,7 @@ public class PlayerMove : MonoBehaviour
         playerAni.Play("PlayerDoEat");
         gm.Score += plusScore;
         uiManager.scoreText.text = gm.Score.ToString();
-        hp += maxHp * 0.2f;
+        hp += maxHp * 0.25f;
         hp = Mathf.Min(hp, 100);
 
     }    
@@ -214,7 +196,7 @@ public class PlayerMove : MonoBehaviour
         //부딪힐시 딜레이
         isMoveOk = false;
         rb.velocity = Vector3.zero;
-        StartCoroutine(Hited(1f));
+        StartCoroutine(Hited(0.6f,1f));
 
         //뒤로 밀려나게 + 색 투명
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
@@ -223,6 +205,20 @@ public class PlayerMove : MonoBehaviour
 
         gameObject.layer = 7;                            //레이어변경해서 충돌무시
         Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게        
+    }
+
+    //맞았을때
+    IEnumerator Hited(float canNotMoveTime, float immortalTime)
+    {
+        if (hp > 0)
+        {
+            // canNotMoveTime 시간 만큼 움직일 수 없음
+            yield return new WaitForSeconds(canNotMoveTime);
+            isMoveOk = true; 
+            yield return new WaitForSeconds(immortalTime);
+            gameObject.layer = 6; // 레이어 다시 Player로
+            spriteRenderer.color = new Color(1, 1, 1, 1f); // 색상 다시 돌리기
+        }
     }
 
     //사망할때
@@ -251,20 +247,9 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer.flipY = false; // 방향 다시 뒤집기
         hp = maxHp;
         uiManager.OffGameOverScreen();
-        StartCoroutine(Hited(1.7f));
+        StartCoroutine(Hited(0f, 1.7f));
     }
-    //맞았을때
-    IEnumerator Hited(float immortalTime)
-    {
-        if (hp > 0)
-        {
-            yield return new WaitForSeconds(0.6f);
-            isMoveOk = true; // 움직일 수 있게
-            yield return new WaitForSeconds(immortalTime);
-            gameObject.layer = 6; // 레이어 다시 Player로
-            spriteRenderer.color = new Color(1, 1, 1, 1f); // 색상 다시 돌리기
-        }
-    }
+    
 
     //Hp검사
     private void HpCheck()
@@ -275,4 +260,29 @@ public class PlayerMove : MonoBehaviour
             uiManager.OnGameOverScreen();
         }
     }
+
+    // 대쉬 기능 
+    public IEnumerator Dash()
+    {
+        isDashing = true; // 대쉬 상태 시작
+        currentMaxSpeed = maxDashSpeed; // 대쉬 속도로 속도 변경
+        dashDirection = lastDirection; // 플레이어가 바라보는 방향으로 대쉬 방향 설정
+        rb.velocity = dashDirection * maxDashSpeed; // 대쉬 방향으로 순간적으로 힘을 가함
+
+
+        // 대쉬 지속 시간 동안 대기
+        yield return new WaitForSeconds(dashTime);
+
+        // 대쉬 후 속도 점진적으로 감소
+        float currentTime = 0f;
+        while (currentTime < dashTime) // 대쉬가 끝난 후 속도를 서서히 원래 속도로 복귀시킴
+        {
+            currentTime += Time.deltaTime;
+            currentMaxSpeed = Mathf.Lerp(maxDashSpeed, maxSpeedNormal, currentTime / dashTime);
+            yield return null;
+        }
+
+        currentMaxSpeed = maxSpeedNormal; // 속도를 원래대로 복구
+        isDashing = false; // 대쉬 상태 종료
+    }    
 }

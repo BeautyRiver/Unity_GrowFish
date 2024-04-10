@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8d5fe9f28f86ac44cabeb0c42fa10dcc
+guid: 60ff1cb286c8c5b43901624c11a46b06
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,43 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shark_idle@4x_0
+      name: Shark_idle.fin4x_0
       rect:
         serializedVersion: 2
-        x: 132
-        y: 122
-        width: 2194
-        height: 1167
+        x: 128
+        y: 1312
+        width: 2196
+        height: 1161
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2745e5af642123243babbb6188f9e73d
-      internalID: 1172649963
+      spriteID: 512834bd95129aa4b9e72b61abc5fa9d
+      internalID: 202299437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shark_idle@4x_1
+      name: Shark_idle.fin4x_1
       rect:
         serializedVersion: 2
-        x: 2401
-        y: 149
-        width: 2106
-        height: 983
+        x: 2608
+        y: 1357
+        width: 2059
+        height: 1040
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6f983e4a557ab4448b36395ed7ae7da
-      internalID: -2080909892
+      spriteID: c4f8a22322505d94a88757721cf6bc85
+      internalID: -1270131011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shark_idle.fin4x_3
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 140
+        width: 2182
+        height: 1159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5aa80227f0c8e34392b0b267795fd6c
+      internalID: -352076970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shark_idle.fin4x_2
+      rect:
+        serializedVersion: 2
+        x: 2616
+        y: 119
+        width: 2059
+        height: 1031
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7997c36f330941b49a314a76d9fc72e3
+      internalID: 1694253120
       vertices: []
       indices: 
       edges: []
@@ -162,8 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Shark_idle@4x_0: 1172649963
-      Shark_idle@4x_1: -2080909892
+      Shark_idle.fin4x_0: 202299437
+      Shark_idle.fin4x_1: -1270131011
+      Shark_idle.fin4x_2: 1694253120
+      Shark_idle.fin4x_3: -352076970
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

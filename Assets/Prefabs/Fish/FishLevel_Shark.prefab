@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1172649963, guid: 8d5fe9f28f86ac44cabeb0c42fa10dcc, type: 3}
+  m_Sprite: {fileID: 202299437, guid: 60ff1cb286c8c5b43901624c11a46b06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 21.939999, y: 11.67485}
+  m_Size: {x: 21.967348, y: 11.61}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -127,7 +127,7 @@ Animator:
   m_GameObject: {fileID: 5146251942772243073}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d3599a14e0e2e64799bd7291e6301d2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -162,10 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f9dd090c6db5640abb62b4d621770f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnCount: 2
   moveSpeed: 2.5
   runAwaySpeed: 4
   detectionRadius: 5
-  maxDistance: 25
+  maxDistance: 30
   player: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   isRunningAway: 0
@@ -204,18 +205,19 @@ EdgeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.66}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 7.1310434, y: -4.854489}
-  - {x: 3.6281004, y: -2.6742299}
-  - {x: -5.0151815, y: -4.2194977}
-  - {x: -10.668428, y: 0.9247912}
+  - {x: 9.306175, y: -4.7061844}
+  - {x: 6.3470173, y: -2.130447}
+  - {x: -6.065312, y: -3.119932}
+  - {x: -11.048935, y: 1.8760502}
   - {x: -4.636463, y: 2.3595152}
-  - {x: 1.0559332, y: 1.9229871}
+  - {x: 1.0559332, y: 1.9229872}
   - {x: 6.5132465, y: 0.38089627}
-  - {x: 8.303691, y: 2.18145}
-  - {x: 7.131043, y: -4.854489}
+  - {x: 9.588999, y: 2.9724066}
+  - {x: 8.592469, y: -1.8369887}
+  - {x: 9.405045, y: -4.7061844}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -284,7 +286,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -12.56304, y: 0.08928871}
+  m_Offset: {x: -11.473677, y: 0.08928895}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -295,5 +297,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.6811266, y: 17.737682}
+  m_Size: {x: 5.5023994, y: 10.727875}
   m_EdgeRadius: 0

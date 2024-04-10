@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lv2_Swim
+  m_Name: Shark_Attack
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,15 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -2120490033, guid: 69f06b9e86a9027478ab3fd50cb19a2c, type: 3}
-    - time: 0.14285715
-      value: {fileID: 1691605646, guid: 69f06b9e86a9027478ab3fd50cb19a2c, type: 3}
+      value: {fileID: 1694253120, guid: 60ff1cb286c8c5b43901624c11a46b06, type: 3}
+    - time: 0.083333336
+      value: {fileID: -352076970, guid: 60ff1cb286c8c5b43901624c11a46b06, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 7
+  m_SampleRate: 12
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -46,14 +46,14 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -2120490033, guid: 69f06b9e86a9027478ab3fd50cb19a2c, type: 3}
-    - {fileID: 1691605646, guid: 69f06b9e86a9027478ab3fd50cb19a2c, type: 3}
+    - {fileID: 1694253120, guid: 60ff1cb286c8c5b43901624c11a46b06, type: 3}
+    - {fileID: -352076970, guid: 60ff1cb286c8c5b43901624c11a46b06, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.2857143
+    m_StopTime: 0.16666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

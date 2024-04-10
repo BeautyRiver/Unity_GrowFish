@@ -12,7 +12,12 @@ public class Shark_Ai : FishAI
         base.Awake();
         findPlayer = false;
     }
-    
+
+    new private void OnEnable()
+    {
+        base.OnEnable();
+        RandomSpeed(3.0f, 4.4f); // 상어는 속도 3.0~ 4.4 
+    }
 
     new private void FixedUpdate()
     {
@@ -23,6 +28,7 @@ public class Shark_Ai : FishAI
 
         if (isRunningAway)
         {
+            anim.SetTrigger("Shark_Attack");
             // 플레이어 위치를 향한 방향 벡터 계산
             Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
 
@@ -36,8 +42,9 @@ public class Shark_Ai : FishAI
     // 플레이어 감지 종료
     private void FindPlayerOff()
     {
+        anim.SetTrigger("Shark_Swim");
         SetRandomY();
-        SetReverseX();
         isRunningAway = false;
+        //SetReverseX();
     }
 }

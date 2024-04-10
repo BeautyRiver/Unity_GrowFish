@@ -9,6 +9,7 @@ using DG.Tweening.Core.Easing;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Linq;
 using System.Diagnostics;
+using UnityEngine.UIElements;
 
 //GAME MANAGER SCRIPT
 public class GameManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PoolManager poolManager;
 
     // 이펙트
+    [SerializeField] private GameObject backGround;
     [SerializeField] private GameObject[] levelEffectPrefab;
     [SerializeField] private float LevelUpScale;
 
@@ -157,8 +159,7 @@ public class GameManager : MonoBehaviour
         if (missonCompleted)
         {
             LevelUp();
-            if(CurrentMission < 9)
-                CurrentMission += 1;
+            
         }
     }
 
@@ -223,21 +224,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //레벨업 파티클
-    public void LevelUp()
-    {
-        Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
-        if(playerMoveScript.transform.localScale.x < 0)
-        {
-            scaleChange.x = -scaleChange.x;
-        }
-        playerMoveScript.transform.localScale += scaleChange;
-
-        // 이펙트 끄기
-        levelEffectPrefab[0].SetActive(true);
-        levelEffectPrefab[1].SetActive(true);      
-    }
-
     //코루틴 함수
     private IEnumerator SpawnFish()
     {
@@ -284,12 +270,12 @@ public class GameManager : MonoBehaviour
                 isSharkOn = true;
                 isBlowFishOn = false;
             }
-            return RanInt(2, 4);
+            return Random.Range(2, 4);
         }
 
         else if (currentMission >= 5)
         {
-            return RanInt(1, 4);
+            return Random.Range(1, 4);
         }
 
         else if (currentMission >= 4)
@@ -299,7 +285,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SpawnBlowFish());
                 isBlowFishOn = true;
             }
-            return RanInt(0, 4);
+            return Random.Range(0, 4);
         }
         else if (currentMission >= 2)
         {
@@ -335,8 +321,71 @@ public class GameManager : MonoBehaviour
             return 0;
     }
 
-    private int RanInt(int min, int max)
+
+    // 현재 카메라의 사이즈에서 0.2f 만큼 증가시키되, 이 변화를 1초에 걸쳐서 부드럽게 적용하려면
+    IEnumerator ChangeCameraAndBgSize(float duration, float changeSize, float changeBGSize)
     {
-        return Random.Range(min, max);
+        float currentTime = 0f; // 현재 보간 진행 시간
+        float startSize = Camera.main.orthographicSize; // 시작 사이즈
+        float endSize = startSize + changeSize; // 끝 사이즈
+
+        // 배경의 시작 크기 및 변경될 크기를 미리 계산
+        Vector3 bgStartSize = backGround.transform.localScale;
+        Vector3 bgEndSize = new Vector3(bgStartSize.x, bgStartSize.y + changeBGSize, bgStartSize.z);
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime; // 시간 갱신
+            Camera.main.orthographicSize = Mathf.Lerp(startSize, endSize, currentTime / duration);
+
+            // 배경의 localScale을 부드럽게 변경
+            backGround.transform.localScale = Vector3.Lerp(bgStartSize, bgEndSize, currentTime / duration);
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        Camera.main.orthographicSize = endSize; // 최종 사이즈로 확실하게 설정
+        backGround.transform.localScale = bgEndSize; // 배경 크기도 최종값으로 설정
+
     }
+
+    //레벨업 
+    public void LevelUp()
+    {
+        if (CurrentMission < 9)
+        {
+            // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
+            StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f,0.03f));
+            CurrentMission += 1;
+
+            Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
+            if (playerMoveScript.transform.localScale.x < 0)
+            {
+                scaleChange.x = -scaleChange.x;
+            }
+            playerMoveScript.transform.localScale += scaleChange;
+
+            // 이펙트 끄기
+            levelEffectPrefab[0].SetActive(true);
+            levelEffectPrefab[1].SetActive(true);
+        }
+    }
+
+    // 디버그용 스테이지 다운
+    public void LevelDown()
+    {
+        if (CurrentMission > 0)
+        {
+            // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
+            StartCoroutine(ChangeCameraAndBgSize(0.5f, -0.5f, -0.03f));
+            CurrentMission -= 1;
+
+            Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
+            if (playerMoveScript.transform.localScale.x < 0)
+            {
+                scaleChange.x = -scaleChange.x;
+            }
+            playerMoveScript.transform.localScale -= scaleChange;
+        }
+    }
+
 }
