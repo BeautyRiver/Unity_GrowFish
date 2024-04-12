@@ -6,7 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerMove : MonoBehaviour
 {
-    
+
     // 플레이어의 기본 속성
     [Header("플레이어 속성")]
     public float playerScale = 0.3f; //플레이어 크기
@@ -24,8 +24,8 @@ public class PlayerMove : MonoBehaviour
     private Vector2 playerDir;              // 플레이어의 이동 방향
     private Vector2 lastDirection; // 마지막 방향을 저장하는 변수
     public float currentMaxSpeed;   // 현재 적용되는 최대 속도
-    public float x;                 
-    public float y;                 
+    public float x;
+    public float y;
 
     // 대쉬 관련 속성
     [Header("대쉬")]
@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     private void Update()
-    {                
+    {
         // ESC나 게임오버가 아닐때
         if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
         {
@@ -66,6 +66,7 @@ public class PlayerMove : MonoBehaviour
             {
                 StartCoroutine(Dash());
             }
+
             HpCheck(); // 체력 체크
             DecreaseHealthSecond(); // 초당 체력감소
             uiManager.UpdateHealthBar(hp, maxHp); // 체력바를 업데이트하는 함수 호출 
@@ -77,32 +78,13 @@ public class PlayerMove : MonoBehaviour
                 x = joystick.Horizontal;
                 y = joystick.Vertical;
 
-                if (!(x == 0 || y == 0))               
+                if (!(x == 0 || y == 0))
                     lastDirection = playerDir;
+
+                playerDir = new Vector2(x, y);
             }
 
-            playerDir = new Vector2(x, y);
-
-            rb.AddForce(playerDir * speed, ForceMode2D.Force);
-            rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -maxClampBottom, maxClampTop));
-
-            // 최고속도 제한
-            if (rb.velocity.magnitude > currentMaxSpeed)
-                rb.velocity = rb.velocity.normalized * currentMaxSpeed;
-
-            // Flip
-            if (x != 0)
-            {
-                // 현재 localScale 값을 가져옴
-                Vector3 localScale = transform.localScale;
-
-                // x가 음수인 경우 오른쪽을 향하므로 localScale.x를 음수로 설정 (기존그림이 왼쪽 볼때 기준) x가 양수인 경우 왼쪽을 향하므로 localScale.x를 양수로 설정
-                localScale.x = Mathf.Abs(localScale.x) * (x < 0 ? 1 : -1);
-
-                // 수정된 localScale을 다시 설정
-                transform.localScale = localScale;
-            }
-
+            PlayerFlip(x);
             playerAni.SetBool("isWalk", x != 0);
 
             // 사망체크
@@ -110,7 +92,23 @@ public class PlayerMove : MonoBehaviour
                 isDie();
         }
     }
+    private void FixedUpdate()
+    {
+        if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
+        {
+            // 물리적 이동 처리
+            rb.AddForce(playerDir * speed, ForceMode2D.Force);
 
+            // 위치 제한
+            rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -maxClampBottom, maxClampTop));
+
+            // 최고속도 제한
+            if (rb.velocity.magnitude > currentMaxSpeed)
+                rb.velocity = rb.velocity.normalized * currentMaxSpeed;
+        }
+    }
+
+    #region Collision 관련
     // Fish와 충돌했을때
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -157,7 +155,36 @@ public class PlayerMove : MonoBehaviour
         else
         {
             OnDamaged(collision.gameObject.transform, 30); // 체력 30% 감소
-        }        
+        }
+    }
+    #endregion
+
+    #region 함수
+    // Flip 함수
+    private void PlayerFlip(float x)
+    {
+        if (x != 0)
+        {
+            // 현재 localScale 값을 가져옴
+            Vector3 localScale = transform.localScale;
+
+            // x가 음수인 경우 오른쪽을 향하므로 localScale.x를 음수로 설정 (기존그림이 왼쪽 볼때 기준) x가 양수인 경우 왼쪽을 향하므로 localScale.x를 양수로 설정
+            localScale.x = Mathf.Abs(localScale.x) * (x < 0 ? 1 : -1);
+
+            // 수정된 localScale을 다시 설정
+            transform.localScale = localScale;
+        }
+    }
+
+    // 물고기 먹기
+    private void EatFish(Collider2D collision, int plusScore)
+    {
+        collision.gameObject.SetActive(false);
+        playerAni.Play("PlayerDoEat");
+        gm.Score += plusScore;
+        uiManager.scoreText.text = gm.Score.ToString();
+        hp += maxHp * 0.25f;
+        hp = Mathf.Min(hp, 100);
     }
 
     // 초당 체력 캄소
@@ -167,19 +194,6 @@ public class PlayerMove : MonoBehaviour
         hp -= healthDecreaseRate * Time.deltaTime;
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 함
     }
-
-    // 물고기 먹기
-    private void EatFish(Collider2D collision, int plusScore)
-    {
-
-        collision.gameObject.SetActive(false);
-        playerAni.Play("PlayerDoEat");
-        gm.Score += plusScore;
-        uiManager.scoreText.text = gm.Score.ToString();
-        hp += maxHp * 0.25f;
-        hp = Mathf.Min(hp, 100);
-
-    }    
 
     //플레이어가 데미지를 입었을때
     private void OnDamaged(Transform collision, float damage)
@@ -196,25 +210,26 @@ public class PlayerMove : MonoBehaviour
         //부딪힐시 딜레이
         isMoveOk = false;
         rb.velocity = Vector3.zero;
-        StartCoroutine(Hited(0.6f,1f));
+        StartCoroutine(Hited(0.6f, 1f));
 
         //뒤로 밀려나게 + 색 투명
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rb.AddForce(targetPos * 5f, ForceMode2D.Impulse);
-        spriteRenderer.color = new Color(1, 1, 1, 0.2f);
+        rb.AddForce(targetPos * 15f, ForceMode2D.Impulse);
+        spriteRenderer.color = new Color(1, 1, 1, 0.5f);
 
         gameObject.layer = 7;                            //레이어변경해서 충돌무시
         Camera.main.transform.DOShakePosition(0.4f, new Vector3(0.8f, 0.8f, 0)); //화면 흔들리게        
     }
 
     //맞았을때
-    IEnumerator Hited(float canNotMoveTime, float immortalTime)
+    private IEnumerator Hited(float canNotMoveTime, float immortalTime)
     {
         if (hp > 0)
         {
             // canNotMoveTime 시간 만큼 움직일 수 없음
             yield return new WaitForSeconds(canNotMoveTime);
-            isMoveOk = true; 
+            joystick.enabled = true;
+            isMoveOk = true;
             yield return new WaitForSeconds(immortalTime);
             gameObject.layer = 6; // 레이어 다시 Player로
             spriteRenderer.color = new Color(1, 1, 1, 1f); // 색상 다시 돌리기
@@ -249,7 +264,6 @@ public class PlayerMove : MonoBehaviour
         uiManager.OffGameOverScreen();
         StartCoroutine(Hited(0f, 1.7f));
     }
-    
 
     //Hp검사
     private void HpCheck()
@@ -284,5 +298,6 @@ public class PlayerMove : MonoBehaviour
 
         currentMaxSpeed = maxSpeedNormal; // 속도를 원래대로 복구
         isDashing = false; // 대쉬 상태 종료
-    }    
+    }
+    #endregion
 }

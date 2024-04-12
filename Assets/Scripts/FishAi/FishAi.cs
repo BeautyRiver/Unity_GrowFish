@@ -82,7 +82,7 @@ public class FishAI : MonoBehaviour
                     float newPosY = transform.position.y;
                     // 새 위치 설정
                     transform.position = new Vector2(newPosX, newPosY);
-                    currentDirection = new Vector2(-currentDirection.x, currentDirection.y);
+                    //currentDirection = new Vector2(-currentDirection.x, currentDirection.y);
                     SetRandomY();
                     RandomSpeed(2f, 3.7f);
                 }
