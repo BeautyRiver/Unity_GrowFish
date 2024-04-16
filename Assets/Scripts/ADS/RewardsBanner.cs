@@ -6,6 +6,12 @@ using UnityEngine;
 public class RewardsBannerStore : MonoBehaviour
 {
     [SerializeField] private PlayerMove player;
+    public enum AdsType
+    {
+        Respawn,
+        UnlockTheme,
+    };
+    public AdsType adsType;
     public void Start()
     {
 
@@ -91,7 +97,14 @@ public class RewardsBannerStore : MonoBehaviour
         {
             _rewardedAd.Show((Reward reward) =>
             {
-                player.SawAd();
+                if (adsType == AdsType.Respawn)
+                {
+                    player.SawAd();
+                }
+                else if (adsType == AdsType.UnlockTheme)
+                {
+                    // 테마 언락
+                }
             });
         }
     }      

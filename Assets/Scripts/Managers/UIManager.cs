@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using static GameManager;
 
 public class UIManager : MonoBehaviour
 {
@@ -37,7 +36,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < fishTargetImg.Length; i++)
         {
-            if (Instance.missionTargets.TryGetValue(Instance.CurrentMission, out List<TargetFishInfo> targetFishList))
+            if (GameManager.Instance.missionTargets.TryGetValue(GameManager.Instance.currentMission, out List<TargetFishInfo> targetFishList))
             {
                 // 미션의 타겟 물고기보다 인덱스가 크면 더 이상 표시할 물고기가 없다는 의미이므로 UI를 비활성화
                 if (i >= targetFishList.Count) 

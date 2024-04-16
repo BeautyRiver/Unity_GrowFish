@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FishAI : MonoBehaviour
@@ -25,7 +26,7 @@ public class FishAI : MonoBehaviour
     };
     public TypeOfFish fishType;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         if (player == null)
             player = FindAnyObjectByType<PlayerMove>();
@@ -34,16 +35,16 @@ public class FishAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         SetNewDirection(); // 초기 방향 설정
 
-        InvokeRepeating(nameof(SetRandomY), 1f, 2.5f); // 2.5초마다 dir  변경
+        InvokeRepeating(nameof(SetRandomY), 1f, 2.5f); // 2.5초마다 Y값  변경
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         anim.SetBool(gameObject.tag, true);
         turnCount = 2;
         RandomSpeed(2f, 3.7f);
     }
-    protected void Update()
+    protected virtual void Update()
     {
         runAwaySpeed = moveSpeed * 1.4f;
         // 이동 방향에 따라 스프라이트 뒤집기
@@ -69,34 +70,34 @@ public class FishAI : MonoBehaviour
         {
             // 몬스터면 비활성화
             if (fishType == TypeOfFish.Enemy)
+            {
                 gameObject.SetActive(false);
+            }
             // 물고기면 U턴            
             else
             {
-                if (!IsMovingTowardsPlayer() && turnCount > 0)
+                // 턴 카운트가 남아있는 경우 위치 업데이트
+                if (turnCount > 0)
                 {
-                    turnCount--;
-                    // 플레이어가 오른쪽을 바라보고 있으면 왼쪽으로, 왼쪽을 바라보고 있으면 오른쪽으로 이동
-                    float newPosX = player.transform.localScale.x > 0 ? player.transform.position.x - 25 : player.transform.position.x + 25;
-                    // 현재 y 위치 유지
-                    float newPosY = transform.position.y;
-                    // 새 위치 설정
-                    transform.position = new Vector2(newPosX, newPosY);
-                    //currentDirection = new Vector2(-currentDirection.x, currentDirection.y);
+                    // 물고기 위치 업데이트 로직
+                    float newPosX = CalculateNewPositionX(); // 새로운 X 위치 계산
+                    float newPosY = transform.position.y; // Y 위치 유지
+
+                    transform.position = new Vector2(newPosX, newPosY); // 새 위치 설정
                     SetRandomY();
-                    RandomSpeed(2f, 3.7f);
+                    RandomSpeed(2f, 3.7f); // 속도 및 Y 위치 랜덤 설정
                 }
                 else
+                {
+                    // 턴 카운트가 없으면 비활성화
                     gameObject.SetActive(false);
+                }
+
             }
         }
     }
-
-    protected void RandomSpeed(float minSpeed, float maxSpeed)
-    {
-        moveSpeed = Random.Range(2f, 4f);
-    }
-    protected void FixedUpdate()
+       
+    protected virtual void FixedUpdate()
     {
         // 이동 로직
         Vector2 targetPosition = rb.position + currentDirection * (isRunningAway ? runAwaySpeed : moveSpeed) * Time.fixedDeltaTime;
@@ -118,16 +119,50 @@ public class FishAI : MonoBehaviour
         }
     }
 
+    // 새로운 X 위치를 계산하는 함수
+    float CalculateNewPositionX()
+    {
+        float newPosX = player.transform.position.x; // 초기 위치 설정
+        float range = Random.Range(26f, 29f);
+
+        // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정
+        if (player.transform.localScale.x > 0 && currentDirection.x > 0)
+        {
+            return player.transform.position.x - range; // 둘 다 왼쪽 이동
+        }
+        else if (player.transform.localScale.x < 0 && currentDirection.x < 0)
+        {
+            return player.transform.position.x + range; // 둘 다 오른쪽 이동
+        }
+        else if ((player.transform.localScale.x > 0 && currentDirection.x < 0) ||
+                 (player.transform.localScale.x < 0 && currentDirection.x > 0))
+        {
+            SetReverseX(); // 방향 반전
+            return player.transform.localScale.x > 0 ? player.transform.position.x - range : player.transform.position.x + range;
+        }
+        else
+        {
+            // 예외 상황 처리
+            gameObject.SetActive(false);
+            return newPosX; // 초기 위치 반환
+        }
+    }
+
+    // 랜덤한 속도 함수
+    protected void RandomSpeed(float minSpeed, float maxSpeed)
+    {
+        moveSpeed = Random.Range(2f, 4f);
+    }
     protected void SetReverseX()
     {
-        currentDirection = new Vector2(-currentDirection.x, Random.Range(-1f, 1f) * 0.1f).normalized;
+        currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.2f, 0.2f)).normalized;
     }
 
     protected void SetRandomY()
     {
-        currentDirection = new Vector2(currentDirection.x, Random.Range(-1f, 1f) * 0.1f).normalized;
+        currentDirection = new Vector2(currentDirection.x, Random.Range(-0.2f, 0.2f)).normalized;
     }
-   
+
     protected void SetRandomDir()
     {
         SetRandomY();
@@ -142,11 +177,17 @@ public class FishAI : MonoBehaviour
     // 플레이어와 같은 방향으로 이동 검사 (양수 = 플레이어 향해 이동)
     protected bool IsMovingTowardsPlayer()
     {
-        // Dot Product를 사용하여 방향을 체크
-        // Dot Product가 양수라면 물고기는 플레이어를 향해 이동 중
         Vector2 toPlayer = (player.transform.position - transform.position).normalized;
-        return Vector2.Dot(toPlayer, currentDirection) > 0;
+        float dotProduct = Vector2.Dot(toPlayer, currentDirection);
+
+        // 플레이어가 움직이지 않는 경우, 동일 방향 체크
+        if (player.GetComponent<Rigidbody2D>().velocity.magnitude == 0)
+        {
+            return dotProduct > 0 && currentDirection.x == Mathf.Sign(player.transform.position.x - transform.position.x);
+        }
+        return dotProduct > 0;
     }
+
 
     void OnDrawGizmos()
     {

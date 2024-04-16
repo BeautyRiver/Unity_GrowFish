@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f9dd090c6db5640abb62b4d621770f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnCount: 2
+  turnCount: 1
   moveSpeed: 2.5
   runAwaySpeed: 4
   detectionRadius: 5
@@ -297,5 +297,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.5023994, y: 10.727875}
+  m_Size: {x: 7.07, y: 10.727875}
   m_EdgeRadius: 0

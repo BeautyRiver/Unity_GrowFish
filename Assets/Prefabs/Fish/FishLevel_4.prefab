@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d60121c4082f114d8c92642656831e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnCount: 2
+  turnCount: 1
   moveSpeed: 2.9
   runAwaySpeed: 4
   detectionRadius: 5

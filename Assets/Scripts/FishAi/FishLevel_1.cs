@@ -6,12 +6,12 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class FishLevel_1 : FishAI
 {
-    new private void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
-    new private void Update()
+    protected override void Update()
     {
         base.Update();
         

@@ -60,7 +60,7 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         // ESC나 게임오버가 아닐때
-        if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
+        if (!uiManager.isPauseScreenOn && !gm.isGameOver)
         {
             if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
             {
@@ -88,13 +88,13 @@ public class PlayerMove : MonoBehaviour
             playerAni.SetBool("isWalk", x != 0);
 
             // 사망체크
-            if (gm.IsGameOver)
+            if (gm.isGameOver)
                 isDie();
         }
     }
     private void FixedUpdate()
     {
-        if (!uiManager.isPauseScreenOn && !gm.IsGameOver)
+        if (!uiManager.isPauseScreenOn && !gm.isGameOver)
         {
             // 물리적 이동 처리
             rb.AddForce(playerDir * speed, ForceMode2D.Force);
@@ -114,25 +114,25 @@ public class PlayerMove : MonoBehaviour
     {
         string tagName = collision.gameObject.tag;
 
-        if (tagName == "Lv1" && gm.CurrentMission >= 0) // 레벨1 물고기는 미션1 (0) 부터 먹을 수 있음
+        if (tagName == "Lv1" && gm.currentMission >= 0) // 레벨1 물고기는 미션1 (0) 부터 먹을 수 있음
         {
             gm.UpdateFishCount(0); // 0번(Level_1) 물고기 인지 체크
             EatFish(collision, gm.Level_1);
             collision.gameObject.SetActive(false);
         }
-        else if (tagName == "Lv2" && gm.CurrentMission >= 2) // 레벨2 물고기는 미션3 (2) 부터 먹을 수 있음
+        else if (tagName == "Lv2" && gm.currentMission >= 2) // 레벨2 물고기는 미션3 (2) 부터 먹을 수 있음
         {
             gm.UpdateFishCount(1); // 1번(Level_2) 물고기 인지 체크
             EatFish(collision, gm.Level_2);
             collision.gameObject.SetActive(false);
         }
-        else if (tagName == "Lv3" && gm.CurrentMission >= 4) // 레벨3 물고기는 미션5 (4) 부터 먹을 수 있음
+        else if (tagName == "Lv3" && gm.currentMission >= 4) // 레벨3 물고기는 미션5 (4) 부터 먹을 수 있음
         {
             gm.UpdateFishCount(2); // 2번(Level_3) 물고기 인지 체크
             EatFish(collision, gm.Level_2);
             collision.gameObject.SetActive(false);
         }
-        else if (tagName == "Lv4" && gm.CurrentMission >= 6) // 레벨4 물고기는 미션7 (6) 부터 먹을 수 있음
+        else if (tagName == "Lv4" && gm.currentMission >= 6) // 레벨4 물고기는 미션7 (6) 부터 먹을 수 있음
         {
             gm.UpdateFishCount(3); // 3번(Level_4) 물고기 인지 체크
             EatFish(collision, gm.Level_2);
@@ -181,8 +181,8 @@ public class PlayerMove : MonoBehaviour
     {
         collision.gameObject.SetActive(false);
         playerAni.Play("PlayerDoEat");
-        gm.Score += plusScore;
-        uiManager.scoreText.text = gm.Score.ToString();
+        gm.score += plusScore;
+        uiManager.scoreText.text = gm.score.ToString();
         hp += maxHp * 0.25f;
         hp = Mathf.Min(hp, 100);
     }
@@ -243,7 +243,7 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = Vector2.zero;
         joystick.gameObject.SetActive(false);
         playerAni.enabled = false;
-        gm.IsGameOver = true;
+        gm.isGameOver = true;
         isMoveOk = false;                                   // 조작불가
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);    // 투명도 변경
         spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
@@ -258,7 +258,7 @@ public class PlayerMove : MonoBehaviour
         transform.position = Vector3.zero;
         joystick.gameObject.SetActive(true);
         playerAni.enabled = true;
-        gm.IsGameOver = false;
+        gm.isGameOver = false;
         spriteRenderer.flipY = false; // 방향 다시 뒤집기
         hp = maxHp;
         uiManager.OffGameOverScreen();
@@ -268,9 +268,9 @@ public class PlayerMove : MonoBehaviour
     //Hp검사
     private void HpCheck()
     {
-        if (hp <= 0 && !gm.IsGameOver)
+        if (hp <= 0 && !gm.isGameOver)
         {
-            gm.IsGameOver = true;
+            gm.isGameOver = true;
             uiManager.OnGameOverScreen();
         }
     }

@@ -7,23 +7,23 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Shark_Ai : FishAI
 {
     public bool findPlayer;
-    new private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         findPlayer = false;
     }
 
-    new private void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         RandomSpeed(3.0f, 4.4f); // 상어는 속도 3.0~ 4.4 
     }
 
-    new private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        if (GameManager.Instance.IsGameOver)
+        if (GameManager.Instance.isGameOver)
             isRunningAway = false;
 
         if (isRunningAway)

@@ -11,10 +11,33 @@ using System.Linq;
 using System.Diagnostics;
 using UnityEngine.UIElements;
 
-//GAME MANAGER SCRIPT
-public class GameManager : MonoBehaviour
+[System.Serializable]
+public class EnemySpawnRange
 {
-    private static GameManager instance; // 싱글톤
+    public float min;
+    public float max;
+
+    public EnemySpawnRange(float min, float max)
+    {
+        this.min = min;
+        this.max = max;
+    }
+}
+[System.Serializable]
+public class TargetFishInfo
+{
+    public int targetFish;
+    public int targetFishCounts;
+
+    public TargetFishInfo(int targetFish, int targetFishCounts)
+    {
+        this.targetFish = targetFish;
+        this.targetFishCounts = targetFishCounts;
+    }
+}
+//GAME MANAGER SCRIPT
+public class GameManager : Singleton<GameManager>
+{
 
     [SerializeField] private UIManager uiManager; // UIManager
     [SerializeField] private PlayerMove playerMoveScript;
@@ -28,38 +51,22 @@ public class GameManager : MonoBehaviour
     //적 관련 변수들
     public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f);
     public EnemySpawnRange enemySpawnRange = new EnemySpawnRange(1.0f, 2.0f);
-    [SerializeField] private bool isGameOver = false;
-    [SerializeField] private bool isBlowFishOn = false;
-    [SerializeField] private bool isSharkOn = false;
-    public bool IsGameOver
-    {
-        get { return isGameOver; }
-        set { isGameOver = value; }
-    }
-
+    public bool isGameOver = false;
+    public bool isBlowFishOn = false;
+    public bool isSharkOn = false;
+   
     //스테이지 레벨관리
-    [SerializeField] private int currentMission;
-    public int CurrentMission
-    {
-        get { return currentMission; }
-        set { currentMission = value; }
-    }
-
+    public int currentMission;
+   
     // 점수들
-    [SerializeField] private int score;
-    public int Score
-    {
-        get { return score; }
-        set { score = value; }
-    }
-
-
+    public int score;
+ 
     public int Level_1 { get; } = 60;
     public int Level_2 { get; } = 500;
     public int Level_3 { get; } = 2000;
     public int Level_4 { get; } = 4500;
 
-    [System.Serializable] 
+    [System.Serializable]
     public class FishSpawnRange
     {
         public float min;
@@ -72,54 +79,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public class EnemySpawnRange
-    {
-        public float min;
-        public float max;
-
-        public EnemySpawnRange(float min, float max)
-        {
-            this.min = min;
-            this.max = max;
-        }
-    }
-    [System.Serializable]
-    public class TargetFishInfo
-    {
-        public int targetFish;
-        public int targetFishCounts;
-
-        public TargetFishInfo(int targetFish, int targetFishCounts)
-        {
-            this.targetFish = targetFish;
-            this.targetFishCounts = targetFishCounts;
-        }
-    }
+    
 
     public Dictionary<int, List<TargetFishInfo>> missionTargets = new Dictionary<int, List<TargetFishInfo>>();
 
-    public static GameManager Instance
+    protected override void Awake()
     {
-        get
-        {
-            if (instance == null)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        DoDestoryObj = false;
+        base.Awake();
     }
     private void Start()
     {
@@ -128,6 +95,7 @@ public class GameManager : MonoBehaviour
         InitializeMissionTargets(); // 목표 물고기 설정        
     }
 
+    
     public void UpdateFishCount(int fishType)
     {
         // 현재 미션의 목표 물고기 정보 확인
@@ -159,10 +127,11 @@ public class GameManager : MonoBehaviour
         if (missonCompleted)
         {
             LevelUp();
-            
+
         }
     }
 
+    #region 물고기 목표값 초기 할당
     // 물고기 목표값 초기 할당
     void InitializeMissionTargets()
     {
@@ -221,14 +190,15 @@ public class GameManager : MonoBehaviour
             new TargetFishInfo(2, 3),
             new TargetFishInfo(3, 5)
         });
-
+    
     }
+    #endregion
 
     //코루틴 함수
     private IEnumerator SpawnFish()
     {
         //게임이 종료될때까지계속반복
-        while (!IsGameOver)
+        while (!isGameOver)
         {
             poolManager.Get(SelectFish(), false);
             //1초에서 5초사이 실수값으로 랜덤하게 등장
@@ -240,9 +210,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            
-                poolManager.Get(0, true); // BlowFish 스폰
-            
+            poolManager.Get(0, true); // BlowFish 스폰            
             yield return new WaitForSeconds(Random.Range(enemySpawnRange.min, enemySpawnRange.max));
         }
     }
@@ -251,9 +219,8 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            
-                poolManager.Get(1, true); // Shark 스폰
-            
+            poolManager.Get(1, true); // Shark 스폰
+
             yield return new WaitForSeconds(Random.Range(enemySpawnRange.min, enemySpawnRange.max));
         }
     }
@@ -351,11 +318,11 @@ public class GameManager : MonoBehaviour
     //레벨업 
     public void LevelUp()
     {
-        if (CurrentMission < 9)
+        if (currentMission < 9)
         {
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
-            StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f,0.03f));
-            CurrentMission += 1;
+            StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f, 0.03f));
+            currentMission += 1;
 
             Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
             if (playerMoveScript.transform.localScale.x < 0)
@@ -367,17 +334,23 @@ public class GameManager : MonoBehaviour
             // 이펙트 끄기
             levelEffectPrefab[0].SetActive(true);
             levelEffectPrefab[1].SetActive(true);
-        }
+
+            if(currentMission > 9)
+            {
+                Time.timeScale = 0;
+                print("게임종료");
+            }
+        }        
     }
 
     // 디버그용 스테이지 다운
     public void LevelDown()
     {
-        if (CurrentMission > 0)
+        if (currentMission > 0)
         {
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
             StartCoroutine(ChangeCameraAndBgSize(0.5f, -0.5f, -0.03f));
-            CurrentMission -= 1;
+            currentMission -= 1;
 
             Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
             if (playerMoveScript.transform.localScale.x < 0)
