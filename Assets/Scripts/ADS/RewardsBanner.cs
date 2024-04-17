@@ -100,6 +100,7 @@ public class RewardsBannerStore : MonoBehaviour
                 if (adsType == AdsType.Respawn)
                 {
                     player.SawAd();
+                    
                 }
                 else if (adsType == AdsType.UnlockTheme)
                 {

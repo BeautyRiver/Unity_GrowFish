@@ -323,7 +323,7 @@ public class GameManager : Singleton<GameManager>
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
             StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f, 0.03f));
             currentMission += 1;
-
+            uiManager.nowMissonText.text = "미션 : " + (currentMission+1).ToString();
             // 미션 8을 넘어서면 게임 종료 상태 설정
             if (currentMission > 8)
             {
@@ -352,6 +352,7 @@ public class GameManager : Singleton<GameManager>
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
             StartCoroutine(ChangeCameraAndBgSize(0.5f, -0.5f, -0.03f));
             currentMission -= 1;
+            uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
 
             Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
             if (playerMoveScript.transform.localScale.x < 0)

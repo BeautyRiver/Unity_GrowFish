@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite[] fishImages; // 이 이미지들을 할당할거라는 뜻      
     [SerializeField] private TextMeshProUGUI[] fishTargetText; // 목표 물고기 개수
     [SerializeField] private Image[] fishTargetImg; // 이미지 할당될 장소
-
+    public TextMeshProUGUI nowMissonText; // 현재 미션 단계 텍스트
     //GamePause관련
     public bool isPauseScreenOn = false;
     [SerializeField] private GameObject pauseBtns;
@@ -36,8 +36,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameEndImg;
 
     private void Update()
-    {
-        if(GameManager.Instance.isGameEnd == true)
+    {        
+        if (GameManager.Instance.isGameEnd == true)
         {
             gameEndImg.SetActive(true);
             Time.timeScale = 0;
@@ -83,12 +83,11 @@ public class UIManager : MonoBehaviour
 
     // 게임오버스크린 끄기
     public void OffGameOverScreen()
-    {
-        Time.timeScale = 1;
+    {       
         gameOverPanel.SetActive(false);
         abilityBtn.SetActive(true);
     }
-
+    
     //버튼들
     // 일시정지 버튼
     public void InputPause() 

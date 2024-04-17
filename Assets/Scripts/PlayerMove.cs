@@ -249,17 +249,13 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer.flipY = true;                        // 방향 아래로 뒤집기
         rb.AddForce(Vector2.down * 2, ForceMode2D.Impulse); // 아래로 추락시키기 
         gameObject.layer = 7;                               // 레이어 수정으로 몹들과의 충돌 x
-        StartCoroutine(DieAndTimeStop());
+        
     }
 
-    IEnumerator DieAndTimeStop()
-    {
-        yield return new WaitForSeconds(2f);
-        Time.timeScale = 0;
-    }
+    
     // 광고보고 살아나기
     public void SawAd()
-    {
+    {        
         rb.velocity = Vector2.zero;
         transform.position = Vector3.zero;
         joystick.gameObject.SetActive(true);
