@@ -25,6 +25,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     }
     protected virtual void Awake()
     {
+        Application.targetFrameRate = 60;
         if (transform.parent != null && transform.root != null)
         {
             DontDestroyOnLoad(this.gameObject.transform.root.gameObject);

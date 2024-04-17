@@ -3560,8 +3560,8 @@ Transform:
   m_GameObject: {fileID: 795756041}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22, y: 0, z: 0}
-  m_LocalScale: {x: 2.3, y: 2.3, z: 1.5333337}
+  m_LocalPosition: {x: -24, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1.666667}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 890870911}
@@ -3610,6 +3610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 930044787}
+  adsType: 0
 --- !u!4 &800477122
 Transform:
   m_ObjectHideFlags: 0
@@ -3637,7 +3638,7 @@ GameObject:
   - component: {fileID: 809631476}
   - component: {fileID: 809631475}
   m_Layer: 5
-  m_Name: Image
+  m_Name: "\uB05D\uC774\uBBF8\uC9C0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4020,8 +4021,8 @@ MonoBehaviour:
   - {fileID: 1418292363155121}
   LevelUpScale: 0.033
   fishSpawnRange:
-    min: 1
-    max: 2
+    min: 1.7
+    max: 2.5
   enemySpawnRange:
     min: 2
     max: 4
@@ -4029,6 +4030,7 @@ MonoBehaviour:
   isBlowFishOn: 0
   isSharkOn: 0
   currentMission: 0
+  isGameEnd: 0
   score: 0
 --- !u!1 &921100883
 GameObject:
@@ -5725,6 +5727,7 @@ MonoBehaviour:
   joyStick: {fileID: 3881087802580337592}
   gameOverPanel: {fileID: 5307805383961186069}
   abilityBtn: {fileID: 154318723}
+  gameEndImg: {fileID: 809631473}
 --- !u!4 &1346944232
 Transform:
   m_ObjectHideFlags: 0
@@ -6084,8 +6087,8 @@ Transform:
   m_GameObject: {fileID: 1418838946}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22, y: 0, z: 0}
-  m_LocalScale: {x: 2.3, y: 2.3, z: 1.5333337}
+  m_LocalPosition: {x: 24, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1.666667}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 273968726}
@@ -6736,20 +6739,20 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1242070662}
+  - {fileID: 3881087802580337593}
+  - {fileID: 154318724}
+  - {fileID: 1546669336}
+  - {fileID: 1524451925136828997}
+  - {fileID: 7779365839868096141}
+  - {fileID: 809631474}
   - {fileID: 8036086864300492315}
   - {fileID: 475113332}
   - {fileID: 778094775}
   - {fileID: 191504080}
   - {fileID: 8056962457168319226}
   - {fileID: 5307805383961186090}
-  - {fileID: 3881087802580337593}
-  - {fileID: 7779365839868096141}
-  - {fileID: 1524451925136828997}
   - {fileID: 2275348118451036355}
   - {fileID: 8848293734833141054}
-  - {fileID: 154318724}
-  - {fileID: 1546669336}
-  - {fileID: 809631474}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8927,7 +8930,7 @@ Transform:
   m_GameObject: {fileID: 2140504836}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.94, z: 0}
+  m_LocalPosition: {x: 0.26, y: -1.94, z: 0}
   m_LocalScale: {x: 0.58000004, y: 0.82463014, z: 0.58000004}
   m_ConstrainProportionsScale: 0
   m_Children: []

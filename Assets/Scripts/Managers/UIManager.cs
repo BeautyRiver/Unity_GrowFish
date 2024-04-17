@@ -32,8 +32,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject abilityBtn; // 능력버튼
 
+    //GameEnd
+    [SerializeField] private GameObject gameEndImg;
+
     private void Update()
     {
+        if(GameManager.Instance.isGameEnd == true)
+        {
+            gameEndImg.SetActive(true);
+            Time.timeScale = 0;
+        }
+
         for (int i = 0; i < fishTargetImg.Length; i++)
         {
             if (GameManager.Instance.missionTargets.TryGetValue(GameManager.Instance.currentMission, out List<TargetFishInfo> targetFishList))
@@ -67,7 +76,7 @@ public class UIManager : MonoBehaviour
 
     // 게임오버스크린 띄우기
     public void OnGameOverScreen()
-    {
+    {        
         gameOverPanel.SetActive(true);
         abilityBtn.SetActive(false);
     }
@@ -75,6 +84,7 @@ public class UIManager : MonoBehaviour
     // 게임오버스크린 끄기
     public void OffGameOverScreen()
     {
+        Time.timeScale = 1;
         gameOverPanel.SetActive(false);
         abilityBtn.SetActive(true);
     }

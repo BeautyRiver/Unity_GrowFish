@@ -51,12 +51,13 @@ public class GameManager : Singleton<GameManager>
     //적 관련 변수들
     public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f);
     public EnemySpawnRange enemySpawnRange = new EnemySpawnRange(1.0f, 2.0f);
-    public bool isGameOver = false;
     public bool isBlowFishOn = false;
     public bool isSharkOn = false;
    
     //스테이지 레벨관리
     public int currentMission;
+    public bool isGameEnd;
+    public bool isGameOver = false;
    
     // 점수들
     public int score;
@@ -95,7 +96,7 @@ public class GameManager : Singleton<GameManager>
         InitializeMissionTargets(); // 목표 물고기 설정        
     }
 
-    
+
     public void UpdateFishCount(int fishType)
     {
         // 현재 미션의 목표 물고기 정보 확인
@@ -189,8 +190,7 @@ public class GameManager : Singleton<GameManager>
         {
             new TargetFishInfo(2, 3),
             new TargetFishInfo(3, 5)
-        });
-    
+        });       
     }
     #endregion
 
@@ -290,7 +290,7 @@ public class GameManager : Singleton<GameManager>
 
 
     // 현재 카메라의 사이즈에서 0.2f 만큼 증가시키되, 이 변화를 1초에 걸쳐서 부드럽게 적용하려면
-    IEnumerator ChangeCameraAndBgSize(float duration, float changeSize, float changeBGSize)
+    IEnumerator ChangeCameraAndBgSize(float duration, float changeSize,  float changeBGSizeY)
     {
         float currentTime = 0f; // 현재 보간 진행 시간
         float startSize = Camera.main.orthographicSize; // 시작 사이즈
@@ -298,7 +298,7 @@ public class GameManager : Singleton<GameManager>
 
         // 배경의 시작 크기 및 변경될 크기를 미리 계산
         Vector3 bgStartSize = backGround.transform.localScale;
-        Vector3 bgEndSize = new Vector3(bgStartSize.x, bgStartSize.y + changeBGSize, bgStartSize.z);
+        Vector3 bgEndSize = new Vector3(bgStartSize.x, bgStartSize.y + changeBGSizeY, bgStartSize.z);
 
         while (currentTime < duration)
         {
@@ -324,6 +324,13 @@ public class GameManager : Singleton<GameManager>
             StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f, 0.03f));
             currentMission += 1;
 
+            // 미션 8을 넘어서면 게임 종료 상태 설정
+            if (currentMission > 8)
+            {
+                isGameEnd = true;
+                // 추가적인 게임 종료 처리를 여기에 작성할 수 있습니다.
+            }
+
             Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
             if (playerMoveScript.transform.localScale.x < 0)
             {
@@ -334,12 +341,6 @@ public class GameManager : Singleton<GameManager>
             // 이펙트 끄기
             levelEffectPrefab[0].SetActive(true);
             levelEffectPrefab[1].SetActive(true);
-
-            if(currentMission > 9)
-            {
-                Time.timeScale = 0;
-                print("게임종료");
-            }
         }        
     }
 

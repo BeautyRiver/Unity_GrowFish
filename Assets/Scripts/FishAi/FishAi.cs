@@ -123,7 +123,7 @@ public class FishAI : MonoBehaviour
     float CalculateNewPositionX()
     {
         float newPosX = player.transform.position.x; // 초기 위치 설정
-        float range = Random.Range(26f, 29f);
+        float range = Random.Range(27f, 38.5f);
 
         // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정
         if (player.transform.localScale.x > 0 && currentDirection.x > 0)

@@ -14,7 +14,6 @@ public class FishLevel_2 : FishAI
     protected override void Update()
     {
         base.Update();
-
     }
 
 }
