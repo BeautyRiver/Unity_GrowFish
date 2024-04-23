@@ -7,7 +7,7 @@ public class CameraMove : MonoBehaviour
     public Transform player;
     public float smoothing = 1f;
     public float maxY;
-
+    
     void FixedUpdate()
     {
         float targetY = player.position.y;

@@ -8,7 +8,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private GameObject[] enemyPrefabs; // 상어, 복어 같은 적 물고기 배열
     [SerializeField] private Transform[] spawnPoints; // 스폰 장소들: 물고기가 나타날 위치들을 정의
     [SerializeField] private List<GameObject>[] fishPools; // 각 물고기 타입별로 재사용 가능한 게임 오브젝트들을 저장할 리스트의 배열
-
+    
     private void Awake()
     {
         // fishPrefabs 배열의 길이에 따라 fishPools 배열을 초기화
