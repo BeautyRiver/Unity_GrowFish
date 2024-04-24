@@ -12,6 +12,18 @@ public class RewardsBannerStore : MonoBehaviour
         UnlockTheme,
     };
     public AdsType adsType;
+    private void Awake()
+    {
+        if (adsType == AdsType.Respawn)
+        {
+            if (player == null)
+            {
+                player = FindObjectOfType<PlayerMove>();
+            }
+        }
+        else
+            player = null;
+    }
     public void Start()
     {
 
@@ -91,7 +103,7 @@ public class RewardsBannerStore : MonoBehaviour
     }
 
     // 버튼 누르면 광고 실행
-    public void ShowRewardedAd()
+    public void ShowRewardedAd(string themeName)
     {
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
@@ -105,6 +117,7 @@ public class RewardsBannerStore : MonoBehaviour
                 else if (adsType == AdsType.UnlockTheme)
                 {
                     // 테마 언락
+                    DataManager.Instance.UpdateTheme(themeName);
                 }
             });
         }
