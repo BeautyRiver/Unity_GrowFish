@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
     // 외부 참조
     [Header("외부 참조")]
     public UIManager uiManager;         // UI 매니저 참조
-    public VariableJoystick joystick;   // 조이스틱 컨트롤러 참조
+    public Joystick joystick;   // 조이스틱 컨트롤러 참조
     public GameObject spawner;          // 물고기 스포너 오브젝트 참조
     private GameManager gm;             // GM 인스턴스 담을 변수
 

@@ -41989,6 +41989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThemeChangeScreen: {fileID: 8195814050660618792}
+  ThemeItemRectTransform: {fileID: 522567501}
 --- !u!4 &1445285402
 Transform:
   m_ObjectHideFlags: 0
