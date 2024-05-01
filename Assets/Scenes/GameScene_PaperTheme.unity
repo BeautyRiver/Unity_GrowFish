@@ -18513,12 +18513,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1aca164b8b8af7c4e9c397949926694e, type: 3}
   fishTargetText:
   - {fileID: 921100885}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1162471780}
+  - {fileID: 346851890}
   fishTargetImg:
   - {fileID: 1144551906}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1073035647}
+  - {fileID: 553527925}
   nowMissonText: {fileID: 723401912}
   isPauseScreenOn: 0
   pauseBtns: {fileID: 8056962457168319221}
