@@ -1,0 +1,19 @@
+{
+    "themes": [
+        {
+            "themeName": "DefaultTheme",
+            "isOpen": true,
+            "isSelect": true
+        },
+        {
+            "themeName": "PaperTheme",
+            "isOpen": false,
+            "isSelect": false
+        },
+        {
+            "themeName": "HalloweenTheme",
+            "isOpen": false,
+            "isSelect": false
+        }
+    ]
+}

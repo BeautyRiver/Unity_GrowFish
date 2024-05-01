@@ -22,7 +22,7 @@ public class PlayerMove : MonoBehaviour
     public float maxClampBottom;    // 플레이어 Y축 하단 제한 범위
     public float speed;             // 플레이어 현재 속도
     private Vector2 playerDir;              // 플레이어의 이동 방향
-    private Vector2 lastDirection; // 마지막 방향을 저장하는 변수
+    private Vector2 lastDirection = new Vector2(-1,0); // 마지막 방향을 저장하는 변수
     public float currentMaxSpeed;   // 현재 적용되는 최대 속도
     public float x;
     public float y;
@@ -62,10 +62,10 @@ public class PlayerMove : MonoBehaviour
         // ESC나 게임오버가 아닐때
         if (!uiManager.isPauseScreenOn && !gm.isGameOver)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+            /*if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
             {
                 StartCoroutine(Dash());
-            }
+            }*/
 
             HpCheck(); // 체력 체크
             DecreaseHealthSecond(); // 초당 체력감소

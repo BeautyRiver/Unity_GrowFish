@@ -14,7 +14,21 @@ public class TitleManager : MonoBehaviour
 
     public void InputGameStart()
     {
-        SceneManager.LoadScene("GameScene");
+        DataManager dt = DataManager.Instance;
+        dt.LoadData();
+        foreach (var data in dt.themeList.themes)
+        {
+            if(data.isSelect == true)
+            {
+                SceneManager.LoadScene("GameScene_" + data.themeName);
+                break;
+            }
+            else
+            {
+                SceneManager.LoadScene("GameScene_DefaultTheme");
+            }
+        }
+        
     }
 
     public void InputStoreBtn()
@@ -50,14 +64,5 @@ public class TitleManager : MonoBehaviour
             .OnComplete(() => ThemeChangeScreen.SetActive(false)); // 애니메이션 완료 후 비활성화
     }
 
-    // 디버그용 JSON 초기화
-    public void DebugJsonInit()
-    {
-        foreach (var theme in DataManager.Instance.themeList.themes)
-        {
-            if (theme.themeName != "Default")
-                theme.isOpen = false;
-        }
-        DataManager.Instance.SaveData();
-    }
+    
 }

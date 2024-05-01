@@ -312,7 +312,22 @@ public class GameManager : Singleton<GameManager>
 
         Camera.main.orthographicSize = endSize; // 최종 사이즈로 확실하게 설정
         backGround.transform.localScale = bgEndSize; // 배경 크기도 최종값으로 설정
+    }
 
+    // 스케일 변경 코루틴
+    IEnumerator ChangeScaleCoroutine(Vector3 targetScale, float duration)
+    {
+        Vector3 initialScale = playerMoveScript.transform.localScale;
+        float time = 0;
+
+        while (time < duration)
+        {
+            playerMoveScript.transform.localScale = Vector3.Lerp(initialScale, targetScale, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        playerMoveScript.transform.localScale = targetScale;  // 최종 스케일 보장
     }
 
     //레벨업 
@@ -336,7 +351,8 @@ public class GameManager : Singleton<GameManager>
             {
                 scaleChange.x = -scaleChange.x;
             }
-            playerMoveScript.transform.localScale += scaleChange;
+            Vector3 targetScale = playerMoveScript.transform.localScale + scaleChange;
+            StartCoroutine(ChangeScaleCoroutine(targetScale, 0.5f));            
 
             // 이펙트 끄기
             levelEffectPrefab[0].SetActive(true);

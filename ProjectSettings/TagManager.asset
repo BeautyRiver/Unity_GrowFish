@@ -47,12 +47,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 3682627647
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Fish
     uniqueID: 341368005
-    locked: 0
-  - name: BG
-    uniqueID: 3682627647
     locked: 0
