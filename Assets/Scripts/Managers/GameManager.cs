@@ -11,30 +11,7 @@ using System.Linq;
 using System.Diagnostics;
 using UnityEngine.UIElements;
 
-[System.Serializable]
-public class EnemySpawnRange
-{
-    public float min;
-    public float max;
 
-    public EnemySpawnRange(float min, float max)
-    {
-        this.min = min;
-        this.max = max;
-    }
-}
-[System.Serializable]
-public class TargetFishInfo
-{
-    public int targetFish;
-    public int targetFishCounts;
-
-    public TargetFishInfo(int targetFish, int targetFishCounts)
-    {
-        this.targetFish = targetFish;
-        this.targetFishCounts = targetFishCounts;
-    }
-}
 //GAME MANAGER SCRIPT
 public class GameManager : Singleton<GameManager>
 {
@@ -49,8 +26,6 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float LevelUpScale;
 
     //적 관련 변수들
-    public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f);
-    public EnemySpawnRange enemySpawnRange = new EnemySpawnRange(1.0f, 2.0f);
     public bool isBlowFishOn = false;
     public bool isSharkOn = false;
 
@@ -58,31 +33,17 @@ public class GameManager : Singleton<GameManager>
     public int currentMission;
     public bool isGameEnd;
     public bool isGameOver = false;
-
+    public bool isSpawnning = false;
     // 점수들
     public int score;
 
-    public int Level_1 { get; } = 60;
-    public int Level_2 { get; } = 500;
-    public int Level_3 { get; } = 2000;
-    public int Level_4 { get; } = 4500;
+    public int level_1 = 60;
+    public int level_2 = 500;
+    public int level_3 = 2000;
+    public int level_4 = 4500;
 
-    [System.Serializable]
-    public class FishSpawnRange
-    {
-        public float min;
-        public float max;
-
-        public FishSpawnRange(float min, float max)
-        {
-            this.min = min;
-            this.max = max;
-        }
-    }
-
-
-
-    public Dictionary<int, List<TargetFishInfo>> missionTargets = new Dictionary<int, List<TargetFishInfo>>();
+   
+    public Dictionary<int, List<TargetFishInfo>> missionTargets = new Dictionary<int, List<TargetFishInfo>>(); // 미션별 목표 물고기 정보
 
     protected override void Awake()
     {
@@ -90,11 +51,10 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        StartCoroutine(SpawnFish());
         InitializeMissionTargets(); // 목표 물고기 설정        
     }
 
-
+    // 물고기 먹을 때마다 호출되는 함수
     public void UpdateFishCount(int fishType)
     {
         // 현재 미션의 목표 물고기 정보 확인
@@ -126,7 +86,6 @@ public class GameManager : Singleton<GameManager>
         if (missonCompleted)
         {
             LevelUp();
-
         }
     }
 
@@ -135,27 +94,27 @@ public class GameManager : Singleton<GameManager>
     void InitializeMissionTargets()
     {
         // 미션0
-        missionTargets.Add(0, new List<TargetFishInfo> { new TargetFishInfo(0, 4) });
+        missionTargets.Add(0, new List<TargetFishInfo> { new TargetFishInfo(0, 4) }); // 미션0은 0번 물고기 4마리 먹기
 
         // 미션1
-        missionTargets.Add(1, new List<TargetFishInfo> { new TargetFishInfo(0, 5) });
+        missionTargets.Add(1, new List<TargetFishInfo> { new TargetFishInfo(0, 5) }); // 미션1은 0번 물고기 5마리 먹기
 
         // 미션2
-        missionTargets.Add(2, new List<TargetFishInfo>
+        missionTargets.Add(2, new List<TargetFishInfo> // 미션2는 0번 물고기 3마리, 1번 물고기 3마리 먹기
         {
             new TargetFishInfo(0, 3),
             new TargetFishInfo(1, 3)
         });
 
         // 미션3
-        missionTargets.Add(3, new List<TargetFishInfo>
+        missionTargets.Add(3, new List<TargetFishInfo> // 미션3은 0번 물고기 3마리, 1번 물고기 5마리 먹기
         {
             new TargetFishInfo(0, 3),
             new TargetFishInfo(1, 5)
         });
 
         // 미션4
-        missionTargets.Add(4, new List<TargetFishInfo>
+        missionTargets.Add(4, new List<TargetFishInfo> // 미션4는 0번 물고기 2마리, 1번 물고기 5마리, 2번 물고기 3마리 먹기
         {
             new TargetFishInfo(0, 2),
             new TargetFishInfo(1, 5),
@@ -163,14 +122,14 @@ public class GameManager : Singleton<GameManager>
         });
 
         // 미션5
-        missionTargets.Add(5, new List<TargetFishInfo>
+        missionTargets.Add(5, new List<TargetFishInfo> // 미션5는 1번 물고기 3마리, 2번 물고기 5마리 먹기
         {
             new TargetFishInfo(1, 3),
             new TargetFishInfo(2, 5)
         });
 
         // 미션6
-        missionTargets.Add(6, new List<TargetFishInfo>
+        missionTargets.Add(6, new List<TargetFishInfo> // 미션6는 1번 물고기 3마리, 2번 물고기 3마리, 3번 물고기 2마리 먹기
         {
             new TargetFishInfo(1, 3),
             new TargetFishInfo(2, 3),
@@ -178,118 +137,23 @@ public class GameManager : Singleton<GameManager>
         });
 
         // 미션7
-        missionTargets.Add(7, new List<TargetFishInfo>
+        missionTargets.Add(7, new List<TargetFishInfo> // 미션7는 2번 물고기 5마리, 3번 물고기 3마리 먹기
         {
             new TargetFishInfo(2, 5),
             new TargetFishInfo(3, 3)
         });
         // 미션8
-        missionTargets.Add(8, new List<TargetFishInfo>
+        missionTargets.Add(8, new List<TargetFishInfo> // 미션8는 2번 물고기 3마리, 3번 물고기 5마리 먹기
         {
             new TargetFishInfo(2, 3),
             new TargetFishInfo(3, 5)
         });
     }
     #endregion
-
-    //코루틴 함수
-    private IEnumerator SpawnFish()
-    {
-        //게임이 종료될때까지계속반복
-        while (!isGameOver)
-        {
-
-            poolManager.Get(SelectFish(), false);
-            //1초에서 5초사이 실수값으로 랜덤하게 등장
-            yield return new WaitForSeconds(Random.Range(fishSpawnRange.min, fishSpawnRange.max));
-
-        }
-    }
-
-    private IEnumerator SpawnBlowFish()
-    {
-        while (true)
-        {
-            poolManager.Get(0, true); // BlowFish 스폰            
-            yield return new WaitForSeconds(Random.Range(enemySpawnRange.min, enemySpawnRange.max));
-        }
-    }
-
-    private IEnumerator SpawnShark()
-    {
-        while (true)
-        {
-            poolManager.Get(1, true); // Shark 스폰
-
-            yield return new WaitForSeconds(Random.Range(enemySpawnRange.min, enemySpawnRange.max));
-        }
-    }
-
-    // Misson에 따라 적을 선택하는 로직 구현
-    int SelectFish()
-    {
-        if (currentMission >= 7)
-        {
-            if (!isSharkOn)
-            {
-                StopCoroutine(SpawnBlowFish());
-                StartCoroutine(SpawnShark());
-                isSharkOn = true;
-                isBlowFishOn = false;
-            }
-            return Random.Range(2, 4);
-        }
-
-        else if (currentMission >= 5)
-        {
-            return Random.Range(1, 4);
-        }
-
-        else if (currentMission >= 4)
-        {
-            if (!isBlowFishOn)
-            {
-                StartCoroutine(SpawnBlowFish());
-                isBlowFishOn = true;
-            }
-            return Random.Range(0, 4);
-        }
-        else if (currentMission >= 2)
-        {
-            float randomNum = Random.Range(0, 10); // 0에서 9까지의 숫자 중 하나를 랜덤으로 선택
-            if (randomNum < 3.5) // 35% 확률로 0 반환
-            {
-                return 0;
-            }
-            else if (randomNum < 7) // 35% 확률로 1 반환
-            {
-                return 1;
-            }
-            else // 나머지 확률로 2 반환
-            {
-                return 2;
-            }
-        }
-
-        else if (currentMission >= 0)
-        {
-            int randomNum = Random.Range(0, 10); // 0에서 9까지의 숫자 중 하나를 랜덤으로 선택
-            if (randomNum < 7) // 70% 확률로 0 반환
-            {
-                return 0;
-            }
-            else // 나머지 30% 확률로 1 반환
-            {
-                return 1;
-            }
-        }
-
-        else
-            return 0;
-    }
+   
 
 
-    // 현재 카메라의 사이즈에서 0.2f 만큼 증가시키되, 이 변화를 1초에 걸쳐서 부드럽게 적용하려면
+    // 카메라 및 배경 사이즈 변경 코루틴
     IEnumerator ChangeCameraAndBgSize(float duration, float changeSize, float changeBGSizeY)
     {
         float currentTime = 0f; // 현재 보간 진행 시간

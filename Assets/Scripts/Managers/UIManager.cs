@@ -101,6 +101,7 @@ public class UIManager : MonoBehaviour
             abilityBtn.SetActive(false);
         }
     }
+    // 계속하기 버튼
     public void InputContinue()
     {
         Time.timeScale = 1;
@@ -109,15 +110,17 @@ public class UIManager : MonoBehaviour
         isPauseScreenOn = false;
         abilityBtn.SetActive(true);
     }
+    // 메인화면으로 버튼
     public void InputStop()
     {
-        Time.timeScale = 1;
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
+    // 다시하기 버튼
     public void InputRetry()
     {
-        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
 }

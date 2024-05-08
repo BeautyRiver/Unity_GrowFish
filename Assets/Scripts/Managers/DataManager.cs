@@ -18,20 +18,6 @@ public class ThemeData
 }
 
 [System.Serializable]
-public class PlayerData
-{
-    public float scale;
-    public int stage;
-
-    public PlayerData(float scale, int stage)
-    {
-        this.scale = scale;
-        this.stage = stage;
-    }
-}
-
-
-[System.Serializable]
 public class ThemeList
 {
     public List<ThemeData> themes = new List<ThemeData>();
@@ -45,11 +31,11 @@ public class ThemeList
     }
 }
 
-public class DataManager : Singleton<DataManager>
+public class DataManager : Singleton<DataManager> 
 {
-    public ThemeList themeList = new ThemeList();
-    private string path;
-    private string fileName = "ThemeData.json";
+    public ThemeList themeList = new ThemeList(); // 테마 데이터 리스트
+    private string path; // 파일 경로
+    private string fileName = "ThemeData.json"; // 파일 이름
 
     protected override void Awake()
     {

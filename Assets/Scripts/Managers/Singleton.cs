@@ -5,7 +5,7 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-    public static bool DoDestoryObj = true;  // 씬 전환 시 유지할지 여부를 결정하는 플래그
+    public  bool DoDestroyOnLoad = true;  // 씬 전환 시 객체를 유지할지 여부를 결정하는 플래그
 
     public static T Instance
     {
@@ -14,23 +14,31 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<T>();
-                if(instance == null)
+                if (instance == null)
                 {
-                    GameObject obj = new GameObject(typeof(T).Name, typeof(T));
-                    instance = obj.GetComponent<T>();
+                    GameObject obj = new GameObject(typeof(T).Name);
+                    instance = obj.AddComponent<T>();
                 }
             }
-        return instance;
+            return instance;
         }
     }
+
     protected virtual void Awake()
     {
-        Application.targetFrameRate = 60;
-        if (transform.parent != null && transform.root != null)
+        if (instance != null && instance != this)
         {
-            DontDestroyOnLoad(this.gameObject.transform.root.gameObject);
+            Destroy(this.gameObject);  // 중복 인스턴스 파괴
+            return;
         }
-        if(DoDestoryObj == true)
-            DontDestroyOnLoad(this.gameObject);   
+
+        instance = this as T;
+
+        if (DoDestroyOnLoad)
+        {
+            DontDestroyOnLoad(this.gameObject);  // 씬 전환 시 파괴되지 않도록 설정
+        }
+
+        Application.targetFrameRate = 60;
     }
 }

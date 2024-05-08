@@ -1,10 +1,12 @@
 using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
+using System;
 using UnityEngine;
-
+using Ran = UnityEngine.Random;
 public class FishAI : MonoBehaviour
 {
+    public static Action DisableFish;
     public int turnCount = 2; // 사거리 벗어나고 Turn할 횟수
     public float moveSpeed = 2f; // 기본 속도
     public float runAwaySpeed; // 도망칠때 속도
@@ -43,17 +45,20 @@ public class FishAI : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        DisableFish += FadeOut; // 물고기 비활성화 이벤트 등록
         spriteRenderer.color = originalColor; // 투명도 제거
-        anim.SetBool(gameObject.tag, true);
-        turnCount = 2;
-        RandomSpeed(2f, 3.7f);
+        anim.SetBool(gameObject.tag, true); // 애니메이션 실행
+        turnCount = 2; // 턴 카운트 초기화
+        RandomSpeed(2f, 3.7f); // 속도 및 Y 위치 랜덤 설정
     }
-    protected virtual void Update()
+
+   private void OnDisable()
     {
-        /*if (GameManager.Instance.isGameOver == true && gameObject.activeSelf == true)
-        {
-            // StartCoroutine(FadeOut(1f));
-        }*/
+        DisableFish -= FadeOut; // 물고기 비활성화 이벤트 제거
+    }
+
+    protected virtual void Update()
+    {        
         runAwaySpeed = moveSpeed * 1.4f;
         // 이동 방향에 따라 스프라이트 뒤집기
         Vector3 localScale = transform.localScale;
@@ -127,29 +132,38 @@ public class FishAI : MonoBehaviour
         }
     }
 
-    IEnumerator FadeOut(float fadeDuration)
+    void FadeOut()
     {
-        float currentTime = 0f;
-        Color color= spriteRenderer.color;  // 원래 색상을 저장
-
-        while (currentTime < fadeDuration)
+        // 스프라이트의 투명도를 점차 0으로 변경
+        spriteRenderer.DOFade(0, 1.0f).OnComplete(() =>
         {
-            float alpha = Mathf.Lerp(1f, 0f, currentTime / fadeDuration);
-            spriteRenderer.color = new Color(color.r, color.g, color.b, alpha);
-            currentTime += Time.deltaTime;
-            yield return null;  // 다음 프레임까지 대기
-        }
-
-        // 완전히 투명해진 후 오브젝트 비활성화
-        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
-        gameObject.SetActive(false);
+            gameObject.SetActive(false); // 페이드 아웃 후 오브젝트 비활성화
+        });
     }
 
+    /* IEnumerator FadeOut(float fadeDuration)
+     {
+         float currentTime = 0f;
+         Color color= spriteRenderer.color;  // 원래 색상을 저장
+
+         while (currentTime < fadeDuration)
+         {
+             float alpha = Mathf.Lerp(1f, 0f, currentTime / fadeDuration);
+             spriteRenderer.color = new Color(color.r, color.g, color.b, alpha);
+             currentTime += Time.deltaTime;
+             yield return null;  // 다음 프레임까지 대기
+         }
+
+         // 완전히 투명해진 후 오브젝트 비활성화
+         spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+         gameObject.SetActive(false);
+     }
+ */
     // 새로운 X 위치를 계산하는 함수
     float CalculateNewPositionX()
     {
         float newPosX = player.transform.position.x; // 초기 위치 설정
-        float range = Random.Range(27f, 38.5f);
+        float range = Ran.Range(27f, 38.5f);
 
         // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정
         if (player.transform.localScale.x > 0 && currentDirection.x > 0)
@@ -177,18 +191,20 @@ public class FishAI : MonoBehaviour
     // 랜덤한 속도 함수
     protected void RandomSpeed(float minSpeed, float maxSpeed)
     {
-        moveSpeed = Random.Range(2f, 4f);
+        moveSpeed = Ran.Range(2f, 4f);
     }
+    // X축 반전
     protected void SetReverseX()
     {
-        currentDirection = new Vector2(-currentDirection.x, Random.Range(-0.2f, 0.2f)).normalized;
+        currentDirection = new Vector2(-currentDirection.x, Ran.Range(-0.2f, 0.2f)).normalized;
     }
-
+    // Y축 랜덤 설정
     protected void SetRandomY()
     {
-        currentDirection = new Vector2(currentDirection.x, Random.Range(-0.2f, 0.2f)).normalized;
+        currentDirection = new Vector2(currentDirection.x, Ran.Range(-0.2f, 0.2f)).normalized;
     }
 
+    // 랜덤 방향 설정
     protected void SetRandomDir()
     {
         SetRandomY();
@@ -197,7 +213,7 @@ public class FishAI : MonoBehaviour
     // 무작위 초기 방향 설정
     private void SetNewDirection()
     {
-        currentDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f) * 0.1f).normalized;
+        currentDirection = new Vector2(Ran.Range(-1f, 1f), Ran.Range(-1f, 1f) * 0.1f).normalized;
     }
 
     // 플레이어와 같은 방향으로 이동 검사 (양수 = 플레이어 향해 이동)

@@ -7,20 +7,38 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private GameObject[] fishPrefabs; // 물고기 프리팹 관리 배열: 미리 설정된 물고기 프리팹들을 저장
     [SerializeField] private GameObject[] enemyPrefabs; // 상어, 복어 같은 적 물고기 배열
     [SerializeField] private Transform[] spawnPoints; // 스폰 장소들: 물고기가 나타날 위치들을 정의
-    [SerializeField] private List<GameObject>[] fishPools; // 각 물고기 타입별로 재사용 가능한 게임 오브젝트들을 저장할 리스트의 배열
-    
+    [SerializeField] private List<GameObject>[] fishPools; // 물고기 풀 배열: 물고기 프리팹들을 풀링하여 저장
+    [SerializeField] private List<GameObject>[] enemyPools; // 적 물고기 풀 배열 
+    private bool isFishSpawnCor = false; // 물고기 스폰 코루틴 중복 실행 방지 변수
+    private bool isBlowFishSpawnCor = false; // BlowFish 스폰 코루틴 중복 실행 방지 변수
+    private bool isSharkSpawnCor = false; // Shark 스폰 코루틴 중복 실행 방지 변수
+    public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f); // 물고기 스폰 범위
+    public EnemySpawnRange enemySpawnRange = new EnemySpawnRange(1.0f, 2.0f); // 적 물고기 스폰 범위
+    private GameManager gm; // 게임 매니저 참조
+
     private void Awake()
     {
-        // fishPrefabs 배열의 길이에 따라 fishPools 배열을 초기화
-        fishPools = new List<GameObject>[fishPrefabs.Length];
+        gm = GameManager.Instance; // 게임 매니저 참조
 
-        // fishPools의 각 요소(리스트)를 초기화
+        fishPools = new List<GameObject>[fishPrefabs.Length]; // 물고기 프리팹 배열의 길이만큼 물고기 풀 배열 생성
+        enemyPools = new List<GameObject>[enemyPrefabs.Length]; // 적 물고기 프리팹 배열의 길이만큼 적 물고기 풀 배열 생성      
+
+        // 물고기 풀 배열 초기화
         for (int i = 0; i < fishPools.Length; i++)
         {
             fishPools[i] = new List<GameObject>();
         }
+        // 적 물고기 풀 배열 초기화
+        for (int i = 0; i < enemyPools.Length; i++)
+        {
+            enemyPools[i] = new List<GameObject>();
+        }
     }
 
+    private void Start()
+    {
+        StartSpawnFish(); // 물고기 스폰
+    }
     public void Get(int index, bool isEnemy)
     {
         GameObject select = null; // 선택될 게임 오브젝트를 저장할 변수
@@ -39,8 +57,16 @@ public class PoolManager : MonoBehaviour
         // 풀에서 사용 가능한 오브젝트를 찾지 못한 경우, 새로운 오브젝트를 생성하고 풀에 추가
         if (select == null)
         {
-            select = Instantiate(isEnemy ? enemyPrefabs[index] : fishPrefabs[index], transform); // 프리팹을 인스턴스화하여 생성
-            fishPools[index].Add(select); // 생성된 오브젝트를 해당 풀에 추가
+            if (isEnemy)
+            {
+                select = Instantiate(enemyPrefabs[index], transform);
+                enemyPools[index].Add(select);
+            }
+            else
+            {
+                select = Instantiate(fishPrefabs[index], transform);
+                fishPools[index].Add(select);
+            }
         }
 
         // 선택된 오브젝트를 무작위 스폰 포인트 위치로 이동
@@ -49,4 +75,86 @@ public class PoolManager : MonoBehaviour
         //return select; // 선택된 게임 오브젝트를 반환
     }
 
+    // 물고기 스폰 시작
+    public void StartSpawnFish()
+    {
+        if (isFishSpawnCor == true) // 코루틴이 실행 중이라면 중지
+            StopCoroutine(SpawnFish()); // 물고기 스폰 코루틴 중지
+
+        StartCoroutine(SpawnFish()); // 물고기 스폰 코루틴 시작
+    }
+    // 물고기 스폰 코루틴
+    private IEnumerator SpawnFish()
+    {
+        isFishSpawnCor = true; // 물고기 스폰 코루틴 중복 실행 방지 변수 true로 변경
+        while (!gm.isGameOver) //게임이 종료될때까지계속반복
+        {
+            Get(SelectFish(), false);
+            //1초에서 5초사이 실수값으로 랜덤하게 등장
+            yield return new WaitForSeconds(Random.Range(fishSpawnRange.min, fishSpawnRange.max));
+        }
+        isFishSpawnCor = false; // 물고기 스폰 코루틴 중복 실행 방지 변수 false로 변경
+    }
+
+    // 적 스폰 코루틴
+    private IEnumerator SpawnBlowFish()
+    {
+        isBlowFishSpawnCor = true;
+        while (!gm.isGameOver)
+        {
+            Get(0, true); // BlowFish 스폰            
+            yield return new WaitForSeconds(Random.Range(enemySpawnRange.min, enemySpawnRange.max));
+        }
+        isBlowFishSpawnCor = false;
+    }
+    // 상어 스폰 코루틴
+    private IEnumerator SpawnShark()
+    {
+        isSharkSpawnCor = true;
+        while (!gm.isGameOver)
+        {
+            Get(1, true); // Shark 스폰
+
+            yield return new WaitForSeconds(Random.Range(enemySpawnRange.min, enemySpawnRange.max));
+        }
+        isSharkSpawnCor = false;
+    }
+
+    // Misson에 따라 적을 선택하는 로직 구현
+    private int SelectFish()
+    {
+        float randomNum = Random.Range(0, 100); // 0에서 99까지의 숫자 중 하나를 랜덤으로 선택
+
+        if (gm.currentMission <= 1) // 미션 0, 1
+        {
+            if (randomNum < 70) return 0; // 70% 확률로 0번 물고기
+            else return 1; // 30% 확률로 1번 물고기            
+        }
+        else if (gm.currentMission <= 3) // 미션 2, 3
+        {
+            if (randomNum < 45) return 0; // 45% 확률로 0번 물고기            
+            else if (randomNum < 75) return 1; // 30% 확률로 1번 물고기
+            else return 2; // 25% 확률로 2번 물고기            
+        }
+        else if (gm.currentMission <= 5) // 미션 4, 5
+        {
+            if(isBlowFishSpawnCor == false)
+                StartCoroutine(SpawnBlowFish()); // BlowFish 스폰 코루틴 시작
+
+            if (randomNum < 30) return 0; // 30% 확률로 0번 물고기
+            else if (randomNum < 70) return 1; // 40% 확률로 1번 물고기
+            else if (randomNum < 90) return 2; // 20% 확률로 2번 물고기
+            else return 3; // 10% 확률로 3번 물고기
+        }
+        else // 미션 6,7,8
+        {
+            if(gm.currentMission <= 7 && isSharkSpawnCor == false)
+                StartCoroutine(SpawnShark()); // Shark 스폰 코루틴 시작
+            
+            if (randomNum < 10) return 0; // 10% 확률로 0번 물고기
+            else if (randomNum < 40) return 1; // 30% 확률로 1번 물고기
+            else if (randomNum < 70) return 2; // 30% 확률로 2번 물고기
+            else return 3; // 30% 확률로 3번 물고기
+        }
+    }
 }
