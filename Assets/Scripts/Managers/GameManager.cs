@@ -53,15 +53,15 @@ public class GameManager : Singleton<GameManager>
     public EnemySpawnRange enemySpawnRange = new EnemySpawnRange(1.0f, 2.0f);
     public bool isBlowFishOn = false;
     public bool isSharkOn = false;
-   
+
     //스테이지 레벨관리
     public int currentMission;
     public bool isGameEnd;
     public bool isGameOver = false;
-   
+
     // 점수들
     public int score;
- 
+
     public int Level_1 { get; } = 60;
     public int Level_2 { get; } = 500;
     public int Level_3 { get; } = 2000;
@@ -80,18 +80,16 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    
+
 
     public Dictionary<int, List<TargetFishInfo>> missionTargets = new Dictionary<int, List<TargetFishInfo>>();
 
     protected override void Awake()
     {
-        DoDestoryObj = false;
         base.Awake();
     }
     private void Start()
     {
-        DOTween.KillAll();
         StartCoroutine(SpawnFish());
         InitializeMissionTargets(); // 목표 물고기 설정        
     }
@@ -190,7 +188,7 @@ public class GameManager : Singleton<GameManager>
         {
             new TargetFishInfo(2, 3),
             new TargetFishInfo(3, 5)
-        });       
+        });
     }
     #endregion
 
@@ -200,9 +198,11 @@ public class GameManager : Singleton<GameManager>
         //게임이 종료될때까지계속반복
         while (!isGameOver)
         {
+
             poolManager.Get(SelectFish(), false);
             //1초에서 5초사이 실수값으로 랜덤하게 등장
             yield return new WaitForSeconds(Random.Range(fishSpawnRange.min, fishSpawnRange.max));
+
         }
     }
 
@@ -290,7 +290,7 @@ public class GameManager : Singleton<GameManager>
 
 
     // 현재 카메라의 사이즈에서 0.2f 만큼 증가시키되, 이 변화를 1초에 걸쳐서 부드럽게 적용하려면
-    IEnumerator ChangeCameraAndBgSize(float duration, float changeSize,  float changeBGSizeY)
+    IEnumerator ChangeCameraAndBgSize(float duration, float changeSize, float changeBGSizeY)
     {
         float currentTime = 0f; // 현재 보간 진행 시간
         float startSize = Camera.main.orthographicSize; // 시작 사이즈
@@ -338,7 +338,7 @@ public class GameManager : Singleton<GameManager>
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
             StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f, 0.03f));
             currentMission += 1;
-            uiManager.nowMissonText.text = "미션 : " + (currentMission+1).ToString();
+            uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
             // 미션 8을 넘어서면 게임 종료 상태 설정
             if (currentMission > 8)
             {
@@ -352,12 +352,12 @@ public class GameManager : Singleton<GameManager>
                 scaleChange.x = -scaleChange.x;
             }
             Vector3 targetScale = playerMoveScript.transform.localScale + scaleChange;
-            StartCoroutine(ChangeScaleCoroutine(targetScale, 0.5f));            
+            StartCoroutine(ChangeScaleCoroutine(targetScale, 0.5f));
 
             // 이펙트 끄기
             levelEffectPrefab[0].SetActive(true);
             levelEffectPrefab[1].SetActive(true);
-        }        
+        }
     }
 
     // 디버그용 스테이지 다운

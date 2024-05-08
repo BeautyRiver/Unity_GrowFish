@@ -77,7 +77,7 @@ public class PlayerMove : MonoBehaviour
             {
                 x = joystick.Horizontal;
                 y = joystick.Vertical;
-
+                
                 if (!(x == 0 || y == 0))
                     lastDirection = playerDir;
 
@@ -239,6 +239,7 @@ public class PlayerMove : MonoBehaviour
     //사망할때
     private void isDie()
     {
+        joystick.OnPointerUp();
         StopCoroutine(nameof(OnDamaged));
         rb.velocity = Vector2.zero;
         joystick.gameObject.SetActive(false);
@@ -256,8 +257,6 @@ public class PlayerMove : MonoBehaviour
     // 광고보고 살아나기
     public void SawAd()
     {        
-        rb.velocity = Vector2.zero;
-        transform.position = Vector3.zero;
         joystick.gameObject.SetActive(true);
         playerAni.enabled = true;
         gm.isGameOver = false;

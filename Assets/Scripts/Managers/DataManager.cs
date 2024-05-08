@@ -14,9 +14,21 @@ public class ThemeData
         themeName = name;
         isOpen = open;
         isSelect = select;
-    }
+    }    
 }
 
+[System.Serializable]
+public class PlayerData
+{
+    public float scale;
+    public int stage;
+
+    public PlayerData(float scale, int stage)
+    {
+        this.scale = scale;
+        this.stage = stage;
+    }
+}
 
 
 [System.Serializable]
