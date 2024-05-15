@@ -7297,6 +7297,7 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 52d210feaf71af942a3f68376f82028c, type: 2}
   - {fileID: 9100000, guid: 303b3186521586541b1bb1c0c5793229, type: 2}
   fishSprites:
+  - name: "\uAE30\uBCF8(Default)"
   - name: "\uAE30\uBCF8"
     fs:
     - {fileID: -453592465, guid: 326ccd4110f8eee4ca38b6782e9183e9, type: 3}
