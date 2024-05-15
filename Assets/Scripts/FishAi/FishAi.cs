@@ -43,6 +43,8 @@ public class FishAI : MonoBehaviour
         SetNewDirection(); // 초기 방향 설정
         originalColor = spriteRenderer.color; // 원래 색상 저장
         InvokeRepeating(nameof(SetRandomY), 1f, 2.5f); // 2.5초마다 Y값  변경
+
+        anim.runtimeAnimatorController = InitSkinSystem.Instance.currentFishAnimtor; // 테마에 맞는 애니메이터 설정        
     }
 
     protected virtual void OnEnable()

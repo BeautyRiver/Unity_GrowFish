@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     // 플레이어의 기본 속성
     [Header("플레이어 속성")]
     public float playerScale = 0.3f; //플레이어 크기
-    public int maxHp = 100; // 최대 체력값 추가
+    public int maxHp = 100; // 최대 체력값 
     public float hp; // 플레이어 현재 체력
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
     private bool isMoveOk = true; //움직임 가능 체크 변수  
@@ -58,7 +58,7 @@ public class PlayerMove : MonoBehaviour
         hp = maxHp; // 초기 체력 설정
         currentMaxSpeed = maxSpeedNormal; // 초기 최대 속도 설정
     }
-
+    
     private void Update()
     {
         // 게임오버 상태가 아니고 일시정지 화면이 아닐때        

@@ -37,3 +37,17 @@ public class FishSpawnRange
         this.max = max;
     }
 }
+
+[System.Serializable]
+public class FishSkin
+{
+    public string name;
+    public List<Sprite> fs;
+}
+
+[System.Serializable]
+public class BgSkin
+{
+    public string name;
+    public List<Sprite> bg;
+}
