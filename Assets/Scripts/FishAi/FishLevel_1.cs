@@ -11,6 +11,10 @@ public class FishLevel_1 : FishAI
         base.Awake();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void Update()
     {
         base.Update();

@@ -8,6 +8,8 @@ public class BackGroundScroll : MonoBehaviour
     public GameObject background1; // 배경 1
     public GameObject background2; // 배경 2
 
+    public GameObject bgDeco1; // 배경 장식 1
+    public GameObject bgDeco2; // 배경 장식 2
     private float backgroundWidth; // 배경의 너비
     private float lastPlayerX; // 이전 프레임에서 플레이어의 x 위치
 
@@ -29,12 +31,14 @@ public class BackGroundScroll : MonoBehaviour
         {
             // 배경 2를 배경 1의 오른쪽으로 이동
             background2.transform.position = new Vector3(background1.transform.position.x + backgroundWidth, background1.transform.position.y, background1.transform.position.z);
+            bgDeco2.transform.position = background2.transform.position;
         }
         // 플레이어가 왼쪽으로 이동하며 배경 1의 중간을 지나갔을 경우
         else if (!movingRight && player.position.x <= background1.transform.position.x)
         {
             // 배경 2를 배경 1의 왼쪽으로 이동
             background2.transform.position = new Vector3(background1.transform.position.x - backgroundWidth, background1.transform.position.y, background1.transform.position.z);
+            bgDeco2.transform.position = background2.transform.position;
         }
 
         // 플레이어가 오른쪽으로 이동하며 배경 1의 중간을 지나갔을 경우
@@ -42,12 +46,14 @@ public class BackGroundScroll : MonoBehaviour
         {
             // 배경 2를 배경 1의 오른쪽으로 이동
             background1.transform.position = new Vector3(background2.transform.position.x + backgroundWidth, background2.transform.position.y, background2.transform.position.z);
+            bgDeco1.transform.position = background1.transform.position;
         }
         // 플레이어가 왼쪽으로 이동하며 배경 1의 중간을 지나갔을 경우
         else if (!movingRight && player.position.x <= background2.transform.position.x)
         {
             // 배경 2를 배경 1의 왼쪽으로 이동
             background1.transform.position = new Vector3(background2.transform.position.x - backgroundWidth, background2.transform.position.y, background2.transform.position.z);
+            bgDeco1.transform.position = background1.transform.position;
         }
 
         // 이번 프레임에서의 플레이어 위치를 다음 프레임 비교를 위해 저장

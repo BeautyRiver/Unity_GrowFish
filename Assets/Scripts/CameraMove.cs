@@ -16,10 +16,3 @@ public class CameraMove : MonoBehaviour
         
     }
 }
-
-// 카메라가 플레이어를 따라다니지만 y축이 5.2에서 -6.36 사이로 세팅하는 함수 작성
-
-
-
-// 5.2-6.36
-

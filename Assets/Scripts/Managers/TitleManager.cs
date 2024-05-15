@@ -16,23 +16,8 @@ public class TitleManager : MonoBehaviour
 
     // 게임 시작 버튼
     public void InputGameStart()
-    {
-        DataManager dt = DataManager.Instance;
-        dt.LoadData();
-        // 테마 선택 여부에 따라 다른 씬으로 이동
-        foreach (var data in dt.themeList.themes)
-        {
-            if(data.isSelect == true)
-            {
-                SceneManager.LoadScene("GameScene_" + data.themeName);
-                break;
-            }
-            else
-            {
-                SceneManager.LoadScene("GameScene_DefaultTheme");
-            }
-        }
-        
+    {               
+       SceneManager.LoadScene("GameScene_DefaultTheme");                
     }
     // 상점 화면으로 이동 버튼
     public void InputStoreBtn()
@@ -48,10 +33,6 @@ public class TitleManager : MonoBehaviour
     // 테마 변경 화면 활성화 버튼
     public void InputThemeScreenOn()
     {        
-       
-
-
-
         ThemeChangeScreen.SetActive(true); // 오브젝트 활성화
         SetPositionX(ThemeItemRectTransform, 0); // rect(스크롤) 초기 위치로 설정         
         ThemeChangeScreen.transform.localScale = Vector3.zero; // 초기 스케일을 0으로 설정

@@ -15,7 +15,6 @@ public class PlayerMove : MonoBehaviour
     public float hp; // 플레이어 현재 체력
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
     private bool isMoveOk = true; //움직임 가능 체크 변수  
-    private bool isAlive = true; // 살아있는지 여부
     // 플레이어 이동 관련 속성
     [Header("플레이어 이동")]
     public float maxSpeedNormal;    // 일반 이동 시 최대 속도
@@ -45,15 +44,18 @@ public class PlayerMove : MonoBehaviour
 
     // 내부 컴포넌트
     [Header("내부 컴포넌트")]
-    private Rigidbody2D rb;     // Rigidbody2D 
-    private Animator playerAni; // 플레이어 애니메이터
+    private Rigidbody2D rb;     // Rigidbody2D     
+    [HideInInspector] public Animator playerAni; // 플레이어 애니메이터
     private SpriteRenderer spriteRenderer; // 스프라이트 랜더러
 
+    private void Awake()
+    {
+        playerAni = GetComponent<Animator>(); // Animator 컴포넌트 할당
+    }
     private void Start()
     {
         gm = GameManager.Instance; // 게임 매니저 참조
         rb = GetComponent<Rigidbody2D>(); // Rigidbody2D 컴포넌트 할당
-        playerAni = GetComponent<Animator>(); // Animator 컴포넌트 할당
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 컴포넌트 할당
         hp = maxHp; // 초기 체력 설정
         currentMaxSpeed = maxSpeedNormal; // 초기 최대 속도 설정

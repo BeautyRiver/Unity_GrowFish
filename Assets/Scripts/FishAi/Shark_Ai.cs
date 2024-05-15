@@ -13,6 +13,11 @@ public class Shark_Ai : FishAI
         findPlayer = false;
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+    
     protected override void OnEnable()
     {
         base.OnEnable();

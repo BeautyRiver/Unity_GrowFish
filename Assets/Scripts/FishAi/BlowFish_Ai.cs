@@ -5,12 +5,17 @@ using UnityEngine;
 public class BlowFish_Ai : FishAI
 {
     public bool isAttack;
-    new private void Awake()
+    protected override void Awake()
     {
         base.Awake(); 
     }
 
-    new private void Update()
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override void Update()
     {
         base.Update();
         if (isAttack)
