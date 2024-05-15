@@ -19,7 +19,7 @@ public class ThemeTransParent : MonoBehaviour
     {
         UpdateThemeSelect();
     }
-
+    // 테마 선택 버튼 업데이트
     public void UpdateThemeSelect()
     {        
         if (menu == Menu.Main)

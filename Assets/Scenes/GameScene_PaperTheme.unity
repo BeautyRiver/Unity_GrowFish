@@ -12673,6 +12673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f13d8cba1fad49824a6d34e54acd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DoDestroyOnLoad: 1
   uiManager: {fileID: 1346944231}
   playerMoveScript: {fileID: 1125175351}
   poolManager: {fileID: 1499274140}
@@ -12681,18 +12682,17 @@ MonoBehaviour:
   - {fileID: 5222652}
   - {fileID: 1159418289}
   LevelUpScale: 0.08
-  fishSpawnRange:
-    min: 1.7
-    max: 2.5
-  enemySpawnRange:
-    min: 2
-    max: 4
   isBlowFishOn: 0
   isSharkOn: 0
   currentMission: 0
   isGameEnd: 0
   isGameOver: 0
+  isSpawnning: 0
   score: 0
+  level_1: 60
+  level_2: 500
+  level_3: 2000
+  level_4: 4500
 --- !u!1 &921100883
 GameObject:
   m_ObjectHideFlags: 0
@@ -13126,6 +13126,7 @@ MonoBehaviour:
   uiManager: {fileID: 1346944231}
   joystick: {fileID: 3881087802580337594}
   spawner: {fileID: 1893027995}
+  pm: {fileID: 1499274140}
 --- !u!50 &1125175352
 Rigidbody2D:
   serializedVersion: 4
@@ -23834,6 +23835,12 @@ MonoBehaviour:
   - {fileID: 40961075}
   - {fileID: 2044472968}
   - {fileID: 51614892}
+  fishSpawnRange:
+    min: 1
+    max: 2
+  enemySpawnRange:
+    min: 1
+    max: 2
 --- !u!4 &1499274141
 Transform:
   m_ObjectHideFlags: 0
