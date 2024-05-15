@@ -7229,11 +7229,7 @@ MonoBehaviour:
   - {fileID: 9100000, guid: 303b3186521586541b1bb1c0c5793229, type: 2}
   fishSprites:
   - name: "\uAE30\uBCF8"
-<<<<<<< Updated upstream
     fishSprites:
-=======
-    fs:
->>>>>>> Stashed changes
     - {fileID: -453592465, guid: 326ccd4110f8eee4ca38b6782e9183e9, type: 3}
     - {fileID: 1210322555, guid: 69f06b9e86a9027478ab3fd50cb19a2c, type: 3}
     - {fileID: 201250059, guid: 03ef40a53a4fb9a4a913a5436f7d5129, type: 3}
@@ -7241,11 +7237,7 @@ MonoBehaviour:
     - {fileID: 1039983453, guid: cafe4730d6ab8bd43a2ca767b76268ca, type: 3}
     - {fileID: 202299437, guid: 60ff1cb286c8c5b43901624c11a46b06, type: 3}
   - name: "\uC885\uC774"
-<<<<<<< Updated upstream
     fishSprites:
-=======
-    fs:
->>>>>>> Stashed changes
     - {fileID: 21300000, guid: 5008d33888db0644aa7fff7b12c49ad0, type: 3}
     - {fileID: 21300000, guid: 3830673a27ef939438e8aad1a366d914, type: 3}
     - {fileID: 21300000, guid: 343774c03a453ba4a9f264e52db01be3, type: 3}
@@ -7253,7 +7245,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e7406119112f242439ef11ae4e72171e, type: 3}
     - {fileID: 21300000, guid: 4b27c34e032a8d2479a9f339909ed569, type: 3}
   - name: "\uD560\uB85C\uC708"
-<<<<<<< Updated upstream
     fishSprites: []
   bgSprites:
   - name: "\uAE30\uBCF8"
@@ -7271,24 +7262,6 @@ MonoBehaviour:
     bg: {fileID: 0}
     fFloorDeco1: {fileID: 0}
     fFloorDeco2: {fileID: 0}
-=======
-    fs: []
-  bgSprites:
-  - name: "\uAE30\uBCF8"
-    bg:
-    - {fileID: 21300000, guid: 14a4af718c016d3408252b1f010e8c04, type: 3}
-    - {fileID: 21300000, guid: 7b329e6bd6de3fa47ac597ac582bc5b1, type: 3}
-    - {fileID: 21300000, guid: ce0ae9f136b37eb4d9c920582a72c672, type: 3}
-    - {fileID: 21300000, guid: d1f03c48994ddba498c9c9ace5e4efce, type: 3}
-  - name: "\uC885\uC774"
-    bg:
-    - {fileID: 21300000, guid: 0b1b48fda2fe724428c17a586087b8fa, type: 3}
-    - {fileID: 21300000, guid: 2fedb39ddb1fdaf4c84d7602af28d0c0, type: 3}
-    - {fileID: 21300000, guid: b774b2b3ae7748b44a700cacf117ddd8, type: 3}
-    - {fileID: 21300000, guid: ed3183afc00e3474682d0cc98eead73b, type: 3}
-  - name: "\uD560\uB85C\uC708"
-    bg: []
->>>>>>> Stashed changes
 --- !u!4 &1747451101
 Transform:
   m_ObjectHideFlags: 0

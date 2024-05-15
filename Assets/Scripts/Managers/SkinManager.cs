@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 
-public class InitSkinSystem : Singleton<InitSkinSystem>
+public class SkinManager : Singleton<SkinManager>
 {
 
     public bool[] isFishSkinUnlock;

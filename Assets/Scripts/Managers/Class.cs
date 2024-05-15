@@ -38,14 +38,12 @@ public class FishSpawnRange
     }
 }
 
-[System.Serializable]
 public class FishSkin
 {
     public string name;
     public List<Sprite> fs;
 }
 
-[System.Serializable]
 public class BgSkin
 {
     public string name;
