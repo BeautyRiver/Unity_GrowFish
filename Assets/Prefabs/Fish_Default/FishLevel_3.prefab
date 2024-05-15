@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 5901511097910416253}
   - component: {fileID: 835652736895846555}
   - component: {fileID: 3934056756961007875}
-  - component: {fileID: 3689024991922199998}
-  - component: {fileID: 5849971325783490405}
+  - component: {fileID: 4346592335570116291}
+  - component: {fileID: 2586122066165063515}
   m_Layer: 8
   m_Name: FishLevel_3
   m_TagString: Lv3
@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.8, y: -1.3, z: 0}
-  m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 15.122151, y: 9.750001}
+  m_Size: {x: 3.7, y: 2.39}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -164,6 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCount: 1
   moveSpeed: 2.7
+  minSpeed: 2
+  maxSpeed: 4
   runAwaySpeed: 4
   detectionRadius: 5
   maxDistance: 40
@@ -172,42 +174,7 @@ MonoBehaviour:
   isRunningAway: 0
   distanceToPlayer: 0
   fishType: 0
---- !u!58 &3689024991922199998
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8285932364354016187}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -3.34, y: 0.09}
-  serializedVersion: 2
-  m_Radius: 4.16
---- !u!61 &5849971325783490405
+--- !u!61 &4346592335570116291
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,16 +206,51 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.3610241, y: 0.5380764}
+  m_Offset: {x: 0.8761114, y: -0.008785844}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 15.122151, y: 9.750001}
-    newSize: {x: 15.122151, y: 9.750001}
+    oldSize: {x: 2.6133332, y: 1.6866666}
+    newSize: {x: 3.7, y: 2.39}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.663832, y: 7.691886}
+  m_Size: {x: 0.84623384, y: 0.95455873}
   m_EdgeRadius: 0
+--- !u!58 &2586122066165063515
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8285932364354016187}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.41, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.88

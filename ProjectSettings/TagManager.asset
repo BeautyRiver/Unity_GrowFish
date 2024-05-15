@@ -56,3 +56,6 @@ TagManager:
   - name: Fish
     uniqueID: 341368005
     locked: 0
+  - name: Player
+    uniqueID: 419682067
+    locked: 0

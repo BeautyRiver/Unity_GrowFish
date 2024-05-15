@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 480875875263826720}
   - component: {fileID: 6239435761408880817}
   - component: {fileID: 110431926034085181}
-  - component: {fileID: 1809726722290896126}
+  - component: {fileID: 6790345654093937110}
+  - component: {fileID: 4687293841791495950}
   m_Layer: 8
   m_Name: Paper_FishLevel_BlowFish
   m_TagString: BlowFish
@@ -163,6 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCount: 1
   moveSpeed: 2
+  minSpeed: 2
+  maxSpeed: 4
   runAwaySpeed: 0
   detectionRadius: 5
   maxDistance: 30
@@ -172,7 +175,42 @@ MonoBehaviour:
   distanceToPlayer: 0
   fishType: 1
   isAttack: 0
---- !u!61 &1809726722290896126
+--- !u!58 &6790345654093937110
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894225792241836892}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.43, y: -0.12}
+  serializedVersion: 2
+  m_Radius: 0.62
+--- !u!61 &4687293841791495950
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,7 +242,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14975715, y: -0.17571291}
+  m_Offset: {x: 0.4611354, y: -0.061484724}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -215,5 +253,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3204856, y: 0.7129827}
+  m_Size: {x: 0.5065502, y: 0.48858833}
   m_EdgeRadius: 0

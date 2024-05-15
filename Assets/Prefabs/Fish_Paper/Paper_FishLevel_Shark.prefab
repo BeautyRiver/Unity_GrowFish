@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6508471220079239666}
   - component: {fileID: 9842586081429741}
   - component: {fileID: 2239653947426723121}
-  - component: {fileID: 7720530447142132732}
+  - component: {fileID: 2926736767493558399}
   m_Layer: 8
   m_Name: Paper_FishLevel_Shark
   m_TagString: Shark
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.8, y: -1.3, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3474636794350320298}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 341368005
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4b27c34e032a8d2479a9f339909ed569, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -164,6 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCount: 1
   moveSpeed: 2.5
+  minSpeed: 2
+  maxSpeed: 4
   runAwaySpeed: 4
   detectionRadius: 5
   maxDistance: 30
@@ -173,7 +175,7 @@ MonoBehaviour:
   distanceToPlayer: 0
   fishType: 1
   findPlayer: 0
---- !u!68 &7720530447142132732
+--- !u!68 &2926736767493558399
 EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,20 +207,20 @@ EdgeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.66}
+  m_Offset: {x: 0, y: -0.93}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 3.5672588, y: -1.2163014}
-  - {x: 2.2625618, y: -0.32087833}
-  - {x: -1.3345819, y: -0.8967474}
-  - {x: -2.9840775, y: -0.4856766}
-  - {x: -4.5086365, y: 1.5916896}
-  - {x: -1.5601964, y: 2.0234525}
+  - {x: 3.4502487, y: -0.92493206}
+  - {x: 2.4229212, y: 0.04484433}
+  - {x: -1.2158647, y: -0.6197408}
+  - {x: -2.904934, y: -0.38674563}
+  - {x: -4.3503475, y: 1.4334002}
+  - {x: -1.5601964, y: 1.9245217}
   - {x: 0.64231706, y: 1.6903284}
-  - {x: 2.3512392, y: 1.2339785}
+  - {x: 2.4699554, y: 1.1152613}
   - {x: 4.3120594, y: 2.5079203}
   - {x: 3.5773802, y: 0.15353698}
-  - {x: 3.640277, y: -1.2421527}
+  - {x: 3.4497309, y: -0.95078343}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -287,7 +289,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -6.37, y: 0.08}
+  m_Offset: {x: -5.7323, y: -0.052353382}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -298,5 +300,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.99, y: 6.4}
+  m_Size: {x: 2.0514984, y: 4.980214}
   m_EdgeRadius: 0

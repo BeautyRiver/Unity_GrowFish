@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,10 +126,10 @@ TextureImporter:
       name: BLUE4x_0
       rect:
         serializedVersion: 2
-        x: 102
-        y: 162
-        width: 1512
-        height: 975
+        x: 26
+        y: 41
+        width: 392
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: BLUE4x_1
       rect:
         serializedVersion: 2
-        x: 2090
-        y: 163
-        width: 1587
-        height: 975
+        x: 541
+        y: 42
+        width: 410
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

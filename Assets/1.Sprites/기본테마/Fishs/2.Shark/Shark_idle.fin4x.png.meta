@@ -126,12 +126,12 @@ TextureImporter:
       name: Shark_idle.fin4x_0
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1312
-        width: 2196
-        height: 1161
+        x: 51
+        y: 521
+        width: 875
+        height: 462
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Shark_idle.fin4x_1
       rect:
         serializedVersion: 2
-        x: 2608
-        y: 1357
-        width: 2059
-        height: 1040
+        x: 1038
+        y: 540
+        width: 820
+        height: 415
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: Shark_idle.fin4x_3
       rect:
         serializedVersion: 2
-        x: 136
-        y: 140
-        width: 2182
-        height: 1159
+        x: 1038
+        y: 47
+        width: 820
+        height: 411
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,12 +189,12 @@ TextureImporter:
       name: Shark_idle.fin4x_2
       rect:
         serializedVersion: 2
-        x: 2616
-        y: 119
-        width: 2059
-        height: 1031
+        x: 57
+        y: 56
+        width: 867
+        height: 462
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

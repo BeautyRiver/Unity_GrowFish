@@ -10,16 +10,16 @@ public class CameraMove : MonoBehaviour
     
     void FixedUpdate()
     {
-        float targetY = player.position.y;
-
-        // y축 범위 조정
-        if (player.position.y >= 2.35f)
-            targetY = 2.35f;
-        else if (player.position.y <= -maxY)
-            targetY = -maxY;
-
-        Vector3 targetPos = new Vector3(player.transform.position.x, targetY, transform.position.z);
-
-        transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
+        // 카메라가 플레이어를 따라다니지만 y축이 5.2에서 -6.36 사이로 고정되는 코드
+        Vector3 targetPosition = new Vector3(player.position.x, Mathf.Clamp(player.position.y, -6.36f, 5.2f), transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
+        
     }
 }
+
+// 카메라가 플레이어를 따라다니지만 y축이 5.2에서 -6.36 사이로 세팅하는 함수 작성
+
+
+
+// 5.2-6.36
+
