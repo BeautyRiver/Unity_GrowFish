@@ -7,8 +7,10 @@ using Ran = UnityEngine.Random;
 public class FishAI : MonoBehaviour
 {
     public static Action DisableFish;
-    public int turnCount = 2; // 사거리 벗어나고 Turn할 횟수
+    public int turnCount = 2; // 사거리 벗어나고 Turn할 횟수    
     public float moveSpeed = 2f; // 기본 속도
+    public float minSpeed = 2f; // 최소 속도
+    public float maxSpeed = 4f; // 최대 속도
     public float runAwaySpeed; // 도망칠때 속도
     public float detectionRadius = 5f; // 플레이어 감지 거리
     public float maxDistance; // 플레이어에서 멀어지면 비활성화 할 거리
@@ -191,7 +193,7 @@ public class FishAI : MonoBehaviour
     // 랜덤한 속도 함수
     protected void RandomSpeed(float minSpeed, float maxSpeed)
     {
-        moveSpeed = Ran.Range(2f, 4f);
+        moveSpeed = Ran.Range(minSpeed, maxSpeed); // 랜덤 속도 설정
     }
     // X축 반전
     protected void SetReverseX()

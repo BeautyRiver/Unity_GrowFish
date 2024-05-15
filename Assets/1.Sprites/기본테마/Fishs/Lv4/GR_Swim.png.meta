@@ -123,43 +123,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GR_Swim_2
+      name: GR_Swim_0
       rect:
         serializedVersion: 2
-        x: 2042
-        y: 135
-        width: 1595
-        height: 1049
+        x: 29
+        y: 42
+        width: 378
+        height: 220
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 711d936d037c1ce4da33d490f8eb1d81
-      internalID: 1702310341
+      spriteID: aeec1728138cd364d83dbc10a09dc989
+      internalID: -258498272
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GR_Swim_5
+      name: GR_Swim_1
       rect:
         serializedVersion: 2
-        x: 129
-        y: 183
-        width: 1651
-        height: 974
+        x: 466
+        y: 29
+        width: 363
+        height: 242
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe20e93e3b75a7340b94ac4b881973c2
-      internalID: -1157043352
+      spriteID: 01ab7e64abf22c745bae4721d8bcb382
+      internalID: -1840384860
       vertices: []
       indices: 
       edges: []
@@ -177,16 +177,6 @@ TextureImporter:
     nameFileIdTable:
       GR_Swim_0: -258498272
       GR_Swim_1: -1840384860
-      GR_Swim_10: -2066044530
-      GR_Swim_11: 1153008239
-      GR_Swim_2: 1702310341
-      GR_Swim_3: -1884511401
-      GR_Swim_4: 1642322020
-      GR_Swim_5: -1157043352
-      GR_Swim_6: -1103873933
-      GR_Swim_7: -1125040862
-      GR_Swim_8: -332780060
-      GR_Swim_9: 12755803
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

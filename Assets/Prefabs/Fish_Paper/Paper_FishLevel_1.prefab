@@ -151,6 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCount: 2
   moveSpeed: 2
+  minSpeed: 2
+  maxSpeed: 4
   runAwaySpeed: 2.5
   detectionRadius: 5
   maxDistance: 40
@@ -205,4 +207,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.01, y: -0.08}
   serializedVersion: 2
-  m_Radius: 0.64
+  m_Radius: 0.6

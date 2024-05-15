@@ -10,6 +10,7 @@ using UnityEngine.SocialPlatforms.Impl;
 using System.Linq;
 using System.Diagnostics;
 using UnityEngine.UIElements;
+using System;
 
 
 //GAME MANAGER SCRIPT
@@ -48,10 +49,30 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        DataManager dt = DataManager.Instance;
+        dt.LoadData();
+        // 테마 선택 여부에 따라 다른 씬으로 이동
+        foreach (var data in dt.themeList.themes)
+        {
+            if(data.isSelect == true)
+            {
+                // 스킨 입히는 작업
+                InitSkinSystem(data.themeName);
+            }
+        }
     }
+
+    private void InitSkinSystem(string themeName)
+    {
+        // 스킨 입히는 작업
+        // 스킨 이름에 따라 다른 스킨을 입히는 작업
+        // 애니메이션, 배경이미지, 플레이어 이미지 등을 변경
+        
+    }
+
     private void Start()
     {
-        InitializeMissionTargets(); // 목표 물고기 설정        
+        InitMissionTargets(); // 목표 물고기 설정        
     }
 
     // 물고기 먹을 때마다 호출되는 함수
@@ -91,7 +112,7 @@ public class GameManager : Singleton<GameManager>
 
     #region 물고기 목표값 초기 할당
     // 물고기 목표값 초기 할당
-    void InitializeMissionTargets()
+    void InitMissionTargets()
     {
         // 미션0
         missionTargets.Add(0, new List<TargetFishInfo> { new TargetFishInfo(0, 4) }); // 미션0은 0번 물고기 4마리 먹기

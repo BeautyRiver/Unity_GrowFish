@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 67ebb47a9bb4c50418e28e4e152cce4b
+guid: 3a29d7e500467d848a553eb08eb27a82
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,19 +106,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -126,10 +113,10 @@ TextureImporter:
       name: Beta_Scared4x_0
       rect:
         serializedVersion: 2
-        x: 327
-        y: 5169
-        width: 1641
-        height: 1030
+        x: 108
+        y: 1695
+        width: 538
+        height: 338
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 071042c05e2bffb4cba07a1fd76a3947
-      internalID: 1107931252
+      spriteID: d691b96abb328894195019b05b8c4b88
+      internalID: -497368854
       vertices: []
       indices: 
       edges: []
@@ -147,10 +134,10 @@ TextureImporter:
       name: Beta_Scared4x_1
       rect:
         serializedVersion: 2
-        x: 129
-        y: 2687
-        width: 1984
-        height: 1559
+        x: 42
+        y: 881
+        width: 651
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b4436c86f82cc74894f24570be4983f
-      internalID: 1115062035
+      spriteID: 73eb9294049283b468d1e84e295ad299
+      internalID: -464394265
       vertices: []
       indices: 
       edges: []
@@ -168,10 +155,10 @@ TextureImporter:
       name: Beta_Scared4x_2
       rect:
         serializedVersion: 2
-        x: 117
-        y: 205
-        width: 1813
-        height: 1543
+        x: 38
+        y: 66
+        width: 595
+        height: 507
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23ad799feab75424eb021f76ff79ec88
-      internalID: -2080455523
+      spriteID: 8a128cd37024b3a4eb2d626bd6e94194
+      internalID: 354021812
       vertices: []
       indices: 
       edges: []
@@ -196,9 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Beta_Scared4x_0: 1107931252
-      Beta_Scared4x_1: 1115062035
-      Beta_Scared4x_2: -2080455523
+      Beta_Scared4x_0: -497368854
+      Beta_Scared4x_1: -464394265
+      Beta_Scared4x_2: 354021812
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
