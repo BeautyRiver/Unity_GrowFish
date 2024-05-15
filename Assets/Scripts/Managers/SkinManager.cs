@@ -17,10 +17,10 @@ public class SkinManager : Singleton<SkinManager>
     public AnimatorController[] playerAnimtor;    
 
     [Header("물고기 스프라이트")]
-    public List<FishSkin> fishSprites;
+    public List<newFishSkin> fishSprites;
 
     [Header("배경 스프라이트")]
-    public List<BgSkin> bgSprites;
+    public List<newBgSkin> bgSprites;
 
     protected override void Awake()
     {

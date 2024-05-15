@@ -38,13 +38,13 @@ public class FishSpawnRange
     }
 }
 
-public class FishSkin
+public class newFishSkin
 {
     public string name;
     public List<Sprite> fs;
 }
 
-public class BgSkin
+public class newBgSkin
 {
     public string name;
     public List<Sprite> bg;
