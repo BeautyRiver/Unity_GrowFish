@@ -28,5 +28,8 @@ public class FishSkin
 public class BgSkin
 {
     public string name;
-    public List<Sprite> bgSprites;
+    public Sprite bubble;
+    public Sprite bg;
+    public Sprite fFloorDeco1;
+    public Sprite fFloorDeco2;
 }
