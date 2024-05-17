@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class ThemeData
@@ -20,19 +21,26 @@ public class ThemeData
 [System.Serializable]
 public class ThemeList
 {
-    public List<ThemeData> themes = new List<ThemeData>();
+    
+    public List<ThemeData> themes = new List<ThemeData>();  // 테마 데이터 리스트
 
     // 기본 테마 데이터 생성
     public void InitializeThemes()
     {
+        themes.Clear(); // 기존 데이터를 초기화
         themes.Add(new ThemeData("DefaultTheme", true, true));
-        themes.Add(new ThemeData("PaperTheme", false , false));
-        themes.Add(new ThemeData("HalloweenTheme", false, false));
+        int idx = 0;
+        foreach (var themeName in DataManager.Instance.themeNames)
+        {            
+            themes.Add(new ThemeData(themeName, false, false));
+            idx++;
+        }                
     }
 }
 
 public class DataManager : Singleton<DataManager> 
 {
+    public List<string> themeNames = new List<String>();    // 테마 이름 리스트
     public ThemeList themeList = new ThemeList(); // 테마 데이터 리스트
     private string path; // 파일 경로
     private string fileName = "ThemeData.json"; // 파일 이름
@@ -65,8 +73,9 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    public void UpdateTheme(string themeName)
+    public void UnLockTheme(string themeName)
     {
+        LoadData(); // 데이터 로드
         bool updated = false;
         foreach (var theme in themeList.themes)
         {
@@ -85,6 +94,7 @@ public class DataManager : Singleton<DataManager>
     }
     public void SelectTheme(string themeName)
     {
+        LoadData(); // 데이터 로드
         bool updated = false;
         foreach (var theme in themeList.themes)
         {

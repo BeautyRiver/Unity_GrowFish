@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour
 
     // 대쉬 관련 속성
     [Header("대쉬")]
+    public float dashCoolTime = 5f;     // 대쉬 쿨타임
     public float maxDashSpeed = 10f;    // 대쉬 중 최대 속도
     public bool isDashing = false;     // 대쉬 상태인지 여부
     public float dashTime = 0.2f;       // 대쉬 지속 시간

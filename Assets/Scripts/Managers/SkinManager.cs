@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class SkinManager : Singleton<SkinManager>
@@ -10,11 +8,11 @@ public class SkinManager : Singleton<SkinManager>
 
     [Header("테마선택 상태 0: default 1: paper 2: halloween")]
     public int currentTheme = 0;
-    public AnimatorController[] fishAnimtor;
-    public AnimatorController currentFishAnimtor;
-    public AnimatorController currentPlayerAnimator;
+    public RuntimeAnimatorController[] fishAnimtor;
+    public RuntimeAnimatorController currentFishAnimtor;
     [Header("플레이어 애니메이터")]
-    public AnimatorController[] playerAnimtor;    
+    public RuntimeAnimatorController[] playerAnimtor;    
+    public RuntimeAnimatorController currentPlayerAnimator;
 
     [Header("물고기 스프라이트")]
     public List<FishSkin> fishSprites;
@@ -24,6 +22,7 @@ public class SkinManager : Singleton<SkinManager>
 
     [Header("컴포넌트")]
     public PlayerMove player;
+    public UIManager uIManager;
     protected override void Awake()
     {
         base.Awake();        
@@ -44,13 +43,16 @@ public class SkinManager : Singleton<SkinManager>
             currentTheme++;
         }
     }
-    private void SetSkin()
+    public void SetSkin()
     {   
         // 물고기 스킨 설정             
         currentFishAnimtor = fishAnimtor[currentTheme];
         // 플레이어 애니메이터 설정        
         currentPlayerAnimator = playerAnimtor[currentTheme];
         player.playerAni.runtimeAnimatorController = currentPlayerAnimator; 
+
+        //물고기 할당 이미지 설정
+        uIManager.fishImages = fishSprites[currentTheme].fs.ToArray();
 
         // 배경 스킨 설정
         GameObject[] bgObj = GameObject.FindGameObjectsWithTag("Bg");
@@ -79,9 +81,6 @@ public class SkinManager : Singleton<SkinManager>
         {
             obj.GetComponent<SpriteRenderer>().sprite = bgSprites[currentTheme].bg[0];
         }        
-
-
-
     }
 }
 

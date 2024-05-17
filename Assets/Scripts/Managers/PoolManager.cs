@@ -39,6 +39,7 @@ public class PoolManager : MonoBehaviour
     {
         StartSpawnFish(); // 물고기 스폰
     }
+    
     public void Get(int index, bool isEnemy)
     {
         GameObject select = null; // 선택될 게임 오브젝트를 저장할 변수

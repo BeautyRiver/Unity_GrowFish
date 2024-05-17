@@ -3,30 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RewardsBannerStore : MonoBehaviour
+public class RewardsBanner : Singleton<RewardsBanner>
 {
     [SerializeField] private PlayerMove player;
-    public enum AdsType
+    public enum AdState
     {
-        Respawn,
-        UnlockTheme,
+        None,
+        InGame,
+        Store,
     };
-    public AdsType adsType;
-    private void Awake()
-    {
-        if (adsType == AdsType.Respawn)
-        {
-            if (player == null)
-            {
-                player = FindObjectOfType<PlayerMove>();
-            }
-        }
-        else
-            player = null;
-    }
+
+    public AdState adState;
+    // private void Awake()
+    // {
+    //     if (adState == AdState.InGame)
+    //     {
+    //         if (player == null)
+    //         {
+    //             player = FindObjectOfType<PlayerMove>();
+    //         }
+    //     }
+    //     else
+    //         player = null;
+    // }
     public void Start()
     {
-
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(initStatus => { });
         LoadRewardedAd();
@@ -97,7 +98,7 @@ public class RewardsBannerStore : MonoBehaviour
             Debug.LogError("Rewarded ad failed to open full screen content " +
                            "with error : " + error);
 
-           // 최대한 빨리 다른 광고를 표시할 수 있도록 광고를 다시 로드하세요.
+            // 최대한 빨리 다른 광고를 표시할 수 있도록 광고를 다시 로드하세요.
             LoadRewardedAd();
         };
     }
@@ -109,17 +110,27 @@ public class RewardsBannerStore : MonoBehaviour
         {
             _rewardedAd.Show((Reward reward) =>
             {
-                if (adsType == AdsType.Respawn)
+                if (themeName == "Respawn")
                 {
+                    if (player == null)
+                    {
+                        player = FindObjectOfType<PlayerMove>();
+                    }
                     player.SawAd();
-                    
+                    Debug.Log($"부활이 완료되었습니다.");
                 }
-                else if (adsType == AdsType.UnlockTheme)
+                else
                 {
                     // 테마 언락
-                    DataManager.Instance.UpdateTheme(themeName);
+                    DataManager.Instance.UnLockTheme(themeName);
+                    Debug.Log($"{themeName} 테마가 해금되었습니다.");
+
+                    // 테마 해금 메시지창 등장
+                    FindObjectOfType<ThemeSelectManager>().UpdateThemeStore();
                 }
+
+
             });
         }
-    }      
+    }
 }

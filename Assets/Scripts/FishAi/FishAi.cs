@@ -147,25 +147,6 @@ public class FishAI : MonoBehaviour
             gameObject.SetActive(false); // 페이드 아웃 후 오브젝트 비활성화
         });
     }
-
-    /* IEnumerator FadeOut(float fadeDuration)
-     {
-         float currentTime = 0f;
-         Color color= spriteRenderer.color;  // 원래 색상을 저장
-
-         while (currentTime < fadeDuration)
-         {
-             float alpha = Mathf.Lerp(1f, 0f, currentTime / fadeDuration);
-             spriteRenderer.color = new Color(color.r, color.g, color.b, alpha);
-             currentTime += Time.deltaTime;
-             yield return null;  // 다음 프레임까지 대기
-         }
-
-         // 완전히 투명해진 후 오브젝트 비활성화
-         spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
-         gameObject.SetActive(false);
-     }
- */
     // 새로운 X 위치를 계산하는 함수
     float CalculateNewPositionX()
     {

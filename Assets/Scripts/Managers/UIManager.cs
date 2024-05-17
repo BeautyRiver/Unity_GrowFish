@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
 
     // 물고기 섭취
     [Header("물고기 목표 섭취")]
-    [SerializeField] private Sprite[] fishImages; // 이 이미지들을 할당할거라는 뜻      
+    public Sprite[] fishImages; // 이 이미지들을 할당할거라는 뜻      
     [SerializeField] private TextMeshProUGUI[] fishTargetText; // 목표 물고기 개수
     [SerializeField] private Image[] fishTargetImg; // 이미지 할당될 장소
     public TextMeshProUGUI nowMissonText; // 현재 미션 단계 텍스트

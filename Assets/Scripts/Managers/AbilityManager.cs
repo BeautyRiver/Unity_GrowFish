@@ -8,7 +8,6 @@ public class AbilityManager : MonoBehaviour
     public PlayerMove player;
     public Image hideImg;
     public bool isSkill;
-    public float coolTime = 5f;
     public float currentTime = 0f;
 
     private void Start()
@@ -33,10 +32,10 @@ public class AbilityManager : MonoBehaviour
         currentTime = 0f;
         hideImg.fillAmount = 1f;
 
-        while(currentTime < coolTime)
+        while(currentTime < player.dashCoolTime)
         {
             currentTime += Time.deltaTime;
-            hideImg.fillAmount = 1 - currentTime / coolTime;            
+            hideImg.fillAmount = 1 - currentTime / player.dashCoolTime;            
             yield return null;
         }
         currentTime = 0f;

@@ -61,6 +61,10 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+    private void Start()
+    {
+        InitMissionTargets(); // 목표 물고기 설정        
+    }
 
     private void InitSkinSystem(string themeName)
     {
@@ -70,11 +74,7 @@ public class GameManager : Singleton<GameManager>
         
     }
 
-    private void Start()
-    {
-        InitMissionTargets(); // 목표 물고기 설정        
-    }
-
+    
     // 물고기 먹을 때마다 호출되는 함수
     public void UpdateFishCount(int fishType)
     {
@@ -172,8 +172,6 @@ public class GameManager : Singleton<GameManager>
     }
     #endregion
    
-
-
     // 카메라 및 배경 사이즈 변경 코루틴
     IEnumerator ChangeCameraAndBgSize(float duration, float changeSize, float changeBGSizeY)
     {
@@ -199,7 +197,7 @@ public class GameManager : Singleton<GameManager>
         backGround.transform.localScale = bgEndSize; // 배경 크기도 최종값으로 설정
     }
 
-    // 스케일 변경 코루틴
+    // 플레이어 스케일 변경 코루틴
     IEnumerator ChangeScaleCoroutine(Vector3 targetScale, float duration)
     {
         Vector3 initialScale = playerMoveScript.transform.localScale;
@@ -264,4 +262,29 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void InvincibleBtn()
+    {
+        playerMoveScript.gameObject.layer = LayerMask.NameToLayer("PlayerDamaged");
+        playerMoveScript.hp = 99999999999999999;
+    }
+
+    public void ToggleClick_Default(bool boolean)
+    {
+        string skinName = "DefaultTheme";
+
+            DataManager.Instance.UnLockTheme(skinName);
+            DataManager.Instance.SelectTheme(skinName);
+            SkinManager.Instance.SetSkin();        
+               
+    }
+    
+    public void ToggleClick_Paper(bool boolean)
+    {
+        string skinName = "PaperTheme";
+
+            DataManager.Instance.UnLockTheme(skinName);
+            DataManager.Instance.SelectTheme(skinName);
+            SkinManager.Instance.SetSkin();        
+               
+    }
 }

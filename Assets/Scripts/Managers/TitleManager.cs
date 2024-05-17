@@ -7,6 +7,7 @@ public class TitleManager : MonoBehaviour
 {
     public GameObject ThemeChangeScreen;
     public RectTransform ThemeItemRectTransform;
+    public ThemeSelectManager themeSelectManager;
 
     // 게임 종료 버튼
     public void InputExit()
@@ -32,7 +33,8 @@ public class TitleManager : MonoBehaviour
     }
     // 테마 변경 화면 활성화 버튼
     public void InputThemeScreenOn()
-    {        
+    {      
+        themeSelectManager.UpdateThemeMainMenu(); // 테마 선택 버튼 업데이트  
         ThemeChangeScreen.SetActive(true); // 오브젝트 활성화
         SetPositionX(ThemeItemRectTransform, 0); // rect(스크롤) 초기 위치로 설정         
         ThemeChangeScreen.transform.localScale = Vector3.zero; // 초기 스케일을 0으로 설정
