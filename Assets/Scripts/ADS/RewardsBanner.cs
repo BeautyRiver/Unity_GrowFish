@@ -124,9 +124,6 @@ public class RewardsBanner : Singleton<RewardsBanner>
                     // 테마 언락
                     DataManager.Instance.UnLockTheme(themeName);
                     Debug.Log($"{themeName} 테마가 해금되었습니다.");
-
-                    // 테마 해금 메시지창 등장
-                    FindObjectOfType<ThemeSelectManager>().UpdateThemeStore();
                 }
 
 

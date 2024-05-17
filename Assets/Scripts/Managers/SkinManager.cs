@@ -7,7 +7,7 @@ public class SkinManager : Singleton<SkinManager>
     public bool[] isFishSkinUnlock;
 
     [Header("테마선택 상태 0: default 1: paper 2: halloween")]
-    public int currentTheme = 0;
+    public int idx = 0;
     public RuntimeAnimatorController[] fishAnimtor;
     public RuntimeAnimatorController currentFishAnimtor;
     [Header("플레이어 애니메이터")]
@@ -37,49 +37,49 @@ public class SkinManager : Singleton<SkinManager>
         {
             if (data.isSelect == true)
             {
-                SetSkin();
+                SetSkin(idx);
                 break;
             }
-            currentTheme++;
+            idx++;
         }
     }
-    public void SetSkin()
+    public void SetSkin(int themeIdx)
     {   
         // 물고기 스킨 설정             
-        currentFishAnimtor = fishAnimtor[currentTheme];
+        currentFishAnimtor = fishAnimtor[themeIdx];
         // 플레이어 애니메이터 설정        
-        currentPlayerAnimator = playerAnimtor[currentTheme];
+        currentPlayerAnimator = playerAnimtor[themeIdx];
         player.playerAni.runtimeAnimatorController = currentPlayerAnimator; 
 
         //물고기 할당 이미지 설정
-        uIManager.fishImages = fishSprites[currentTheme].fs.ToArray();
+        uIManager.fishImages = fishSprites[themeIdx].fs.ToArray();
 
         // 배경 스킨 설정
         GameObject[] bgObj = GameObject.FindGameObjectsWithTag("Bg");
         foreach (var obj in bgObj)
         {
-            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[currentTheme].bg[1];
+            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[1];
         }
 
         // 배경 장식 설정
         GameObject[] bgDecoObj = GameObject.FindGameObjectsWithTag("BgDeco1");
         foreach (var obj in bgDecoObj)
         {
-            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[currentTheme].bg[2];
+            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[2];
         }
 
         // 배경 장식 설정2
         GameObject[] bgDecoObj2 = GameObject.FindGameObjectsWithTag("BgDeco2");
         foreach (var obj in bgDecoObj2)
         {
-            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[currentTheme].bg[3];
+            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[3];
         }
 
         // 물방울 스킨 설정
         GameObject[] bubbleObj = GameObject.FindGameObjectsWithTag("Bubble");
         foreach (var obj in bubbleObj)
         {
-            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[currentTheme].bg[0];
+            obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[0];
         }        
     }
 }

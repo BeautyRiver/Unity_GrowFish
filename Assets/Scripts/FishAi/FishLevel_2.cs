@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class FishLevel_2 : FishAI
+public class FishLevel_2 : FishAi
 {
     protected override void Awake()
     {

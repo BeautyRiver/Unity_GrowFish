@@ -250,7 +250,7 @@ public class PlayerMove : MonoBehaviour
     //사망할때
     private void isDie()
     {
-        FishAI.DisableFish?.Invoke(); // 물고기 비활성화
+        FishAi.DisableFish?.Invoke(); // 물고기 비활성화
         joystick.OnPointerUp(); // 조이스틱 초기화
         StopCoroutine(nameof(OnDamaged)); // 데미지 코루틴 중지
         rb.velocity = Vector2.zero; // 속도 초기화

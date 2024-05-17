@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class Shark_Ai : FishAI
+public class Shark_Ai : FishAi
 {
     public bool findPlayer;
     protected override void Awake()

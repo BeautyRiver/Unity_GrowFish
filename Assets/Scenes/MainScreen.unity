@@ -3244,8 +3244,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1445285401}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: InputThemeScreenOn
+        m_TargetAssemblyTypeName: MainMenuTitleManager, Assembly-CSharp
+        m_MethodName: InputThemeScreenOnBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3757,8 +3757,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1445285401}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: InputThemeScreenOff
+        m_TargetAssemblyTypeName: MainMenuTitleManager, Assembly-CSharp
+        m_MethodName: InputThemeScreenOffBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5698,53 +5698,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834233420}
   m_CullTransparentMesh: 1
---- !u!1 &1838505612
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1838505614}
-  - component: {fileID: 1838505613}
-  m_Layer: 0
-  m_Name: "\uAD11\uACE0\uC0C1\uD0DC\uC124\uC815"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1838505613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838505612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267bd6313a051494b9cfcb4acb4a681b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  setAdState: 0
-  respawnButton: {fileID: 0}
-  unLockButtons: []
---- !u!4 &1838505614
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838505612}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1873460633
 GameObject:
   m_ObjectHideFlags: 0
@@ -6209,8 +6162,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1445285401}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: InputExit
+        m_TargetAssemblyTypeName: MainMenuTitleManager, Assembly-CSharp
+        m_MethodName: InputExitBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6379,8 +6332,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1445285401}
-        m_TargetAssemblyTypeName: TitleAnimator, Assembly-CSharp
-        m_MethodName: InputGameStart
+        m_TargetAssemblyTypeName: MainMenuTitleManager, Assembly-CSharp
+        m_MethodName: InputGameStartBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7031,7 +6984,6 @@ GameObject:
   - component: {fileID: 8195814050660618793}
   - component: {fileID: 8195814050660618791}
   - component: {fileID: 8195814050660618790}
-  - component: {fileID: 8195814050660618794}
   m_Layer: 5
   m_Name: "\uD14C\uB9C8\uC120\uD0DD_\uCC3D"
   m_TagString: Untagged
@@ -7059,35 +7011,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2806.1797, y: 968.9}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &8195814050660618794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8195814050660618792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b67f6e191e15e4081540fc058495f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  themesBtn:
-  - {fileID: 600396263}
-  - {fileID: 379084129}
-  - {fileID: 1642109361}
-  - {fileID: 1762022045}
-  selectImage: {fileID: 0}
-  enabledColor:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
-  disabledColor:
-    r: 1
-    g: 1
-    b: 1
-    a: 0.4
-  menu: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7100,5 +7023,4 @@ SceneRoots:
   - {fileID: 1328393217}
   - {fileID: 875806530}
   - {fileID: 1090118509}
-  - {fileID: 1838505614}
   - {fileID: 357841224}

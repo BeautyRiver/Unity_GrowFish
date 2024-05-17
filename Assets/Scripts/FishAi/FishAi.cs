@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine;
 using Ran = UnityEngine.Random;
-public class FishAI : MonoBehaviour
+public class FishAi : MonoBehaviour
 {
     public static Action DisableFish;
     public int turnCount = 2; // 사거리 벗어나고 Turn할 횟수    
@@ -19,7 +19,7 @@ public class FishAI : MonoBehaviour
     [SerializeField] protected Vector2 currentDirection; // 이동할 방향
     [SerializeField] public bool isRunningAway = false; // 도망치는가
     [SerializeField] protected float distanceToPlayer; // 플레이어와의 거리
-    protected Animator anim;
+    [HideInInspector] public Animator anim;
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
     private bool isTurnDown = true;
@@ -217,7 +217,6 @@ public class FishAI : MonoBehaviour
         }
         return dotProduct > 0;
     }
-
 
     void OnDrawGizmos()
     {

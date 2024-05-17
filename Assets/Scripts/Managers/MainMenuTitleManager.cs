@@ -3,20 +3,20 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TitleManager : MonoBehaviour
+public class MainMenuTitleManager : MonoBehaviour
 {
     public GameObject ThemeChangeScreen;
     public RectTransform ThemeItemRectTransform;
     public ThemeSelectManager themeSelectManager;
 
     // 게임 종료 버튼
-    public void InputExit()
+    public void InputExitBtn()
     {
         Application.Quit();
     }
 
     // 게임 시작 버튼
-    public void InputGameStart()
+    public void InputGameStartBtn()
     {               
        SceneManager.LoadScene("GameScene_DefaultTheme");                
     }
@@ -26,13 +26,8 @@ public class TitleManager : MonoBehaviour
         SceneManager.LoadScene("Store");
     }
     
-    // 메인 화면으로 이동 버튼
-    public void InputMainScreen()
-    {
-        SceneManager.LoadScene("MainScreen");
-    }
     // 테마 변경 화면 활성화 버튼
-    public void InputThemeScreenOn()
+    public void InputThemeScreenOnBtn()
     {      
         themeSelectManager.UpdateThemeMainMenu(); // 테마 선택 버튼 업데이트  
         ThemeChangeScreen.SetActive(true); // 오브젝트 활성화
@@ -42,6 +37,7 @@ public class TitleManager : MonoBehaviour
         ThemeChangeScreen.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
     }
     
+    // rect(스크롤) 위치 설정
     public void SetPositionX(RectTransform rectTransform, float newX)
     {
         Vector2 newPosition = rectTransform.anchoredPosition;
@@ -50,7 +46,7 @@ public class TitleManager : MonoBehaviour
     }
 
     // 테마 변경 화면 비활성화 버튼
-    public void InputThemeScreenOff()
+    public void InputThemeScreenOffBtn()
     {
         // 통통 튀는 효과로 사라짐
         ThemeChangeScreen.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)

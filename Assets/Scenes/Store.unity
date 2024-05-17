@@ -400,56 +400,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &258888739
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 258888740}
-  - component: {fileID: 258888741}
-  m_Layer: 0
-  m_Name: "\uAD11\uACE0\uC0C1\uD0DC\uC124\uC815"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &258888740
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 258888739}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &258888741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 258888739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267bd6313a051494b9cfcb4acb4a681b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  setAdState: 2
-  respawnButton: {fileID: 0}
-  unLockButtons:
-  - {fileID: 2076677272}
-  - {fileID: 1146971353}
-  - {fileID: 1635251622}
 --- !u!1 &334636808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,30 +1366,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 775943928}
-  - component: {fileID: 775943927}
   - component: {fileID: 775943929}
+  - component: {fileID: 775943930}
   m_Layer: 0
-  m_Name: StoreManager
+  m_Name: StoreTitleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &775943927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 775943926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae71296dc60ef1e4ca216d4b83a1558a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ThemeChangeScreen: {fileID: 0}
-  ThemeItemRectTransform: {fileID: 0}
-  themeSelectManager: {fileID: 0}
 --- !u!4 &775943928
 Transform:
   m_ObjectHideFlags: 0
@@ -1472,6 +1407,22 @@ MonoBehaviour:
   - {fileID: 1146971353}
   - {fileID: 1635251622}
   menu: 1
+--- !u!114 &775943930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775943926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b947decb2914074c863777713453abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpBackground: {fileID: 7361363433757911671}
+  popUp: {fileID: 7361363431965979562}
+  popUpText: {fileID: 6750246742814511731}
+  selectedThemeIdx: 0
 --- !u!1 &784713085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,9 +1991,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258888741}
-        m_TargetAssemblyTypeName: SetAdState, Assembly-CSharp
-        m_MethodName: UnlockThemeSawAd
+      - m_Target: {fileID: 775943930}
+        m_TargetAssemblyTypeName: StoreTitleManager, Assembly-CSharp
+        m_MethodName: UnlockThemeSawAdBtn
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3092,9 +3043,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258888741}
-        m_TargetAssemblyTypeName: SetAdState, Assembly-CSharp
-        m_MethodName: UnlockThemeSawAd
+      - m_Target: {fileID: 775943930}
+        m_TargetAssemblyTypeName: StoreTitleManager, Assembly-CSharp
+        m_MethodName: UnlockThemeSawAdBtn
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3796,7 +3747,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2013673046}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 775943930}
+        m_TargetAssemblyTypeName: StoreTitleManager, Assembly-CSharp
+        m_MethodName: ClosePopUpBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2013673046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3835,53 +3798,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013673043}
   m_CullTransparentMesh: 0
---- !u!1 &2054461014
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2054461016}
-  - component: {fileID: 2054461015}
-  m_Layer: 0
-  m_Name: AD_Reward
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2054461015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054461014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba31f2b7647be5419790abf4ed223bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DoDestroyOnLoad: 1
-  player: {fileID: 0}
-  adState: 0
---- !u!4 &2054461016
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054461014}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2076677270
 GameObject:
   m_ObjectHideFlags: 0
@@ -3968,9 +3884,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258888741}
-        m_TargetAssemblyTypeName: SetAdState, Assembly-CSharp
-        m_MethodName: UnlockThemeSawAd
+      - m_Target: {fileID: 775943930}
+        m_TargetAssemblyTypeName: StoreTitleManager, Assembly-CSharp
+        m_MethodName: UnlockThemeSawAdBtn
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4438,7 +4354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5036,7 +4952,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7361363433723788520}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 775943930}
+        m_TargetAssemblyTypeName: StoreTitleManager, Assembly-CSharp
+        m_MethodName: EquipThemeBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &7361363433757911668
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5857,9 +5785,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 775943927}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: InputMainScreen
+      - m_Target: {fileID: 775943930}
+        m_TargetAssemblyTypeName: StoreTitleManager, Assembly-CSharp
+        m_MethodName: InputMainScreenBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6086,7 +6014,5 @@ SceneRoots:
   - {fileID: 410340557}
   - {fileID: 356886924}
   - {fileID: 1201980483}
-  - {fileID: 2054461016}
-  - {fileID: 258888740}
   - {fileID: 744506307}
   - {fileID: 775943928}

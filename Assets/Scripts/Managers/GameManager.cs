@@ -1,15 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.SceneManagement;
-using DG.Tweening.Core.Easing;
-using UnityEngine.SocialPlatforms.Impl;
-using System.Linq;
-using System.Diagnostics;
-using UnityEngine.UIElements;
 using System;
 
 
@@ -43,7 +34,10 @@ public class GameManager : Singleton<GameManager>
     public int level_3 = 2000;
     public int level_4 = 4500;
 
-   
+    public float changeCameraSize = 0.5f; // 카메라 변경 사이즈
+    public float changeBGSizeY = 0.03f; // 배경 변경 사이즈
+    public float changeSpawnerPos; // 스포너 위치 변경
+
     public Dictionary<int, List<TargetFishInfo>> missionTargets = new Dictionary<int, List<TargetFishInfo>>(); // 미션별 목표 물고기 정보
 
     protected override void Awake()
@@ -54,7 +48,7 @@ public class GameManager : Singleton<GameManager>
         // 테마 선택 여부에 따라 다른 씬으로 이동
         foreach (var data in dt.themeList.themes)
         {
-            if(data.isSelect == true)
+            if (data.isSelect == true)
             {
                 // 스킨 입히는 작업
                 InitSkinSystem(data.themeName);
@@ -71,10 +65,10 @@ public class GameManager : Singleton<GameManager>
         // 스킨 입히는 작업
         // 스킨 이름에 따라 다른 스킨을 입히는 작업
         // 애니메이션, 배경이미지, 플레이어 이미지 등을 변경
-        
+
     }
 
-    
+
     // 물고기 먹을 때마다 호출되는 함수
     public void UpdateFishCount(int fishType)
     {
@@ -171,29 +165,28 @@ public class GameManager : Singleton<GameManager>
         });
     }
     #endregion
-   
+
     // 카메라 및 배경 사이즈 변경 코루틴
-    IEnumerator ChangeCameraAndBgSize(float duration, float changeSize, float changeBGSizeY)
+    IEnumerator ChangeCameraAndBgSize(float duration, float camerChangeSize, float changeBGSizeY)
     {
-        float currentTime = 0f; // 현재 보간 진행 시간
-        float startSize = Camera.main.orthographicSize; // 시작 사이즈
-        float endSize = startSize + changeSize; // 끝 사이즈
+        float currentTime = 0f; // 현재 시간
+        float cameraStartSize = Camera.main.orthographicSize; // 시작 사이즈
+        float cameraEndSize = cameraStartSize + camerChangeSize; // 끝 사이즈
 
         // 배경의 시작 크기 및 변경될 크기를 미리 계산
-        Vector3 bgStartSize = backGround.transform.localScale;
-        Vector3 bgEndSize = new Vector3(bgStartSize.x, bgStartSize.y + changeBGSizeY, bgStartSize.z);
-
+        Vector3 bgStartSize = backGround.transform.localScale; // 배경의 시작 크기
+        Vector3 bgEndSize = new Vector3(bgStartSize.x, bgStartSize.y + changeBGSizeY, bgStartSize.z); // 배경의 Y 크기만 변경
+        
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime; // 시간 갱신
-            Camera.main.orthographicSize = Mathf.Lerp(startSize, endSize, currentTime / duration);
-
-            // 배경의 localScale을 부드럽게 변경
-            backGround.transform.localScale = Vector3.Lerp(bgStartSize, bgEndSize, currentTime / duration);
+            Camera.main.orthographicSize = Mathf.Lerp(cameraStartSize, cameraEndSize, currentTime / duration); // 카메라의 orthographicSize를 부드럽게 변경
+            
+            backGround.transform.localScale = Vector3.Lerp(bgStartSize, bgEndSize, currentTime / duration); // 배경 크기도 부드럽게 변경
             yield return null; // 다음 프레임까지 대기
         }
 
-        Camera.main.orthographicSize = endSize; // 최종 사이즈로 확실하게 설정
+        Camera.main.orthographicSize = cameraEndSize; // 최종 사이즈로 확실하게 설정
         backGround.transform.localScale = bgEndSize; // 배경 크기도 최종값으로 설정
     }
 
@@ -218,16 +211,19 @@ public class GameManager : Singleton<GameManager>
     {
         if (currentMission < 9)
         {
-            // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
-            StartCoroutine(ChangeCameraAndBgSize(0.5f, 0.5f, 0.03f));
-            currentMission += 1;
-            uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
             // 미션 8을 넘어서면 게임 종료 상태 설정
             if (currentMission > 8)
             {
                 isGameEnd = true;
                 // 추가적인 게임 종료 처리를 여기에 작성할 수 있습니다.
             }
+            // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
+            StartCoroutine(ChangeCameraAndBgSize(0.5f, changeCameraSize, changeBGSizeY));
+
+            // 스포너 위치 변경 (플레이어 왼쪽에 있는 스포너들은 -쪽으로, 오른쪽에 있는 스포너들은 +쪽으로 이동)
+            
+            currentMission += 1;
+            uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
 
             Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
             if (playerMoveScript.transform.localScale.x < 0)
@@ -262,29 +258,50 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    // 무적 버튼 
     public void InvincibleBtn()
     {
         playerMoveScript.gameObject.layer = LayerMask.NameToLayer("PlayerDamaged");
         playerMoveScript.hp = 99999999999999999;
     }
 
+    // 디폴트 스킨 적용 버튼
     public void ToggleClick_Default(bool boolean)
     {
         string skinName = "DefaultTheme";
-
+        if (boolean == true)
+        {
+            Debug.Log("DefaultTheme");
             DataManager.Instance.UnLockTheme(skinName);
             DataManager.Instance.SelectTheme(skinName);
-            SkinManager.Instance.SetSkin();        
-               
+            SkinManager.Instance.SetSkin(0);
+            FishAi[] fishAis = FindObjectsOfType<FishAi>();
+            foreach (FishAi fishAi in fishAis)
+            {
+                fishAi.anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor;
+                fishAi.anim.SetBool(fishAi.gameObject.tag, true); // 애니메이션 실행
+
+            }
+        }
     }
-    
+
+    // 페이퍼 스킨 적용 버튼
     public void ToggleClick_Paper(bool boolean)
     {
         string skinName = "PaperTheme";
-
+        if (boolean == true)
+        {
+            Debug.Log("PaperTheme");
             DataManager.Instance.UnLockTheme(skinName);
             DataManager.Instance.SelectTheme(skinName);
-            SkinManager.Instance.SetSkin();        
-               
+            SkinManager.Instance.SetSkin(1);
+            FishAi[] fishAis = FindObjectsOfType<FishAi>();
+            foreach (FishAi fishAi in fishAis)
+            {
+                fishAi.anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor;
+                fishAi.anim.SetBool(fishAi.gameObject.tag, true); // 애니메이션 실행
+
+            }
+        }
     }
 }

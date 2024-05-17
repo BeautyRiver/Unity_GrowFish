@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlowFish_Ai : FishAI
+public class BlowFish_Ai : FishAi
 {
     public bool isAttack;
     protected override void Awake()

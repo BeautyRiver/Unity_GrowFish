@@ -1484,9 +1484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267bd6313a051494b9cfcb4acb4a681b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setAdState: 1
-  respawnButton: {fileID: 5307805384137469503}
-  unLockButtons: []
 --- !u!4 &282475791
 Transform:
   m_ObjectHideFlags: 0
