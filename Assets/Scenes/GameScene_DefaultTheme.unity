@@ -4793,6 +4793,9 @@ MonoBehaviour:
   level_2: 500
   level_3: 2000
   level_4: 4500
+  changeCameraSize: 0.5
+  changeBGSizeY: 0.03
+  changeSpawnerPos: 0
 --- !u!1 &917050672
 GameObject:
   m_ObjectHideFlags: 0
@@ -7370,9 +7373,13 @@ MonoBehaviour:
   fishSpawnRange:
     min: 1
     max: 2
-  enemySpawnRange:
+  enemySpawnRangeList:
+  - name: 0
     min: 1
-    max: 2
+    max: 4
+  - name: 1
+    min: 2
+    max: 4
 --- !u!4 &1499274141
 Transform:
   m_ObjectHideFlags: 0
@@ -10942,6 +10949,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &2117479200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.575567
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.1875234
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394358876498797486, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7894225792241836892, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
+      propertyPath: m_Name
+      value: FishLevel_BlowFish
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35a22be9ac08eab4190f697354c511eb, type: 3}
 --- !u!1 &2140504836
 GameObject:
   m_ObjectHideFlags: 0
@@ -30054,3 +30118,4 @@ SceneRoots:
   - {fileID: 1487485093}
   - {fileID: 1332092556}
   - {fileID: 282475791}
+  - {fileID: 2117479200}

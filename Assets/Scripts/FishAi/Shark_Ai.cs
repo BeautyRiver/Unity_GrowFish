@@ -21,7 +21,6 @@ public class Shark_Ai : FishAi
     protected override void OnEnable()
     {
         base.OnEnable();
-        RandomSpeed(minSpeed, maxSpeed); // 상어는 속도 3.0~ 4.4 
     }
 
     protected override void FixedUpdate()

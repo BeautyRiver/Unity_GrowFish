@@ -42,31 +42,13 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        base.Awake();
-        DataManager dt = DataManager.Instance;
-        dt.LoadData();
-        // 테마 선택 여부에 따라 다른 씬으로 이동
-        foreach (var data in dt.themeList.themes)
-        {
-            if (data.isSelect == true)
-            {
-                // 스킨 입히는 작업
-                InitSkinSystem(data.themeName);
-            }
-        }
+        base.Awake();       
     }
     private void Start()
     {
         InitMissionTargets(); // 목표 물고기 설정        
     }
 
-    private void InitSkinSystem(string themeName)
-    {
-        // 스킨 입히는 작업
-        // 스킨 이름에 따라 다른 스킨을 입히는 작업
-        // 애니메이션, 배경이미지, 플레이어 이미지 등을 변경
-
-    }
 
 
     // 물고기 먹을 때마다 호출되는 함수
@@ -221,6 +203,7 @@ public class GameManager : Singleton<GameManager>
             StartCoroutine(ChangeCameraAndBgSize(0.5f, changeCameraSize, changeBGSizeY));
 
             // 스포너 위치 변경 (플레이어 왼쪽에 있는 스포너들은 -쪽으로, 오른쪽에 있는 스포너들은 +쪽으로 이동)
+            
             
             currentMission += 1;
             uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();

@@ -14,7 +14,7 @@ public class FishAi : MonoBehaviour
     public float runAwaySpeed; // 도망칠때 속도
     public float detectionRadius = 5f; // 플레이어 감지 거리
     public float maxDistance; // 플레이어에서 멀어지면 비활성화 할 거리
-    public PlayerMove player;
+    public PlayerMove player; // 플레이어
 
     [SerializeField] protected Vector2 currentDirection; // 이동할 방향
     [SerializeField] public bool isRunningAway = false; // 도망치는가
@@ -56,7 +56,7 @@ public class FishAi : MonoBehaviour
         spriteRenderer.color = originalColor; // 투명도 제거
         anim.SetBool(gameObject.tag, true); // 애니메이션 실행
         turnCount = 2; // 턴 카운트 초기화
-        RandomSpeed(2f, 3.7f); // 속도 및 Y 위치 랜덤 설정
+        RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
     }
 
    private void OnDisable()
@@ -66,7 +66,7 @@ public class FishAi : MonoBehaviour
 
     protected virtual void Update()
     {        
-        runAwaySpeed = moveSpeed * 1.4f;
+        runAwaySpeed = moveSpeed * 1.5f;
         // 이동 방향에 따라 스프라이트 뒤집기
         Vector3 localScale = transform.localScale;
         if (currentDirection.x > 0)
@@ -105,7 +105,8 @@ public class FishAi : MonoBehaviour
 
                     transform.position = new Vector2(newPosX, newPosY); // 새 위치 설정
                     SetRandomY();
-                    RandomSpeed(2f, 3.7f); // 속도 및 Y 위치 랜덤 설정
+                    RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
+                    turnCount--; // 턴 카운트 감소
                 }
                 else
                 {
@@ -153,20 +154,25 @@ public class FishAi : MonoBehaviour
         float newPosX = player.transform.position.x; // 초기 위치 설정
         float range = Ran.Range(27f, 38.5f);
 
-        // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정
-        if (player.transform.localScale.x > 0 && currentDirection.x > 0)
+        // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정 
+        // 플레이어 로컬 스케일이 양수면 왼쪽, 음수면 오른쪽
+        if (player.transform.localScale.x > 0 && currentDirection.x < 0) // 플레이어가 왼쪽을 바라보고 물고기도 왼쪽으로 이동
         {
-            return player.transform.position.x - range; // 둘 다 왼쪽 이동
+            SetReverseX(); // X축 반전
+            return player.transform.position.x - range; // 플레이어 위치에서 range 만큼 왼쪽으로 이동
         }
-        else if (player.transform.localScale.x < 0 && currentDirection.x < 0)
+        else if (player.transform.localScale.x < 0 && currentDirection.x > 0) // 플레이어가 오른쪽을 바라보고 물고기도 오른쪽으로 이동
         {
-            return player.transform.position.x + range; // 둘 다 오른쪽 이동
+            SetReverseX(); // X축 반전
+            return player.transform.position.x + range; // 플레이어 위치에서 range 만큼 오른쪽으로 이동
         }
-        else if ((player.transform.localScale.x > 0 && currentDirection.x < 0) ||
-                 (player.transform.localScale.x < 0 && currentDirection.x > 0))
+        else if (player.transform.localScale.x > 0 && currentDirection.x > 0) // 플레이어가 왼쪽을 바라보고 물고기는 오른쪽으로 이동
         {
-            SetReverseX(); // 방향 반전
-            return player.transform.localScale.x > 0 ? player.transform.position.x - range : player.transform.position.x + range;
+            return player.transform.position.x - range; // 플레이어 위치에서 range 만큼 왼쪽으로 이동
+        }
+        else if (player.transform.localScale.x < 0 && currentDirection.x < 0) // 플레이어가 오른쪽을 바라보고 물고기는 왼쪽으로 이동
+        {
+            return player.transform.position.x + range; // 플레이어 위치에서 range 만큼 오른쪽으로 이동
         }
         else
         {
