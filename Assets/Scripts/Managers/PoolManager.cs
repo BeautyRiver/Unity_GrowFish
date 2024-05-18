@@ -6,7 +6,7 @@ public class PoolManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] fishPrefabs; // 물고기 프리팹 관리 배열: 미리 설정된 물고기 프리팹들을 저장
     [SerializeField] private GameObject[] enemyPrefabs; // 상어, 복어 같은 적 물고기 배열
-    [SerializeField] private Transform[] spawnPoints; // 스폰 장소들: 물고기가 나타날 위치들을 정의
+    public Transform[] spawnPoints; // 스폰 장소들: 물고기가 나타날 위치들을 정의
     [SerializeField] private List<GameObject>[] fishPools; // 물고기 풀 배열: 물고기 프리팹들을 풀링하여 저장
     [SerializeField] private List<GameObject>[] enemyPools; // 적 물고기 풀 배열 
     private bool isFishSpawnCor = false; // 물고기 스폰 코루틴 중복 실행 방지 변수

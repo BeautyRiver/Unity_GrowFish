@@ -117,14 +117,15 @@ public class UIManager : MonoBehaviour
     // 메인화면으로 버튼
     public void InputStop()
     {
-        SceneManager.LoadScene(0);
         Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
     // 다시하기 버튼
     public void InputRetry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Instance.isGameEnd = false;
         Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
 
     public float changeCameraSize = 0.5f; // 카메라 변경 사이즈
     public float changeBGSizeY = 0.03f; // 배경 변경 사이즈
-    public float changeSpawnerPos; // 스포너 위치 변경
+    public float changeSpawnSizeX; // 스포너 위치 변경
 
     public Dictionary<int, List<TargetFishInfo>> missionTargets = new Dictionary<int, List<TargetFishInfo>>(); // 미션별 목표 물고기 정보
 
@@ -90,6 +90,7 @@ public class GameManager : Singleton<GameManager>
     // 물고기 목표값 초기 할당
     void InitMissionTargets()
     {
+        missionTargets.Clear(); // 미션 목표값 초기화
         // 미션0
         missionTargets.Add(0, new List<TargetFishInfo> { new TargetFishInfo(0, 4) }); // 미션0은 0번 물고기 4마리 먹기
 
@@ -173,7 +174,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 플레이어 스케일 변경 코루틴
-    IEnumerator ChangeScaleCoroutine(Vector3 targetScale, float duration)
+    IEnumerator ChangePlayerSize(Vector3 targetScale, float duration)
     {
         Vector3 initialScale = playerMoveScript.transform.localScale;
         float time = 0;
@@ -188,37 +189,57 @@ public class GameManager : Singleton<GameManager>
         playerMoveScript.transform.localScale = targetScale;  // 최종 스케일 보장
     }
 
+    private void ChangeSpawnerPos(float cgSpawnSizeX)
+    {
+        foreach (var item in poolManager.spawnPoints)
+        {
+            if (playerMoveScript.transform.position.x > item.position.x)
+            {
+                item.position = new Vector3(item.position.x - cgSpawnSizeX, item.position.y, item.position.z);
+            }
+            else
+            {
+                item.position = new Vector3(item.position.x + cgSpawnSizeX, item.position.y, item.position.z);
+            }
+            
+            
+        }
+    }
+
     //레벨업 
     public void LevelUp()
     {
         if (currentMission < 9)
         {
+            
+            // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
+            StartCoroutine(ChangeCameraAndBgSize(0.5f, changeCameraSize, changeBGSizeY));
+
+            // 스포너 위치 변경 (플레이어 왼쪽에 있는 스포너들은 -쪽으로, 오른쪽에 있는 스포너들은 +쪽으로 이동)
+                        
+            currentMission += 1;
             // 미션 8을 넘어서면 게임 종료 상태 설정
             if (currentMission > 8)
             {
                 isGameEnd = true;
                 // 추가적인 게임 종료 처리를 여기에 작성할 수 있습니다.
             }
-            // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
-            StartCoroutine(ChangeCameraAndBgSize(0.5f, changeCameraSize, changeBGSizeY));
-
-            // 스포너 위치 변경 (플레이어 왼쪽에 있는 스포너들은 -쪽으로, 오른쪽에 있는 스포너들은 +쪽으로 이동)
-            
-            
-            currentMission += 1;
             uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
 
-            Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
+            Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale); // 스케일 변경량
             if (playerMoveScript.transform.localScale.x < 0)
             {
                 scaleChange.x = -scaleChange.x;
             }
-            Vector3 targetScale = playerMoveScript.transform.localScale + scaleChange;
-            StartCoroutine(ChangeScaleCoroutine(targetScale, 0.5f));
+            Vector3 targetScale = playerMoveScript.transform.localScale + scaleChange; // 목표 스케일
+            StartCoroutine(ChangePlayerSize(targetScale, 0.5f)); // 플레이어 스케일 변경
+            ChangeSpawnerPos(changeSpawnSizeX); // 스포너 위치 변경
 
             // 이펙트 끄기
             levelEffectPrefab[0].SetActive(true);
             levelEffectPrefab[1].SetActive(true);
+
+            
         }
     }
 
@@ -228,16 +249,19 @@ public class GameManager : Singleton<GameManager>
         if (currentMission > 0)
         {
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
-            StartCoroutine(ChangeCameraAndBgSize(0.5f, -0.5f, -0.03f));
+            StartCoroutine(ChangeCameraAndBgSize(0.5f, -changeCameraSize, -changeBGSizeY));
             currentMission -= 1;
             uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
 
-            Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale);
+            Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale); // 스케일 변경량
             if (playerMoveScript.transform.localScale.x < 0)
             {
                 scaleChange.x = -scaleChange.x;
             }
-            playerMoveScript.transform.localScale -= scaleChange;
+            Vector3 targetScale = playerMoveScript.transform.localScale - scaleChange; // 목표 스케일
+            StartCoroutine(ChangePlayerSize(targetScale, 0.5f));
+            ChangeSpawnerPos(-changeSpawnSizeX); // 스포너 위치 변경
+
         }
     }
 
