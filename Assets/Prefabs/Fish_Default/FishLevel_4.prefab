@@ -169,11 +169,12 @@ MonoBehaviour:
   maxSpeed: 4
   runAwaySpeed: 4
   detectionRadius: 5
-  maxDistance: 40
+  maxDistance: 30
   player: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   isRunningAway: 0
   distanceToPlayer: 0
+  anim: {fileID: 0}
   fishType: 0
 --- !u!58 &6884983105870276472
 CircleCollider2D:

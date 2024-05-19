@@ -7,6 +7,7 @@ using Ran = UnityEngine.Random;
 public class FishAi : MonoBehaviour
 {
     public static Action DisableFish;
+    public static Action<bool> maxDistanceChange;
     public int turnCount = 2; // 사거리 벗어나고 Turn할 횟수    
     public float moveSpeed = 2f; // 기본 속도
     public float minSpeed = 2f; // 최소 속도
@@ -17,7 +18,7 @@ public class FishAi : MonoBehaviour
     public PlayerMove player; // 플레이어
 
     [SerializeField] protected Vector2 currentDirection; // 이동할 방향
-    [SerializeField] public bool isRunningAway = false; // 도망치는가
+    [SerializeField] public bool isRunningAway = false; // 도망 중인지 여부
     [SerializeField] protected float distanceToPlayer; // 플레이어와의 거리
     [HideInInspector] public Animator anim;
     protected Rigidbody2D rb;
@@ -53,39 +54,58 @@ public class FishAi : MonoBehaviour
     protected virtual void OnEnable()
     {
         DisableFish += FadeOut; // 물고기 비활성화 이벤트 등록
+        maxDistanceChange += MaxDistanceChange; // 최대 감지 거리 변경 이벤트 등록
+
+        maxDistance += GameManager.Instance.currentMission * GameManager.Instance.fishMaxDistance; // 미션에 따라 최대 거리 증가
+
         spriteRenderer.color = originalColor; // 투명도 제거
         anim.SetBool(gameObject.tag, true); // 애니메이션 실행
         turnCount = 2; // 턴 카운트 초기화
         RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
     }
 
-   private void OnDisable()
+    private void OnDisable()
     {
         DisableFish -= FadeOut; // 물고기 비활성화 이벤트 제거
+        maxDistanceChange -= MaxDistanceChange; // 최대 감지 거리 변경 이벤트 제거
     }
 
     protected virtual void Update()
-    {        
-        runAwaySpeed = moveSpeed * 1.5f;
-        // 이동 방향에 따라 스프라이트 뒤집기
-        Vector3 localScale = transform.localScale;
-        if (currentDirection.x > 0)
+    {
+        runAwaySpeed = moveSpeed * 1.5f; // 도망칠때 속도 설정
+
+
+        FlipX(); // 이동 방향에 따라 스프라이트 뒤집기
+        DistanceCal(); // 플레이어와의 거리 계산 함수
+    }
+    
+    protected virtual void FixedUpdate()
+    {
+        // 이동 로직
+        Vector2 targetPosition = rb.position + currentDirection * (isRunningAway ? runAwaySpeed : moveSpeed) * Time.fixedDeltaTime;
+        targetPosition.y = Mathf.Clamp(targetPosition.y, -player.maxClampBottom, player.maxClampTop); // y값을 Clamp 함수로 제한합니다.
+        rb.MovePosition(targetPosition);
+
+        // 방향 전환 로직, Y축 제한에 도달했을 때 방향을 반전
+        if (isTurnDown && transform.position.y > player.maxClampBottom)
         {
-            // 오른쪽으로 이동하는 경우, localScale.x를 음수로 설정
-            localScale.x = -Mathf.Abs(localScale.x);
+            currentDirection.y = -currentDirection.y;
+            isTurnDown = false;
+            isTurnUp = true;
         }
-        else if (currentDirection.x < 0)
+        else if (isTurnUp && transform.position.y < -player.maxClampBottom)
         {
-            // 왼쪽으로 이동하는 경우, localScale.x를 수로 설정
-            localScale.x = Mathf.Abs(localScale.x);
+            currentDirection.y = -currentDirection.y;
+            isTurnUp = false;
+            isTurnDown = true;
         }
+    }
+    // 플레이어와의 거리 계산 함수
+    private void DistanceCal()
+    {
+        distanceToPlayer = Vector2.Distance(player.transform.position, transform.position); // 매 프레임마다 플레이어와의 거리 계산
 
-        transform.localScale = localScale;
-
-        // 매 프레임마다 플레이어와의 거리 계산
-        distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
-
-        // 거리가 maxDistance보다 크면 이 게임 오브젝트를 비활성화
+        // 거리가 maxDistance보다 크면 물고기 위치 다시 올바르게 설정하기(최대 turnCount 만큼) / 몬스터면 비활성화
         if (distanceToPlayer > maxDistance)
         {
             // 몬스터면 비활성화
@@ -117,29 +137,35 @@ public class FishAi : MonoBehaviour
             }
         }
     }
-       
-    protected virtual void FixedUpdate()
-    {
-        // 이동 로직
-        Vector2 targetPosition = rb.position + currentDirection * (isRunningAway ? runAwaySpeed : moveSpeed) * Time.fixedDeltaTime;
-        targetPosition.y = Mathf.Clamp(targetPosition.y, -player.maxClampBottom, player.maxClampTop); // y값을 Clamp 함수로 제한합니다.
-        rb.MovePosition(targetPosition);
 
-        // 방향 전환 로직, Y축 제한에 도달했을 때 방향을 반전
-        if (isTurnDown && transform.position.y > player.maxClampBottom)
+    // 최대 감지 거리 변경 함수
+    private void MaxDistanceChange(bool boolean)
+    {
+        if (boolean == true)
+            maxDistance += GameManager.Instance.fishMaxDistance;
+        else
+            maxDistance -= GameManager.Instance.fishMaxDistance;
+    }
+    // 스프라이트 뒤집기 함수
+    private void FlipX()
+    {
+        Vector3 localScale = transform.localScale; // 이동 방향에 따라 스프라이트 뒤집기
+        // 오른쪽으로 이동하는 경우, localScale.x를 음수로 설정
+        if (currentDirection.x > 0)
         {
-            currentDirection.y = -currentDirection.y;
-            isTurnDown = false;
-            isTurnUp = true;
+            localScale.x = -Mathf.Abs(localScale.x);
         }
-        else if (isTurnUp && transform.position.y < -player.maxClampBottom)
+        // 왼쪽으로 이동하는 경우, localScale.x를 양수로 설정
+        else if (currentDirection.x < 0)
         {
-            currentDirection.y = -currentDirection.y;
-            isTurnUp = false;
-            isTurnDown = true;
+            localScale.x = Mathf.Abs(localScale.x);
         }
+
+        transform.localScale = localScale; // 스프라이트 뒤집기 적용
     }
 
+
+    // 페이드 아웃 함수
     void FadeOut()
     {
         // 스프라이트의 투명도를 점차 0으로 변경
@@ -152,7 +178,7 @@ public class FishAi : MonoBehaviour
     float CalculateNewPositionX()
     {
         float newPosX = player.transform.position.x; // 초기 위치 설정
-        float range = Ran.Range(27f, 38.5f);
+        float range = Ran.Range(maxDistance - 11.5f, maxDistance - 1.5f);
 
         // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정 
         // 플레이어 로컬 스케일이 양수면 왼쪽, 음수면 오른쪽
@@ -224,6 +250,7 @@ public class FishAi : MonoBehaviour
         return dotProduct > 0;
     }
 
+    // 물고기 감지 범위 그리기
     void OnDrawGizmos()
     {
         if (player != null)

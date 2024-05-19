@@ -34,6 +34,7 @@ public class GameManager : Singleton<GameManager>
     public int level_3 = 2000;
     public int level_4 = 4500;
 
+    public float fishMaxDistance = 4f; // 물고기 최대 거리 증가치
     public float changeCameraSize = 0.5f; // 카메라 변경 사이즈
     public float changeBGSizeY = 0.03f; // 배경 변경 사이즈
     public float changeSpawnSizeX; // 스포너 위치 변경
@@ -42,7 +43,7 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        base.Awake();       
+        base.Awake();
     }
     private void Start()
     {
@@ -159,12 +160,12 @@ public class GameManager : Singleton<GameManager>
         // 배경의 시작 크기 및 변경될 크기를 미리 계산
         Vector3 bgStartSize = backGround.transform.localScale; // 배경의 시작 크기
         Vector3 bgEndSize = new Vector3(bgStartSize.x, bgStartSize.y + changeBGSizeY, bgStartSize.z); // 배경의 Y 크기만 변경
-        
+
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime; // 시간 갱신
             Camera.main.orthographicSize = Mathf.Lerp(cameraStartSize, cameraEndSize, currentTime / duration); // 카메라의 orthographicSize를 부드럽게 변경
-            
+
             backGround.transform.localScale = Vector3.Lerp(bgStartSize, bgEndSize, currentTime / duration); // 배경 크기도 부드럽게 변경
             yield return null; // 다음 프레임까지 대기
         }
@@ -201,8 +202,8 @@ public class GameManager : Singleton<GameManager>
             {
                 item.position = new Vector3(item.position.x + cgSpawnSizeX, item.position.y, item.position.z);
             }
-            
-            
+
+
         }
     }
 
@@ -211,12 +212,11 @@ public class GameManager : Singleton<GameManager>
     {
         if (currentMission < 9)
         {
-            
             // 카메라 및 배경 사이즈 변경 (시간,카메라 변경 사이즈, 배경 변경 사이즈)
             StartCoroutine(ChangeCameraAndBgSize(0.5f, changeCameraSize, changeBGSizeY));
 
             // 스포너 위치 변경 (플레이어 왼쪽에 있는 스포너들은 -쪽으로, 오른쪽에 있는 스포너들은 +쪽으로 이동)
-                        
+
             currentMission += 1;
             // 미션 8을 넘어서면 게임 종료 상태 설정
             if (currentMission > 8)
@@ -239,7 +239,8 @@ public class GameManager : Singleton<GameManager>
             levelEffectPrefab[0].SetActive(true);
             levelEffectPrefab[1].SetActive(true);
 
-            
+            FishAi.maxDistanceChange?.Invoke(true); // 최대 감지 거리 변경 이벤트 발생
+
         }
     }
 
@@ -261,6 +262,7 @@ public class GameManager : Singleton<GameManager>
             Vector3 targetScale = playerMoveScript.transform.localScale - scaleChange; // 목표 스케일
             StartCoroutine(ChangePlayerSize(targetScale, 0.5f));
             ChangeSpawnerPos(-changeSpawnSizeX); // 스포너 위치 변경
+            FishAi.maxDistanceChange?.Invoke(false); // 최대 감지 거리 변경 이벤트 발생
 
         }
     }

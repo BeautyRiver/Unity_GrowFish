@@ -5207,6 +5207,7 @@ MonoBehaviour:
   level_2: 500
   level_3: 2000
   level_4: 4500
+  fishMaxDistance: 4
   changeCameraSize: 0.5
   changeBGSizeY: 0.03
   changeSpawnSizeX: 2
@@ -8068,14 +8069,14 @@ MonoBehaviour:
   - {fileID: 51614892}
   fishSpawnRange:
     min: 1
-    max: 2
+    max: 3.5
   enemySpawnRangeList:
   - name: 0
     min: 1
-    max: 4
+    max: 5
   - name: 1
     min: 2
-    max: 4
+    max: 5
 --- !u!4 &1499274141
 Transform:
   m_ObjectHideFlags: 0
