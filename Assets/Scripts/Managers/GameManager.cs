@@ -190,6 +190,7 @@ public class GameManager : Singleton<GameManager>
         playerMoveScript.transform.localScale = targetScale;  // 최종 스케일 보장
     }
 
+    // 스포너 위치 변경
     private void ChangeSpawnerPos(float cgSpawnSizeX)
     {
         foreach (var item in poolManager.spawnPoints)
@@ -274,7 +275,13 @@ public class GameManager : Singleton<GameManager>
         playerMoveScript.hp = 99999999999999999;
     }
 
-    // 디폴트 스킨 적용 버튼
+    // 무적 해제 버튼
+    public void DeathBtn()
+    {
+        playerMoveScript.hp = 0;
+    }
+
+    // 디폴트 스킨 적용 토글
     public void ToggleClick_Default(bool boolean)
     {
         string skinName = "DefaultTheme";
@@ -294,7 +301,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    // 페이퍼 스킨 적용 버튼
+    // 페이퍼 스킨 적용 토글
     public void ToggleClick_Paper(bool boolean)
     {
         string skinName = "PaperTheme";
@@ -304,6 +311,26 @@ public class GameManager : Singleton<GameManager>
             DataManager.Instance.UnLockTheme(skinName);
             DataManager.Instance.SelectTheme(skinName);
             SkinManager.Instance.SetSkin(1);
+            FishAi[] fishAis = FindObjectsOfType<FishAi>();
+            foreach (FishAi fishAi in fishAis)
+            {
+                fishAi.anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor;
+                fishAi.anim.SetBool(fishAi.gameObject.tag, true); // 애니메이션 실행
+
+            }
+        }
+    }
+
+    // 할로윈 스킨 적용 토글
+    public void ToggleClick_Halloween(bool boolean)
+    {
+        string skinName = "HalloweenTheme";
+        if (boolean == true)
+        {
+            Debug.Log("HalloweenTheme");
+            DataManager.Instance.UnLockTheme(skinName);
+            DataManager.Instance.SelectTheme(skinName);
+            SkinManager.Instance.SetSkin(2);
             FishAi[] fishAis = FindObjectsOfType<FishAi>();
             foreach (FishAi fishAi in fishAis)
             {

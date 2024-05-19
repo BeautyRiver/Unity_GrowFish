@@ -15,6 +15,8 @@ public class PlayerMove : MonoBehaviour
     public float hp; // 플레이어 현재 체력
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
     private bool isMoveOk = true; //움직임 가능 체크 변수  
+    public Transform mouth;
+    public GameObject eatEffect;
     // 플레이어 이동 관련 속성
     [Header("플레이어 이동")]
     public float maxSpeedNormal;    // 일반 이동 시 최대 속도
@@ -181,6 +183,8 @@ public class PlayerMove : MonoBehaviour
     // 물고기 먹기
     private void EatFish(Collider2D collision, int plusScore)
     {
+        eatEffect.SetActive(true);
+        eatEffect.transform.position = mouth.transform.position;
         collision.gameObject.SetActive(false);
         playerAni.Play("PlayerDoEat");
         gm.score += plusScore;
