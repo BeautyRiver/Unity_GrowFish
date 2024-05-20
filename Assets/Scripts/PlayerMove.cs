@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using SysRandom = System.Random; // System의 Random에 대해 별칭 설정
+using DarkTonic.MasterAudio;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -183,8 +184,9 @@ public class PlayerMove : MonoBehaviour
     // 물고기 먹기
     private void EatFish(Collider2D collision, int plusScore)
     {
-        eatEffect.SetActive(true);
-        eatEffect.transform.position = mouth.transform.position;
+        //eatEffect.SetActive(true);
+        //atEffect.transform.position = mouth.transform.position;
+        SoundManager.Instance.PlaySound("EatSound"); // 먹는 사운드 재생
         collision.gameObject.SetActive(false);
         playerAni.Play("PlayerDoEat");
         gm.score += plusScore;
@@ -213,6 +215,7 @@ public class PlayerMove : MonoBehaviour
     //플레이어가 데미지를 입었을때
     private void OnDamaged(Transform collision, float damage)
     {
+        SoundManager.Instance.PlaySound("HitSound"); // 맞았을때 사운드 재생    
         // 플레이어와 몬스터 간의 위치 차이를 계산
         Vector2 targetPos = transform.position - collision.transform.position;
         targetPos.Normalize(); // 방향 벡터를 정규화
@@ -240,7 +243,7 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator Hited(float canNotMoveTime, float immortalTime)
     {
         if (hp > 0)
-        {
+        {                    
             // canNotMoveTime 시간 만큼 움직일 수 없음
             yield return new WaitForSeconds(canNotMoveTime);
             joystick.enabled = true;
@@ -254,6 +257,8 @@ public class PlayerMove : MonoBehaviour
     //사망할때
     private void isDie()
     {
+        SoundManager.Instance.PausePlayListSound(); // 인게임 사운드 중지
+        SoundManager.Instance.PlaySound("GameOverSound"); // 사망 사운드 재생
         FishAi.DisableFish?.Invoke(); // 물고기 비활성화
         joystick.OnPointerUp(); // 조이스틱 초기화
         StopCoroutine(nameof(OnDamaged)); // 데미지 코루틴 중지
@@ -272,6 +277,7 @@ public class PlayerMove : MonoBehaviour
     // 광고보고 살아나기
     public void SawAd()
     {
+        SoundManager.Instance.UnpausePlaylistSound();        
         gm.isGameOver = false; // 게임오버 상태 해제
         pm.StartSpawnFish(); // 물고기 스폰 재시작
         joystick.gameObject.SetActive(true); // 조이스틱 활성화
@@ -285,6 +291,7 @@ public class PlayerMove : MonoBehaviour
     // 대쉬 기능 
     public IEnumerator Dash()
     {
+        SoundManager.Instance.PlaySound("DashSound"); // 대쉬 사운드 재생
         isDashing = true; // 대쉬 상태 시작
         currentMaxSpeed = maxDashSpeed; // 대쉬 속도로 속도 변경
         dashDirection = lastDirection; // 플레이어가 바라보는 방향으로 대쉬 방향 설정

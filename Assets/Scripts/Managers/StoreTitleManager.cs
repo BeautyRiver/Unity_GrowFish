@@ -16,7 +16,8 @@ public class StoreTitleManager : MonoBehaviour
     // 메인 화면으로 이동 버튼
     private void Awake()
     {
-            themeSelectManager = gameObject.GetComponent<ThemeSelectManager>();
+        themeSelectManager = gameObject.GetComponent<ThemeSelectManager>();
+        SoundManager.Instance.ChangePlayListClip("Shop_bgm");
     }
     public void InputMainScreenBtn()
     {
@@ -38,7 +39,9 @@ public class StoreTitleManager : MonoBehaviour
         popUpBackground.SetActive(true); // 팝업 배경 활성화
         popUp.SetActive(true); // 팝업 활성화
         popUp.transform.localScale = Vector3.zero; // 초기 스케일을 0으로 설정        
-        popUp.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack); // 통통 튀는 효과로 등장
+        
+        // 통통 튀는 효과로 등장, 구매 사운드 재생
+        popUp.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() => SoundManager.Instance.PlaySound("BuySound"));
         themeSelectManager.UpdateThemeStore(); // 상점 테마 선택 버튼 업데이트
     }
     // 팝업 닫기 버튼

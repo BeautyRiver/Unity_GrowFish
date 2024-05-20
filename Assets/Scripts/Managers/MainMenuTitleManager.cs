@@ -9,6 +9,10 @@ public class MainMenuTitleManager : MonoBehaviour
     public RectTransform ThemeItemRectTransform;
     public ThemeSelectManager themeSelectManager;
 
+    private void Start()
+    {
+        SoundManager.Instance.ChangePlayListClip("MainMenu_bgm");
+    }
     // 게임 종료 버튼
     public void InputExitBtn()
     {

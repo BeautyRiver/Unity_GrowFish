@@ -19,7 +19,7 @@ public class AbilityManager : MonoBehaviour
     public void DashButton()
     {
         if (player.isDashing == false && isSkill == false)
-        {
+        {            
             isSkill = true;
             hideImg.gameObject.SetActive(true);
             StartCoroutine(player.Dash());

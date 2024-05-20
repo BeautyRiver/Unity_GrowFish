@@ -47,7 +47,8 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        InitMissionTargets(); // 목표 물고기 설정        
+        InitMissionTargets(); // 목표 물고기 설정     
+        SoundManager.Instance.ChangePlayListClip("InGame_bgm");   
     }
 
 
@@ -223,9 +224,11 @@ public class GameManager : Singleton<GameManager>
             if (currentMission > 8)
             {
                 isGameEnd = true;
+                SoundManager.Instance.PlaySound("ClearSound"); // 클리어 사운드 재생    
                 // 추가적인 게임 종료 처리를 여기에 작성할 수 있습니다.
             }
-            uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString();
+            SoundManager.Instance.PlaySound("LevelUpSound"); // 레벨업 사운드 재생
+            uiManager.nowMissonText.text = "미션 : " + (currentMission + 1).ToString(); // 미션 텍스트 업데이트
 
             Vector3 scaleChange = new Vector3(LevelUpScale, LevelUpScale, LevelUpScale); // 스케일 변경량
             if (playerMoveScript.transform.localScale.x < 0)
