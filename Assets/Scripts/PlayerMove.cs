@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using SysRandom = System.Random; // System의 Random에 대해 별칭 설정
 using DarkTonic.MasterAudio;
+using System;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class PlayerMove : MonoBehaviour
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
     private bool isMoveOk = true; //움직임 가능 체크 변수  
     public Transform mouth;
-    public GameObject eatEffect;
+    public GameObject[] effects; 
+    public List<GameObject>[] effectList;
+
     // 플레이어 이동 관련 속성
     [Header("플레이어 이동")]
     public float maxSpeedNormal;    // 일반 이동 시 최대 속도
@@ -63,6 +66,11 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 컴포넌트 할당
         hp = maxHp; // 초기 체력 설정
         currentMaxSpeed = maxSpeedNormal; // 초기 최대 속도 설정
+
+        for (int i = 0; i < effects.Length; i++)
+        {
+            effectList[i] = new List<GameObject>();
+        }       
     }
     
     private void Update()
@@ -184,10 +192,9 @@ public class PlayerMove : MonoBehaviour
     // 물고기 먹기
     private void EatFish(Collider2D collision, int plusScore)
     {
-        //eatEffect.SetActive(true);
-        //atEffect.transform.position = mouth.transform.position;
-        SoundManager.Instance.PlaySound("EatSound"); // 먹는 사운드 재생
         collision.gameObject.SetActive(false);
+        SoundManager.Instance.PlaySound("EatSound"); // 먹는 사운드 재생
+        ShowPlayerEffect(eatEffect, mouth.transform.position); // 먹었을때 이펙트 발생
         playerAni.Play("PlayerDoEat");
         gm.score += plusScore;
         uiManager.scoreText.text = gm.score.ToString();
@@ -212,10 +219,31 @@ public class PlayerMove : MonoBehaviour
         }
     }
  
+    // 플레이어 이펙트
+    private void ShowPlayerEffect(GameObject effect, Vector3 pos, string type)
+    {
+        int idx = 0;
+        if (type == "Eat") idx = 0;
+        else if (type == "Hit") idx = 1;
+
+        for (int i = 0; i < effectList[idx].Count; i++)
+        {
+            GameObject eff = effectList[idx][i];
+            eff.SetActive(true);
+            if (eff == null) 
+            {
+                effectList[idx].Add(Instantiate(effects[idx], transform.position, Quaternion.identity));                
+            }
+        }
+        
+    }
+
     //플레이어가 데미지를 입었을때
     private void OnDamaged(Transform collision, float damage)
     {
         SoundManager.Instance.PlaySound("HitSound"); // 맞았을때 사운드 재생    
+        ShowPlayerEffect(hitEffect, mouth.transform.position); // 맞았을때 이펙트 발생
+
         // 플레이어와 몬스터 간의 위치 차이를 계산
         Vector2 targetPos = transform.position - collision.transform.position;
         targetPos.Normalize(); // 방향 벡터를 정규화
