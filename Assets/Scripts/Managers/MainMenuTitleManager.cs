@@ -5,43 +5,50 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuTitleManager : MonoBehaviour
 {
-    public GameObject ThemeChangeScreen;
-    public RectTransform ThemeItemRectTransform;
-    public ThemeSelectManager themeSelectManager;
+    public GameObject ThemeChangeScreen; // í…Œë§ˆ ë³€ê²½ í™”ë©´
+    public RectTransform ThemeItemRectTransform; // í…Œë§ˆ ì•„ì´í…œ ìŠ¤í¬ë¡¤
+    public ThemeSelectManager themeSelectManager; // í…Œë§ˆ ì„ íƒ ë§¤ë‹ˆì €
+
+    [Header("ì‚¬ìš´ë“œ ì„¤ì •UI")]
+    public GameObject BlackScreen; // ë°°ê²½(ê²€ì€ ë°°ê²½)
+    public GameObject SoundSettingScreen; // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´
+    public Slider sfxSlider; // íš¨ê³¼ìŒ ìŠ¬ë¼ì´ë”
+    public Slider bgmSlider; // ë°°ê²½ìŒ ìŠ¬ë¼ì´ë”
 
     private void Start()
-    {
+    {        
+        SoundManager.Instance.SoundSliderSetting(sfxSlider, bgmSlider); // ì‚¬ìš´ë“œ ìŠ¬ë¼ì´ë” ì„¤ì •
         SoundManager.Instance.ChangePlayListClip("MainMenu_bgm");
     }
-    // °ÔÀÓ Á¾·á ¹öÆ°
+    // ê²Œì„ ì¢…ë£Œ ë²„íŠ¼
     public void InputExitBtn()
     {
         Application.Quit();
     }
 
-    // °ÔÀÓ ½ÃÀÛ ¹öÆ°
+    // ê²Œì„ ì‹œì‘ ë²„íŠ¼
     public void InputGameStartBtn()
-    {               
-       SceneManager.LoadScene("GameScene_DefaultTheme");                
+    {
+        SceneManager.LoadScene("GameScene_DefaultTheme");
     }
-    // »óÁ¡ È­¸éÀ¸·Î ÀÌµ¿ ¹öÆ°
+    // ìƒì  í™”ë©´ìœ¼ë¡œ ì´ë™ ë²„íŠ¼
     public void InputStoreBtn()
     {
         SceneManager.LoadScene("Store");
     }
-    
-    // Å×¸¶ º¯°æ È­¸é È°¼ºÈ­ ¹öÆ°
+
+    // í…Œë§ˆ ë³€ê²½ í™”ë©´ í™œì„±í™” ë²„íŠ¼
     public void InputThemeScreenOnBtn()
-    {      
-        themeSelectManager.UpdateThemeMainMenu(); // Å×¸¶ ¼±ÅÃ ¹öÆ° ¾÷µ¥ÀÌÆ®  
-        ThemeChangeScreen.SetActive(true); // ¿ÀºêÁ§Æ® È°¼ºÈ­
-        SetPositionX(ThemeItemRectTransform, 0); // rect(½ºÅ©·Ñ) ÃÊ±â À§Ä¡·Î ¼³Á¤         
-        ThemeChangeScreen.transform.localScale = Vector3.zero; // ÃÊ±â ½ºÄÉÀÏÀ» 0À¸·Î ¼³Á¤
-        // ÅëÅë Æ¢´Â È¿°ú·Î µîÀå
+    {
+        themeSelectManager.UpdateThemeMainMenu(); // í…Œë§ˆ ì„ íƒ ë²„íŠ¼ ì—…ë°ì´íŠ¸  
+        ThemeChangeScreen.SetActive(true); // ì˜¤ë¸Œì íŠ¸ í™œì„±í™”
+        SetPositionX(ThemeItemRectTransform, 0); // rect(ìŠ¤í¬ë¡¤) ì´ˆê¸° ìœ„ì¹˜ë¡œ ì„¤ì •         
+        ThemeChangeScreen.transform.localScale = Vector3.zero; // ì´ˆê¸° ìŠ¤ì¼€ì¼ì„ 0ìœ¼ë¡œ ì„¤ì •
+        // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ë“±ì¥
         ThemeChangeScreen.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
     }
-    
-    // rect(½ºÅ©·Ñ) À§Ä¡ ¼³Á¤
+
+    // rect(ìŠ¤í¬ë¡¤) ìœ„ì¹˜ ì„¤ì •
     public void SetPositionX(RectTransform rectTransform, float newX)
     {
         Vector2 newPosition = rectTransform.anchoredPosition;
@@ -49,13 +56,31 @@ public class MainMenuTitleManager : MonoBehaviour
         rectTransform.anchoredPosition = newPosition;
     }
 
-    // Å×¸¶ º¯°æ È­¸é ºñÈ°¼ºÈ­ ¹öÆ°
+    // í…Œë§ˆ ë³€ê²½ í™”ë©´ ë¹„í™œì„±í™” ë²„íŠ¼
     public void InputThemeScreenOffBtn()
     {
-        // ÅëÅë Æ¢´Â È¿°ú·Î »ç¶óÁü
+        // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ì‚¬ë¼ì§
         ThemeChangeScreen.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
-            .OnComplete(() => ThemeChangeScreen.SetActive(false)); // ¾Ö´Ï¸ŞÀÌ¼Ç ¿Ï·á ÈÄ ºñÈ°¼ºÈ­
+            .OnComplete(() => ThemeChangeScreen.SetActive(false)); // ì• ë‹ˆë©”ì´ì…˜ ì™„ë£Œ í›„ ë¹„í™œì„±í™”
     }
 
+    // ì‚¬ìš´ë“œ ì„¤ì • ë²„íŠ¼
+    public void InputSoundSettingBtn()
+    {
+        BlackScreen.SetActive(true); // ê²€ì€ ë°°ê²½ í™œì„±í™”
+        BlackScreen.GetComponent<Image>().DOFade(1,0.5f);
+        
+        SoundSettingScreen.SetActive(true); // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´ í™œì„±í™”
+        SoundSettingScreen.transform.localScale = Vector3.zero; // ì´ˆê¸° ìŠ¤ì¼€ì¼ì„ 0ìœ¼ë¡œ ì„¤ì •        
+        SoundSettingScreen.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack); // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ë“±ì¥
+    }
+
+    // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´ ë‹«ê¸° ë²„íŠ¼
+    public void InputSoundSettingCloseBtn()
+    {
+        BlackScreen.GetComponent<Image>().DOFade(0,0.5f).OnComplete(() => BlackScreen.SetActive(false));
+        SoundSettingScreen.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
+        .OnComplete(() => SoundSettingScreen.SetActive(false));
+    }
     
 }

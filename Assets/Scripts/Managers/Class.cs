@@ -27,7 +27,7 @@ public class TargetFishInfo
     }
 }
 [System.Serializable]
-public class EnemySpawnRange  // Àû ¹°°í±â ½ºÆù ¹üÀ§ Å¬·¡½º
+public class EnemySpawnRange  // ì  ë¬¼ê³ ê¸° ìŠ¤í° ë²”ìœ„ í´ë˜ìŠ¤
 {
     public EnemyType name;
     public float min;
@@ -40,7 +40,7 @@ public class EnemySpawnRange  // Àû ¹°°í±â ½ºÆù ¹üÀ§ Å¬·¡½º
     }
 }
 [System.Serializable]
-public class FishSpawnRange // ¹°°í±â ½ºÆù ¹üÀ§ Å¬·¡½º 
+public class FishSpawnRange // ë¬¼ê³ ê¸° ìŠ¤í° ë²”ìœ„ í´ë˜ìŠ¤ 
 {    
     public float min;
     public float max;

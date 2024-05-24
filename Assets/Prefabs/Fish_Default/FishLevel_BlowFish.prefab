@@ -164,8 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCount: 1
   moveSpeed: 2
-  minSpeed: 4
-  maxSpeed: 5
+  minSpeed: 5.5
+  maxSpeed: 6
   runAwaySpeed: 0
   detectionRadius: 5
   maxDistance: 40

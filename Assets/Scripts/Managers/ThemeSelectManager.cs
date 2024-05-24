@@ -27,15 +27,15 @@ public class ThemeSelectManager : MonoBehaviour
         }
     }
 
-    // Å×¸¶ ¼±ÅÃ ½Ã
+    // í…Œë§ˆ ì„ íƒ ì‹œ
     public void SelectTheme(string themeName)
     {
         DataManager dt = DataManager.Instance;
-        dt.SelectTheme(themeName); // Å×¸¶ Àá±İ ÇØÁ¦
-        UpdateThemeMainMenu(); // Å×¸¶ ¼±ÅÃ ¹öÆ° ¾÷µ¥ÀÌÆ®
+        dt.SelectTheme(themeName); // í…Œë§ˆ ì ê¸ˆ í•´ì œ
+        UpdateThemeMainMenu(); // í…Œë§ˆ ì„ íƒ ë²„íŠ¼ ì—…ë°ì´íŠ¸
     }
 
-    // Å×¸¶ ¼±ÅÃ ¹öÆ° ¾÷µ¥ÀÌÆ®
+    // í…Œë§ˆ ì„ íƒ ë²„íŠ¼ ì—…ë°ì´íŠ¸
     public void UpdateThemeMainMenu()
     {
         DataManager dt = DataManager.Instance;
@@ -43,16 +43,16 @@ public class ThemeSelectManager : MonoBehaviour
 
         for (int i = 0; i < dt.themeList.themes.Count && i < themesBtn.Length; i++) 
         {
-            ThemeData currentTheme = dt.themeList.themes[i]; // ÇöÀç Å×¸¶
-            Button currentBtn = themesBtn[i]; // ÇöÀç ¹öÆ°
+            ThemeData currentTheme = dt.themeList.themes[i]; // í˜„ì¬ í…Œë§ˆ
+            Button currentBtn = themesBtn[i]; // í˜„ì¬ ë²„íŠ¼
 
-            currentBtn.interactable = currentTheme.isOpen; // ¿­·ÁÀÖ´Â Å×¸¶¸¸ ¼±ÅÃ °¡´É
+            currentBtn.interactable = currentTheme.isOpen; // ì—´ë ¤ìˆëŠ” í…Œë§ˆë§Œ ì„ íƒ ê°€ëŠ¥
 
-            Transform checkMark = currentBtn.transform.GetChild(0); // Ã¼Å© Ç¥½Ã
-            Image themeImage = currentBtn.transform.GetChild(1).GetComponent<Image>(); // Å×¸¶ ÀÌ¹ÌÁö
+            Transform checkMark = currentBtn.transform.GetChild(0); // ì²´í¬ í‘œì‹œ
+            Image themeImage = currentBtn.transform.GetChild(1).GetComponent<Image>(); // í…Œë§ˆ ì´ë¯¸ì§€
 
-            checkMark.gameObject.SetActive(currentTheme.isSelect); // ¼±ÅÃµÈ Å×¸¶¿¡ Ã¼Å© Ç¥½Ã
-            themeImage.color = currentTheme.isOpen ? enabledColor : disabledColor; // ¿­·ÁÀÖ´Â Å×¸¶¸¸ È°¼ºÈ­
+            checkMark.gameObject.SetActive(currentTheme.isSelect); // ì„ íƒëœ í…Œë§ˆì— ì²´í¬ í‘œì‹œ
+            themeImage.color = currentTheme.isOpen ? enabledColor : disabledColor; // ì—´ë ¤ìˆëŠ” í…Œë§ˆë§Œ í™œì„±í™”
         }
     }
 
@@ -61,10 +61,10 @@ public class ThemeSelectManager : MonoBehaviour
         int count = 0;
         DataManager dt = DataManager.Instance;
         dt.LoadData();
-        for (int i = 1; i < dt.themeList.themes.Count; i++) // ÀÎµ¦½º 1ºÎÅÍ ½ÃÀÛ
+        for (int i = 1; i < dt.themeList.themes.Count; i++) // ì¸ë±ìŠ¤ 1ë¶€í„° ì‹œì‘
         {
             var item = dt.themeList.themes[i];
-            themesBtn[count].interactable = !item.isOpen; // ¿­·ÁÀÖÁö ¾ÊÀº Å×¸¶¸¸ ±¸¸Å °¡´É
+            themesBtn[count].interactable = !item.isOpen; // ì—´ë ¤ìˆì§€ ì•Šì€ í…Œë§ˆë§Œ êµ¬ë§¤ ê°€ëŠ¥
             themesBtn[count].transform.GetChild(0).GetComponent<Image>().color = !item.isOpen ? enabledColor : disabledColor;
             count++;
         }

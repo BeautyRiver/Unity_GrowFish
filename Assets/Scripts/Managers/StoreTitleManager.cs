@@ -2,9 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
-
-
-
+using UnityEngine.UI;
 public class StoreTitleManager : MonoBehaviour
 {
     public GameObject popUpBackground;
@@ -13,10 +11,18 @@ public class StoreTitleManager : MonoBehaviour
     public int selectedThemeIdx;
     private ThemeSelectManager themeSelectManager;
 
-    // ¸ŞÀÎ È­¸éÀ¸·Î ÀÌµ¿ ¹öÆ°
+    [Header("ì‚¬ìš´ë“œ ì„¤ì •UI")]
+    public GameObject BlackScreen; // ë°°ê²½(ê²€ì€ ë°°ê²½)
+    public GameObject SoundSettingScreen; // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´
+    public Slider sfxSlider; // íš¨ê³¼ìŒ ìŠ¬ë¼ì´ë”
+    public Slider bgmSlider; // ë°°ê²½ìŒ ìŠ¬ë¼ì´ë”
+
+    // ë©”ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™ ë²„íŠ¼
     private void Awake()
     {
         themeSelectManager = gameObject.GetComponent<ThemeSelectManager>();
+        SoundManager.Instance.SoundSliderSetting(sfxSlider, bgmSlider); // ì‚¬ìš´ë“œ ìŠ¬ë¼ì´ë” ì„¤ì •
+
         SoundManager.Instance.ChangePlayListClip("Shop_bgm");
     }
     public void InputMainScreenBtn()
@@ -24,43 +30,62 @@ public class StoreTitleManager : MonoBehaviour
         SceneManager.LoadScene("MainScreen");
     }
 
-    // ±¤°í ½ÃÃ»À¸·Î Å×¸¶ Àá±İ ÇØÁ¦ ¹öÆ°
-    public void UnlockThemeSawAdBtn(int idx)
+    // ì‚¬ìš´ë“œ ì„¤ì • ë²„íŠ¼
+    public void InputSoundSettingBtn()
     {
-        selectedThemeIdx = idx; // ¼±ÅÃµÈ Å×¸¶ ÀÎµ¦½º ÀúÀå
-        RewardsBanner.Instance.ShowRewardedAd(DataManager.Instance.themeNames[selectedThemeIdx]); // ±¤°í ½ÃÃ»
-        OpenPopUp(); // ÆË¾÷Ã¢ È°¼ºÈ­
+        BlackScreen.SetActive(true); // ê²€ì€ ë°°ê²½ í™œì„±í™”
+        BlackScreen.GetComponent<Image>().DOFade(1,0.5f);
+        
+        SoundSettingScreen.SetActive(true); // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´ í™œì„±í™”
+        SoundSettingScreen.transform.localScale = Vector3.zero; // ì´ˆê¸° ìŠ¤ì¼€ì¼ì„ 0ìœ¼ë¡œ ì„¤ì •        
+        SoundSettingScreen.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack); // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ë“±ì¥
     }
 
-    // ÆË¾÷Ã¢ È°¼ºÈ­
+    // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´ ë‹«ê¸° ë²„íŠ¼
+    public void InputSoundSettingCloseBtn()
+    {
+        BlackScreen.GetComponent<Image>().DOFade(0,0.5f).OnComplete(() => BlackScreen.SetActive(false));
+        SoundSettingScreen.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
+        .OnComplete(() => SoundSettingScreen.SetActive(false));
+    }
+    
+    // ê´‘ê³  ì‹œì²­ìœ¼ë¡œ í…Œë§ˆ ì ê¸ˆ í•´ì œ ë²„íŠ¼
+    public void UnlockThemeSawAdBtn(int idx)
+    {
+        selectedThemeIdx = idx; // ì„ íƒëœ í…Œë§ˆ ì¸ë±ìŠ¤ ì €ì¥
+        RewardsBanner.Instance.ShowRewardedAd(DataManager.Instance.themeNames[selectedThemeIdx]); // ê´‘ê³  ì‹œì²­
+        OpenPopUp(); // íŒì—…ì°½ í™œì„±í™”
+    }
+
+    // íŒì—…ì°½ í™œì„±í™”
     public void OpenPopUp()
     {
-        popUpText.text = string.Format("{0}½ºÅ² È¹µæÀÌ\n¿Ï·áµÇ¾ú½À´Ï´Ù!", DataManager.Instance.themeNames[selectedThemeIdx]); // ÅØ½ºÆ® ¼³Á¤
-        popUpBackground.SetActive(true); // ÆË¾÷ ¹è°æ È°¼ºÈ­
-        popUp.SetActive(true); // ÆË¾÷ È°¼ºÈ­
-        popUp.transform.localScale = Vector3.zero; // ÃÊ±â ½ºÄÉÀÏÀ» 0À¸·Î ¼³Á¤        
-        
-        // ÅëÅë Æ¢´Â È¿°ú·Î µîÀå, ±¸¸Å »ç¿îµå Àç»ı
+        popUpText.text = string.Format("{0}ìŠ¤í‚¨ íšë“ì´\nì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤!", DataManager.Instance.themeNames[selectedThemeIdx]); // í…ìŠ¤íŠ¸ ì„¤ì •
+        popUpBackground.SetActive(true); // íŒì—… ë°°ê²½ í™œì„±í™”
+        popUp.SetActive(true); // íŒì—… í™œì„±í™”
+        popUp.transform.localScale = Vector3.zero; // ì´ˆê¸° ìŠ¤ì¼€ì¼ì„ 0ìœ¼ë¡œ ì„¤ì •        
+
+        // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ë“±ì¥, êµ¬ë§¤ ì‚¬ìš´ë“œ ì¬ìƒ
         popUp.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() => SoundManager.Instance.PlaySound("BuySound"));
-        themeSelectManager.UpdateThemeStore(); // »óÁ¡ Å×¸¶ ¼±ÅÃ ¹öÆ° ¾÷µ¥ÀÌÆ®
+        themeSelectManager.UpdateThemeStore(); // ìƒì  í…Œë§ˆ ì„ íƒ ë²„íŠ¼ ì—…ë°ì´íŠ¸
     }
-    // ÆË¾÷ ´İ±â ¹öÆ°
+    // íŒì—… ë‹«ê¸° ë²„íŠ¼
     public void ClosePopUpBtn()
     {
-        themeSelectManager.UpdateThemeStore(); // »óÁ¡ Å×¸¶ ¼±ÅÃ ¹öÆ° ¾÷µ¥ÀÌÆ®
-        // ÅëÅë Æ¢´Â È¿°ú·Î »ç¶óÁü
+        themeSelectManager.UpdateThemeStore(); // ìƒì  í…Œë§ˆ ì„ íƒ ë²„íŠ¼ ì—…ë°ì´íŠ¸
+        // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ì‚¬ë¼ì§
         popUp.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
             .OnComplete(() =>
             {
                 popUp.SetActive(false);
                 popUpBackground.SetActive(false);
-            }); // ¾Ö´Ï¸ŞÀÌ¼Ç ¿Ï·á ÈÄ ºñÈ°¼ºÈ­
+            }); // ì• ë‹ˆë©”ì´ì…˜ ì™„ë£Œ í›„ ë¹„í™œì„±í™”
     }
 
-    // Å×¸¶ Áï½Ã ÀåÂø ¹öÆ°
+    // í…Œë§ˆ ì¦‰ì‹œ ì¥ì°© ë²„íŠ¼
     public void EquipThemeBtn()
     {
-        DataManager.Instance.SelectTheme(DataManager.Instance.themeNames[selectedThemeIdx]);        
-        ClosePopUpBtn(); // ÆË¾÷Ã¢ ´İ±â
+        DataManager.Instance.SelectTheme(DataManager.Instance.themeNames[selectedThemeIdx]);
+        ClosePopUpBtn(); // íŒì—…ì°½ ë‹«ê¸°
     }
 }

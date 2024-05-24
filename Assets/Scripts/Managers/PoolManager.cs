@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] fishPrefabs; // ¹°°í±â ÇÁ¸®ÆÕ °ü¸® ¹è¿­: ¹Ì¸® ¼³Á¤µÈ ¹°°í±â ÇÁ¸®ÆÕµéÀ» ÀúÀå
-    [SerializeField] private GameObject[] enemyPrefabs; // »ó¾î, º¹¾î °°Àº Àû ¹°°í±â ¹è¿­
-    public Transform[] spawnPoints; // ½ºÆù Àå¼Òµé: ¹°°í±â°¡ ³ªÅ¸³¯ À§Ä¡µéÀ» Á¤ÀÇ
-    [SerializeField] private List<GameObject>[] fishPools; // ¹°°í±â Ç® ¹è¿­: ¹°°í±â ÇÁ¸®ÆÕµéÀ» Ç®¸µÇÏ¿© ÀúÀå
-    [SerializeField] private List<GameObject>[] enemyPools; // Àû ¹°°í±â Ç® ¹è¿­ 
-    private bool isFishSpawnCor = false; // ¹°°í±â ½ºÆù ÄÚ·çÆ¾ Áßº¹ ½ÇÇà ¹æÁö º¯¼ö
-    private bool isBlowFishSpawnCor = false; // BlowFish ½ºÆù ÄÚ·çÆ¾ Áßº¹ ½ÇÇà ¹æÁö º¯¼ö
-    private bool isSharkSpawnCor = false; // Shark ½ºÆù ÄÚ·çÆ¾ Áßº¹ ½ÇÇà ¹æÁö º¯¼ö
-    public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f); // ¹°°í±â ½ºÆù ¹üÀ§
+    [SerializeField] private GameObject[] fishPrefabs; // ë¬¼ê³ ê¸° í”„ë¦¬íŒ¹ ê´€ë¦¬ ë°°ì—´: ë¯¸ë¦¬ ì„¤ì •ëœ ë¬¼ê³ ê¸° í”„ë¦¬íŒ¹ë“¤ì„ ì €ì¥
+    [SerializeField] private GameObject[] enemyPrefabs; // ìƒì–´, ë³µì–´ ê°™ì€ ì  ë¬¼ê³ ê¸° ë°°ì—´
+    public Transform[] spawnPoints; // ìŠ¤í° ì¥ì†Œë“¤: ë¬¼ê³ ê¸°ê°€ ë‚˜íƒ€ë‚  ìœ„ì¹˜ë“¤ì„ ì •ì˜
+    [SerializeField] private List<GameObject>[] fishPools; // ë¬¼ê³ ê¸° í’€ ë°°ì—´: ë¬¼ê³ ê¸° í”„ë¦¬íŒ¹ë“¤ì„ í’€ë§í•˜ì—¬ ì €ì¥
+    [SerializeField] private List<GameObject>[] enemyPools; // ì  ë¬¼ê³ ê¸° í’€ ë°°ì—´ 
+    private bool isFishSpawnCor = false; // ë¬¼ê³ ê¸° ìŠ¤í° ì½”ë£¨í‹´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ ë³€ìˆ˜
+    private bool isBlowFishSpawnCor = false; // BlowFish ìŠ¤í° ì½”ë£¨í‹´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ ë³€ìˆ˜
+    private bool isSharkSpawnCor = false; // Shark ìŠ¤í° ì½”ë£¨í‹´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ ë³€ìˆ˜
+    public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f); // ë¬¼ê³ ê¸° ìŠ¤í° ë²”ìœ„
     [ArrayElementTitle("name")]
-    public List<EnemySpawnRange> enemySpawnRangeList; // Àû ¹°°í±â ½ºÆù ¹üÀ§ ¸®½ºÆ®
-    private GameManager gm; // °ÔÀÓ ¸Å´ÏÀú ÂüÁ¶
+    public List<EnemySpawnRange> enemySpawnRangeList; // ì  ë¬¼ê³ ê¸° ìŠ¤í° ë²”ìœ„ ë¦¬ìŠ¤íŠ¸
+    private GameManager gm; // ê²Œì„ ë§¤ë‹ˆì € ì°¸ì¡°
 
     private void Awake()
     {
-        gm = GameManager.Instance; // °ÔÀÓ ¸Å´ÏÀú ÂüÁ¶
+        gm = GameManager.Instance; // ê²Œì„ ë§¤ë‹ˆì € ì°¸ì¡°
 
-        fishPools = new List<GameObject>[fishPrefabs.Length]; // ¹°°í±â ÇÁ¸®ÆÕ ¹è¿­ÀÇ ±æÀÌ¸¸Å­ ¹°°í±â Ç® ¹è¿­ »ı¼º
-        enemyPools = new List<GameObject>[enemyPrefabs.Length]; // Àû ¹°°í±â ÇÁ¸®ÆÕ ¹è¿­ÀÇ ±æÀÌ¸¸Å­ Àû ¹°°í±â Ç® ¹è¿­ »ı¼º      
+        fishPools = new List<GameObject>[fishPrefabs.Length]; // ë¬¼ê³ ê¸° í”„ë¦¬íŒ¹ ë°°ì—´ì˜ ê¸¸ì´ë§Œí¼ ë¬¼ê³ ê¸° í’€ ë°°ì—´ ìƒì„±
+        enemyPools = new List<GameObject>[enemyPrefabs.Length]; // ì  ë¬¼ê³ ê¸° í”„ë¦¬íŒ¹ ë°°ì—´ì˜ ê¸¸ì´ë§Œí¼ ì  ë¬¼ê³ ê¸° í’€ ë°°ì—´ ìƒì„±      
 
-        // ¹°°í±â Ç® ¹è¿­ ÃÊ±âÈ­
+        // ë¬¼ê³ ê¸° í’€ ë°°ì—´ ì´ˆê¸°í™”
         for (int i = 0; i < fishPools.Length; i++)
         {
             fishPools[i] = new List<GameObject>();
         }
-        // Àû ¹°°í±â Ç® ¹è¿­ ÃÊ±âÈ­
+        // ì  ë¬¼ê³ ê¸° í’€ ë°°ì—´ ì´ˆê¸°í™”
         for (int i = 0; i < enemyPools.Length; i++)
         {
             enemyPools[i] = new List<GameObject>();
@@ -38,25 +38,25 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        StartSpawnFish(); // ¹°°í±â ½ºÆù
+        StartSpawnFish(); // ë¬¼ê³ ê¸° ìŠ¤í°
     }
 
     public void Get(int index, bool isEnemy)
     {
-        GameObject select = null; // ¼±ÅÃµÉ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ÀúÀåÇÒ º¯¼ö
+        GameObject select = null; // ì„ íƒë  ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ì €ì¥í•  ë³€ìˆ˜
 
-        // ÇØ´ç ÀÎµ¦½ºÀÇ Ç®¿¡¼­ È°¼ºÈ­µÇÁö ¾ÊÀº °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ Ã£À½
+        // í•´ë‹¹ ì¸ë±ìŠ¤ì˜ í’€ì—ì„œ í™œì„±í™”ë˜ì§€ ì•Šì€ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ìŒ
         foreach (GameObject item in fishPools[index])
         {
             if (!item.activeSelf)
             {
                 select = item;
-                select.SetActive(true); // Ã£¾Ò´Ù¸é È°¼ºÈ­½ÃÅ°°í ·çÇÁ¸¦ Á¾·á
+                select.SetActive(true); // ì°¾ì•˜ë‹¤ë©´ í™œì„±í™”ì‹œí‚¤ê³  ë£¨í”„ë¥¼ ì¢…ë£Œ
                 break;
             }
         }
 
-        // Ç®¿¡¼­ »ç¿ë °¡´ÉÇÑ ¿ÀºêÁ§Æ®¸¦ Ã£Áö ¸øÇÑ °æ¿ì, »õ·Î¿î ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÏ°í Ç®¿¡ Ãß°¡
+        // í’€ì—ì„œ ì‚¬ìš© ê°€ëŠ¥í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì§€ ëª»í•œ ê²½ìš°, ìƒˆë¡œìš´ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•˜ê³  í’€ì— ì¶”ê°€
         if (select == null)
         {
             if (isEnemy)
@@ -71,92 +71,92 @@ public class PoolManager : MonoBehaviour
             }
         }
 
-        // ¼±ÅÃµÈ ¿ÀºêÁ§Æ®¸¦ ¹«ÀÛÀ§ ½ºÆù Æ÷ÀÎÆ® À§Ä¡·Î ÀÌµ¿
+        // ì„ íƒëœ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¬´ì‘ìœ„ ìŠ¤í° í¬ì¸íŠ¸ ìœ„ì¹˜ë¡œ ì´ë™
         select.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
 
-        //return select; // ¼±ÅÃµÈ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ¹İÈ¯
+        //return select; // ì„ íƒëœ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ë°˜í™˜
     }
 
-    // ¹°°í±â ½ºÆù ½ÃÀÛ
+    // ë¬¼ê³ ê¸° ìŠ¤í° ì‹œì‘
     public void StartSpawnFish()
     {
-        if (isFishSpawnCor == true) // ÄÚ·çÆ¾ÀÌ ½ÇÇà ÁßÀÌ¶ó¸é ÁßÁö
-            StopCoroutine(SpawnFish()); // ¹°°í±â ½ºÆù ÄÚ·çÆ¾ ÁßÁö
+        if (isFishSpawnCor == true) // ì½”ë£¨í‹´ì´ ì‹¤í–‰ ì¤‘ì´ë¼ë©´ ì¤‘ì§€
+            StopCoroutine(SpawnFish()); // ë¬¼ê³ ê¸° ìŠ¤í° ì½”ë£¨í‹´ ì¤‘ì§€
 
-        StartCoroutine(SpawnFish()); // ¹°°í±â ½ºÆù ÄÚ·çÆ¾ ½ÃÀÛ
+        StartCoroutine(SpawnFish()); // ë¬¼ê³ ê¸° ìŠ¤í° ì½”ë£¨í‹´ ì‹œì‘
     }
-    // ¹°°í±â ½ºÆù ÄÚ·çÆ¾
+    // ë¬¼ê³ ê¸° ìŠ¤í° ì½”ë£¨í‹´
     private IEnumerator SpawnFish()
     {
-        isFishSpawnCor = true; // ¹°°í±â ½ºÆù ÄÚ·çÆ¾ Áßº¹ ½ÇÇà ¹æÁö º¯¼ö true·Î º¯°æ
-        while (!gm.isGameOver) //°ÔÀÓÀÌ Á¾·áµÉ¶§±îÁö°è¼Ó¹İº¹
+        isFishSpawnCor = true; // ë¬¼ê³ ê¸° ìŠ¤í° ì½”ë£¨í‹´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ ë³€ìˆ˜ trueë¡œ ë³€ê²½
+        while (!gm.isGameOver) //ê²Œì„ì´ ì¢…ë£Œë ë•Œê¹Œì§€ê³„ì†ë°˜ë³µ
         {
             Get(SelectFish(), false);
-            //1ÃÊ¿¡¼­ 5ÃÊ»çÀÌ ½Ç¼ö°ªÀ¸·Î ·£´ıÇÏ°Ô µîÀå
+            //1ì´ˆì—ì„œ 5ì´ˆì‚¬ì´ ì‹¤ìˆ˜ê°’ìœ¼ë¡œ ëœë¤í•˜ê²Œ ë“±ì¥
             yield return new WaitForSeconds(Random.Range(fishSpawnRange.min, fishSpawnRange.max));
         }
-        isFishSpawnCor = false; // ¹°°í±â ½ºÆù ÄÚ·çÆ¾ Áßº¹ ½ÇÇà ¹æÁö º¯¼ö false·Î º¯°æ
+        isFishSpawnCor = false; // ë¬¼ê³ ê¸° ìŠ¤í° ì½”ë£¨í‹´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ ë³€ìˆ˜ falseë¡œ ë³€ê²½
     }
 
-    // BlowFish ½ºÆù ÄÚ·çÆ¾
+    // BlowFish ìŠ¤í° ì½”ë£¨í‹´
     private IEnumerator SpawnBlowFish()
     {
         isBlowFishSpawnCor = true;
         while (!gm.isGameOver)
         {
-            Get(0, true); // BlowFish ½ºÆù            
+            Get(0, true); // BlowFish ìŠ¤í°            
             yield return new WaitForSeconds(Random.Range(enemySpawnRangeList[0].min, enemySpawnRangeList[0].max));
         }
         isBlowFishSpawnCor = false;
     }
-    // Shark ½ºÆù ÄÚ·çÆ¾
+    // Shark ìŠ¤í° ì½”ë£¨í‹´
     private IEnumerator SpawnShark()
     {
         isSharkSpawnCor = true;
         while (!gm.isGameOver)
         {
-            Get(1, true); // Shark ½ºÆù
+            Get(1, true); // Shark ìŠ¤í°
 
             yield return new WaitForSeconds(Random.Range(enemySpawnRangeList[1].min, enemySpawnRangeList[1].max));
         }
         isSharkSpawnCor = false;
     }
 
-    // Misson¿¡ µû¶ó ÀûÀ» ¼±ÅÃÇÏ´Â ·ÎÁ÷ ±¸Çö
+    // Missonì— ë”°ë¼ ì ì„ ì„ íƒí•˜ëŠ” ë¡œì§ êµ¬í˜„
     private int SelectFish()
     {
-        float randomNum = Random.Range(0, 100); // 0¿¡¼­ 99±îÁöÀÇ ¼ıÀÚ Áß ÇÏ³ª¸¦ ·£´ıÀ¸·Î ¼±ÅÃ
+        float randomNum = Random.Range(0, 100); // 0ì—ì„œ 99ê¹Œì§€ì˜ ìˆ«ì ì¤‘ í•˜ë‚˜ë¥¼ ëœë¤ìœ¼ë¡œ ì„ íƒ
 
-        if (gm.currentMission <= 1) // ¹Ì¼Ç 0, 1
+        if (gm.currentMission <= 1) // ë¯¸ì…˜ 0, 1
         {
-            if (randomNum < 70) return 0; // 70% È®·ü·Î 0¹ø ¹°°í±â
-            else return 1; // 30% È®·ü·Î 1¹ø ¹°°í±â            
+            if (randomNum < 70) return 0; // 70% í™•ë¥ ë¡œ 0ë²ˆ ë¬¼ê³ ê¸°
+            else return 1; // 30% í™•ë¥ ë¡œ 1ë²ˆ ë¬¼ê³ ê¸°            
         }
-        else if (gm.currentMission <= 3) // ¹Ì¼Ç 2, 3
+        else if (gm.currentMission <= 3) // ë¯¸ì…˜ 2, 3
         {
-            if (randomNum < 45) return 0; // 45% È®·ü·Î 0¹ø ¹°°í±â            
-            else if (randomNum < 75) return 1; // 30% È®·ü·Î 1¹ø ¹°°í±â
-            else return 2; // 25% È®·ü·Î 2¹ø ¹°°í±â            
+            if (randomNum < 45) return 0; // 45% í™•ë¥ ë¡œ 0ë²ˆ ë¬¼ê³ ê¸°            
+            else if (randomNum < 75) return 1; // 30% í™•ë¥ ë¡œ 1ë²ˆ ë¬¼ê³ ê¸°
+            else return 2; // 25% í™•ë¥ ë¡œ 2ë²ˆ ë¬¼ê³ ê¸°            
         }
-        else if (gm.currentMission <= 5) // ¹Ì¼Ç 4, 5
+        else if (gm.currentMission <= 5) // ë¯¸ì…˜ 4, 5
         {
             if (isBlowFishSpawnCor == false)
-                StartCoroutine(SpawnBlowFish()); // BlowFish ½ºÆù ÄÚ·çÆ¾ ½ÃÀÛ
+                StartCoroutine(SpawnBlowFish()); // BlowFish ìŠ¤í° ì½”ë£¨í‹´ ì‹œì‘
 
-            if (randomNum < 30) return 0; // 30% È®·ü·Î 0¹ø ¹°°í±â
-            else if (randomNum < 70) return 1; // 40% È®·ü·Î 1¹ø ¹°°í±â
-            else if (randomNum < 90) return 2; // 20% È®·ü·Î 2¹ø ¹°°í±â
-            else return 3; // 10% È®·ü·Î 3¹ø ¹°°í±â
+            if (randomNum < 30) return 0; // 30% í™•ë¥ ë¡œ 0ë²ˆ ë¬¼ê³ ê¸°
+            else if (randomNum < 70) return 1; // 40% í™•ë¥ ë¡œ 1ë²ˆ ë¬¼ê³ ê¸°
+            else if (randomNum < 90) return 2; // 20% í™•ë¥ ë¡œ 2ë²ˆ ë¬¼ê³ ê¸°
+            else return 3; // 10% í™•ë¥ ë¡œ 3ë²ˆ ë¬¼ê³ ê¸°
         }
-        else // ¹Ì¼Ç 6,7,8
+        else // ë¯¸ì…˜ 6,7,8
         {
             if (gm.currentMission <= 7 && isSharkSpawnCor == false)
-                StartCoroutine(SpawnShark()); // Shark ½ºÆù ÄÚ·çÆ¾ ½ÃÀÛ
+                StartCoroutine(SpawnShark()); // Shark ìŠ¤í° ì½”ë£¨í‹´ ì‹œì‘
 
-            if (randomNum < 10) return 0; // 10% È®·ü·Î 0¹ø ¹°°í±â
-            else if (randomNum < 40) return 1; // 30% È®·ü·Î 1¹ø ¹°°í±â
-            else if (randomNum < 70) return 2; // 30% È®·ü·Î 2¹ø ¹°°í±â
-            else return 3; // 30% È®·ü·Î 3¹ø ¹°°í±â
+            if (randomNum < 10) return 0; // 10% í™•ë¥ ë¡œ 0ë²ˆ ë¬¼ê³ ê¸°
+            else if (randomNum < 40) return 1; // 30% í™•ë¥ ë¡œ 1ë²ˆ ë¬¼ê³ ê¸°
+            else if (randomNum < 70) return 2; // 30% í™•ë¥ ë¡œ 2ë²ˆ ë¬¼ê³ ê¸°
+            else return 3; // 30% í™•ë¥ ë¡œ 3ë²ˆ ë¬¼ê³ ê¸°
         }
     }
 }

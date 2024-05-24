@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Unity_GrowFish.sln"
+    "dotnet.defaultSolution": "Unity_GrowFish.sln",
+    "dotnet.preferCSharpExtension": true
 }

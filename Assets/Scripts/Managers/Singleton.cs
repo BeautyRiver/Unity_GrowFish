@@ -5,7 +5,7 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-    public  bool DoDestroyOnLoad = true;  // ¾À ÀüÈ¯ ½Ã °´Ã¼¸¦ À¯ÁöÇÒÁö ¿©ºÎ¸¦ °áÁ¤ÇÏ´Â ÇÃ·¡±×
+    public  bool DoDestroyOnLoad = true;  // ì”¬ ì „í™˜ ì‹œ ê°ì²´ë¥¼ ìœ ì§€í• ì§€ ì—¬ë¶€ë¥¼ ê²°ì •í•˜ëŠ” í”Œë˜ê·¸
 
     public static T Instance
     {
@@ -28,7 +28,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);  // Áßº¹ ÀÎ½ºÅÏ½º ÆÄ±«
+            Destroy(this.gameObject);  // ì¤‘ë³µ ì¸ìŠ¤í„´ìŠ¤ íŒŒê´´
             return;
         }
 
@@ -36,7 +36,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
         if (DoDestroyOnLoad)
         {
-            DontDestroyOnLoad(this.gameObject);  // ¾À ÀüÈ¯ ½Ã ÆÄ±«µÇÁö ¾Êµµ·Ï ¼³Á¤
+            DontDestroyOnLoad(this.gameObject);  // ì”¬ ì „í™˜ ì‹œ íŒŒê´´ë˜ì§€ ì•Šë„ë¡ ì„¤ì •
         }
 
         Application.targetFrameRate = 60;

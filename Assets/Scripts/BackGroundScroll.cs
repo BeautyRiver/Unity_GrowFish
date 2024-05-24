@@ -4,59 +4,59 @@ using UnityEngine;
 
 public class BackGroundScroll : MonoBehaviour
 {
-    public Transform player; // ÇÃ·¹ÀÌ¾î À§Ä¡
-    public GameObject background1; // ¹è°æ 1
-    public GameObject background2; // ¹è°æ 2
+    public Transform player; // í”Œë ˆì´ì–´ ìœ„ì¹˜
+    public GameObject background1; // ë°°ê²½ 1
+    public GameObject background2; // ë°°ê²½ 2
 
-    public GameObject bgDeco1; // ¹è°æ Àå½Ä 1
-    public GameObject bgDeco2; // ¹è°æ Àå½Ä 2
-    private float backgroundWidth; // ¹è°æÀÇ ³Êºñ
-    private float lastPlayerX; // ÀÌÀü ÇÁ·¹ÀÓ¿¡¼­ ÇÃ·¹ÀÌ¾îÀÇ x À§Ä¡
+    public GameObject bgDeco1; // ë°°ê²½ ì¥ì‹ 1
+    public GameObject bgDeco2; // ë°°ê²½ ì¥ì‹ 2
+    private float backgroundWidth; // ë°°ê²½ì˜ ë„ˆë¹„
+    private float lastPlayerX; // ì´ì „ í”„ë ˆì„ì—ì„œ í”Œë ˆì´ì–´ì˜ x ìœ„ì¹˜
 
     private void Start()
     {
-        // ¹è°æÀÇ ³Êºñ¸¦ °è»êÇÕ´Ï´Ù (°¡Á¤: ¹è°æ ½ºÇÁ¶óÀÌÆ®ÀÇ ³Êºñ »ç¿ë)
+        // ë°°ê²½ì˜ ë„ˆë¹„ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤ (ê°€ì •: ë°°ê²½ ìŠ¤í”„ë¼ì´íŠ¸ì˜ ë„ˆë¹„ ì‚¬ìš©)
         backgroundWidth = background1.GetComponent<SpriteRenderer>().bounds.size.x;
-        // ÇÃ·¹ÀÌ¾îÀÇ ÃÊ±â x À§Ä¡¸¦ ÀúÀå
+        // í”Œë ˆì´ì–´ì˜ ì´ˆê¸° x ìœ„ì¹˜ë¥¼ ì €ì¥
         lastPlayerX = player.position.x;
     }
 
     private void FixedUpdate()
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ¹æÇâ ÆÇ´Ü (¿À¸¥ÂÊ ¶Ç´Â ¿ŞÂÊ ÀÌµ¿)
+        // í”Œë ˆì´ì–´ì˜ ì´ë™ ë°©í–¥ íŒë‹¨ (ì˜¤ë¥¸ìª½ ë˜ëŠ” ì™¼ìª½ ì´ë™)
         bool movingRight = (player.position.x > lastPlayerX);
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÏ¸ç ¹è°æ 1ÀÇ Áß°£À» Áö³ª°¬À» °æ¿ì
+        // í”Œë ˆì´ì–´ê°€ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™í•˜ë©° ë°°ê²½ 1ì˜ ì¤‘ê°„ì„ ì§€ë‚˜ê°”ì„ ê²½ìš°
         if (movingRight && player.position.x >= background1.transform.position.x)
         {
-            // ¹è°æ 2¸¦ ¹è°æ 1ÀÇ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿
+            // ë°°ê²½ 2ë¥¼ ë°°ê²½ 1ì˜ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
             background2.transform.position = new Vector3(background1.transform.position.x + backgroundWidth, background1.transform.position.y, background1.transform.position.z);
             bgDeco2.transform.position = background2.transform.position;
         }
-        // ÇÃ·¹ÀÌ¾î°¡ ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÏ¸ç ¹è°æ 1ÀÇ Áß°£À» Áö³ª°¬À» °æ¿ì
+        // í”Œë ˆì´ì–´ê°€ ì™¼ìª½ìœ¼ë¡œ ì´ë™í•˜ë©° ë°°ê²½ 1ì˜ ì¤‘ê°„ì„ ì§€ë‚˜ê°”ì„ ê²½ìš°
         else if (!movingRight && player.position.x <= background1.transform.position.x)
         {
-            // ¹è°æ 2¸¦ ¹è°æ 1ÀÇ ¿ŞÂÊÀ¸·Î ÀÌµ¿
+            // ë°°ê²½ 2ë¥¼ ë°°ê²½ 1ì˜ ì™¼ìª½ìœ¼ë¡œ ì´ë™
             background2.transform.position = new Vector3(background1.transform.position.x - backgroundWidth, background1.transform.position.y, background1.transform.position.z);
             bgDeco2.transform.position = background2.transform.position;
         }
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÏ¸ç ¹è°æ 1ÀÇ Áß°£À» Áö³ª°¬À» °æ¿ì
+        // í”Œë ˆì´ì–´ê°€ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™í•˜ë©° ë°°ê²½ 1ì˜ ì¤‘ê°„ì„ ì§€ë‚˜ê°”ì„ ê²½ìš°
         if (movingRight && player.position.x >= background2.transform.position.x)
         {
-            // ¹è°æ 2¸¦ ¹è°æ 1ÀÇ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿
+            // ë°°ê²½ 2ë¥¼ ë°°ê²½ 1ì˜ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
             background1.transform.position = new Vector3(background2.transform.position.x + backgroundWidth, background2.transform.position.y, background2.transform.position.z);
             bgDeco1.transform.position = background1.transform.position;
         }
-        // ÇÃ·¹ÀÌ¾î°¡ ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÏ¸ç ¹è°æ 1ÀÇ Áß°£À» Áö³ª°¬À» °æ¿ì
+        // í”Œë ˆì´ì–´ê°€ ì™¼ìª½ìœ¼ë¡œ ì´ë™í•˜ë©° ë°°ê²½ 1ì˜ ì¤‘ê°„ì„ ì§€ë‚˜ê°”ì„ ê²½ìš°
         else if (!movingRight && player.position.x <= background2.transform.position.x)
         {
-            // ¹è°æ 2¸¦ ¹è°æ 1ÀÇ ¿ŞÂÊÀ¸·Î ÀÌµ¿
+            // ë°°ê²½ 2ë¥¼ ë°°ê²½ 1ì˜ ì™¼ìª½ìœ¼ë¡œ ì´ë™
             background1.transform.position = new Vector3(background2.transform.position.x - backgroundWidth, background2.transform.position.y, background2.transform.position.z);
             bgDeco1.transform.position = background1.transform.position;
         }
 
-        // ÀÌ¹ø ÇÁ·¹ÀÓ¿¡¼­ÀÇ ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ´ÙÀ½ ÇÁ·¹ÀÓ ºñ±³¸¦ À§ÇØ ÀúÀå
+        // ì´ë²ˆ í”„ë ˆì„ì—ì„œì˜ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ë‹¤ìŒ í”„ë ˆì„ ë¹„êµë¥¼ ìœ„í•´ ì €ì¥
         lastPlayerX = player.position.x;
     }
 }

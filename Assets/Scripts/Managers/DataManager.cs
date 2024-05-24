@@ -22,12 +22,12 @@ public class ThemeData
 public class ThemeList
 {
     
-    public List<ThemeData> themes = new List<ThemeData>();  // Å×¸¶ µ¥ÀÌÅÍ ¸®½ºÆ®
+    public List<ThemeData> themes = new List<ThemeData>();  // í…Œë§ˆ ë°ì´í„° ë¦¬ìŠ¤íŠ¸
 
-    // ±âº» Å×¸¶ µ¥ÀÌÅÍ »ı¼º
+    // ê¸°ë³¸ í…Œë§ˆ ë°ì´í„° ìƒì„±
     public void InitializeThemes()
     {
-        themes.Clear(); // ±âÁ¸ µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­
+        themes.Clear(); // ê¸°ì¡´ ë°ì´í„°ë¥¼ ì´ˆê¸°í™”
         themes.Add(new ThemeData("DefaultTheme", true, true));
         int idx = 0;
         foreach (var themeName in DataManager.Instance.themeNames)
@@ -40,16 +40,16 @@ public class ThemeList
 
 public class DataManager : Singleton<DataManager> 
 {
-    public List<string> themeNames = new List<String>();    // Å×¸¶ ÀÌ¸§ ¸®½ºÆ®
-    public ThemeList themeList = new ThemeList(); // Å×¸¶ µ¥ÀÌÅÍ ¸®½ºÆ®
-    private string path; // ÆÄÀÏ °æ·Î
-    private string fileName = "ThemeData.json"; // ÆÄÀÏ ÀÌ¸§
+    public List<string> themeNames = new List<String>();    // í…Œë§ˆ ì´ë¦„ ë¦¬ìŠ¤íŠ¸
+    public ThemeList themeList = new ThemeList(); // í…Œë§ˆ ë°ì´í„° ë¦¬ìŠ¤íŠ¸
+    private string path; // íŒŒì¼ ê²½ë¡œ
+    private string fileName = "ThemeData.json"; // íŒŒì¼ ì´ë¦„
 
     protected override void Awake()
     {
         base.Awake();
         path = Application.persistentDataPath + "/";
-        LoadData(); // µ¥ÀÌÅÍ ·Îµå ½Ãµµ
+        LoadData(); // ë°ì´í„° ë¡œë“œ ì‹œë„
     }
 
     public void SaveData()
@@ -61,67 +61,67 @@ public class DataManager : Singleton<DataManager>
     public void LoadData()
     {
         string fullPath = path + fileName;
-        if (File.Exists(fullPath)) // ÆÄÀÏÀÌ Á¸ÀçÇÏ¸é ·Îµå
+        if (File.Exists(fullPath)) // íŒŒì¼ì´ ì¡´ì¬í•˜ë©´ ë¡œë“œ
         {
             string data = File.ReadAllText(fullPath);
             themeList = JsonUtility.FromJson<ThemeList>(data);
         }
-        else // ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ÃÊ±â µ¥ÀÌÅÍ ¼³Á¤
+        else // íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ ì´ˆê¸° ë°ì´í„° ì„¤ì •
         {
             themeList.InitializeThemes();
-            SaveData(); // ÃÊ±â µ¥ÀÌÅÍ ÀúÀå
+            SaveData(); // ì´ˆê¸° ë°ì´í„° ì €ì¥
         }
     }
 
     public void UnLockTheme(string themeName)
     {
-        LoadData(); // µ¥ÀÌÅÍ ·Îµå
+        LoadData(); // ë°ì´í„° ë¡œë“œ
         bool updated = false;
         foreach (var theme in themeList.themes)
         {
-            if (theme.themeName == themeName && !theme.isOpen) // Å×¸¶°¡ ÇØ´ç ÀÌ¸§°ú ÀÏÄ¡ÇÏ°í Àá°ÜÀÖ´Â °æ¿ì
+            if (theme.themeName == themeName && !theme.isOpen) // í…Œë§ˆê°€ í•´ë‹¹ ì´ë¦„ê³¼ ì¼ì¹˜í•˜ê³  ì ê²¨ìˆëŠ” ê²½ìš°
             {
-                theme.isOpen = true;  // Å×¸¶¸¦ ÇØ±İ
-                updated = true;       // ¾÷µ¥ÀÌÆ®°¡ ÀÌ·ç¾îÁ³À½À» Ç¥½Ã
+                theme.isOpen = true;  // í…Œë§ˆë¥¼ í•´ê¸ˆ
+                updated = true;       // ì—…ë°ì´íŠ¸ê°€ ì´ë£¨ì–´ì¡ŒìŒì„ í‘œì‹œ
                 break;
             }
         }
 
         if (updated)
         {
-            SaveData();  // º¯°æ »çÇ×ÀÌ ÀÖÀ¸¸é µ¥ÀÌÅÍ ÀúÀå
+            SaveData();  // ë³€ê²½ ì‚¬í•­ì´ ìˆìœ¼ë©´ ë°ì´í„° ì €ì¥
         }
     }
     public void SelectTheme(string themeName)
     {
-        LoadData(); // µ¥ÀÌÅÍ ·Îµå
+        LoadData(); // ë°ì´í„° ë¡œë“œ
         bool updated = false;
         foreach (var theme in themeList.themes)
         {
-            if (theme.themeName == themeName) // Å×¸¶°¡ ÇØ´ç ÀÌ¸§°ú ÀÏÄ¡ÇÏ´Â °æ¿ì
+            if (theme.themeName == themeName) // í…Œë§ˆê°€ í•´ë‹¹ ì´ë¦„ê³¼ ì¼ì¹˜í•˜ëŠ” ê²½ìš°
             {
-                if (!theme.isSelect) // ÇöÀç ¼±ÅÃµÇÁö ¾Ê¾Ò´Ù¸é
+                if (!theme.isSelect) // í˜„ì¬ ì„ íƒë˜ì§€ ì•Šì•˜ë‹¤ë©´
                 {
-                    theme.isSelect = true;  // Å×¸¶¸¦ ¼±ÅÃ
-                    updated = true;         // ¾÷µ¥ÀÌÆ® Ç¥½Ã
+                    theme.isSelect = true;  // í…Œë§ˆë¥¼ ì„ íƒ
+                    updated = true;         // ì—…ë°ì´íŠ¸ í‘œì‹œ
                 }
             }
             else
             {
-                if (theme.isSelect) // ´Ù¸¥ Å×¸¶°¡ ¼±ÅÃµÇ¾î ÀÖ´Ù¸é
+                if (theme.isSelect) // ë‹¤ë¥¸ í…Œë§ˆê°€ ì„ íƒë˜ì–´ ìˆë‹¤ë©´
                 {
-                    theme.isSelect = false; // ¼±ÅÃ ÇØÁ¦
-                    updated = true;         // ¾÷µ¥ÀÌÆ® Ç¥½Ã
+                    theme.isSelect = false; // ì„ íƒ í•´ì œ
+                    updated = true;         // ì—…ë°ì´íŠ¸ í‘œì‹œ
                 }
             }
         }
         if (updated)
         {
-            SaveData();  // º¯°æ »çÇ×ÀÌ ÀÖÀ¸¸é µ¥ÀÌÅÍ ÀúÀå
+            SaveData();  // ë³€ê²½ ì‚¬í•­ì´ ìˆìœ¼ë©´ ë°ì´í„° ì €ì¥
         }
     }
 
-    // µğ¹ö±×¿ë JSON ÃÊ±âÈ­
+    // ë””ë²„ê·¸ìš© JSON ì´ˆê¸°í™”
     public void DebugJsonInit()
     {
         themeList.themes.Clear();

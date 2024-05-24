@@ -51,8 +51,6 @@ public class GameManager : Singleton<GameManager>
         SoundManager.Instance.ChangePlayListClip("InGame_bgm");   
     }
 
-
-
     // 물고기 먹을 때마다 호출되는 함수
     public void UpdateFishCount(int fishType)
     {
@@ -88,7 +86,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    #region 물고기 목표값 초기 할당
+#region 물고기 목표값 초기 할당
     // 물고기 목표값 초기 할당
     void InitMissionTargets()
     {
@@ -151,6 +149,7 @@ public class GameManager : Singleton<GameManager>
     }
     #endregion
 
+#region  사이즈 관련
     // 카메라 및 배경 사이즈 변경 코루틴
     IEnumerator ChangeCameraAndBgSize(float duration, float camerChangeSize, float changeBGSizeY)
     {
@@ -208,7 +207,9 @@ public class GameManager : Singleton<GameManager>
 
         }
     }
+#endregion
 
+#region 레벨업 + Debug
     //레벨업 
     public void LevelUp()
     {
@@ -343,4 +344,5 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+    #endregion
 }

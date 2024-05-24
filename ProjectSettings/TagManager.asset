@@ -17,6 +17,8 @@ TagManager:
   - Bg
   - BgDeco1
   - BgDeco2
+  - SFX
+  - BGM
   layers:
   - Default
   - TransparentFX

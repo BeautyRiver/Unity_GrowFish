@@ -67,6 +67,7 @@ public class PlayerMove : MonoBehaviour
         hp = maxHp; // 초기 체력 설정
         currentMaxSpeed = maxSpeedNormal; // 초기 최대 속도 설정
 
+        effectList = new List<GameObject>[effects.Length];
         for (int i = 0; i < effects.Length; i++)
         {
             effectList[i] = new List<GameObject>();
@@ -192,9 +193,9 @@ public class PlayerMove : MonoBehaviour
     // 물고기 먹기
     private void EatFish(Collider2D collision, int plusScore)
     {
+        ShowPlayerEffect(mouth.transform.position, "Eat"); // 먹는 이펙트 표시
         collision.gameObject.SetActive(false);
         SoundManager.Instance.PlaySound("EatSound"); // 먹는 사운드 재생
-        ShowPlayerEffect(eatEffect, mouth.transform.position); // 먹었을때 이펙트 발생
         playerAni.Play("PlayerDoEat");
         gm.score += plusScore;
         uiManager.scoreText.text = gm.score.ToString();
@@ -220,29 +221,38 @@ public class PlayerMove : MonoBehaviour
     }
  
     // 플레이어 이펙트
-    private void ShowPlayerEffect(GameObject effect, Vector3 pos, string type)
+    private void ShowPlayerEffect(Vector3 pos, string type)
     {
         int idx = 0;
         if (type == "Eat") idx = 0;
         else if (type == "Hit") idx = 1;
 
-        for (int i = 0; i < effectList[idx].Count; i++)
+        GameObject select = null;
+
+        foreach (GameObject item in effectList[idx])
         {
-            GameObject eff = effectList[idx][i];
-            eff.SetActive(true);
-            if (eff == null) 
+            if (!item.activeSelf)
             {
-                effectList[idx].Add(Instantiate(effects[idx], transform.position, Quaternion.identity));                
+                select = item;
+                break;
             }
         }
-        
+
+        if (select == null)
+        {
+            select = Instantiate(effects[idx]);
+            effectList[idx].Add(select);
+        }
+        select.transform.position = pos;
+        select.SetActive(true);
+
     }
 
     //플레이어가 데미지를 입었을때
     private void OnDamaged(Transform collision, float damage)
     {
+        ShowPlayerEffect(transform.position, "Hit"); // 맞았을때 이펙트 표시
         SoundManager.Instance.PlaySound("HitSound"); // 맞았을때 사운드 재생    
-        ShowPlayerEffect(hitEffect, mouth.transform.position); // 맞았을때 이펙트 발생
 
         // 플레이어와 몬스터 간의 위치 차이를 계산
         Vector2 targetPos = transform.position - collision.transform.position;
@@ -305,7 +315,7 @@ public class PlayerMove : MonoBehaviour
     // 광고보고 살아나기
     public void SawAd()
     {
-        SoundManager.Instance.UnpausePlaylistSound();        
+        SoundManager.Instance.UnpausePlaylistSound(); // 노래 다시 재생  
         gm.isGameOver = false; // 게임오버 상태 해제
         pm.StartSpawnFish(); // 물고기 스폰 재시작
         joystick.gameObject.SetActive(true); // 조이스틱 활성화
@@ -314,6 +324,7 @@ public class PlayerMove : MonoBehaviour
         hp = maxHp; // 체력 초기화
         uiManager.OffGameOverScreen(); // 게임오버 화면 비활성화
         StartCoroutine(Hited(0f, 1.7f)); // 무적시간 1.7초
+        FishAi.EnableFish?.Invoke();
     }
    
     // 대쉬 기능 

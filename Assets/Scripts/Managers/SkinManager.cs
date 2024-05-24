@@ -6,21 +6,21 @@ public class SkinManager : Singleton<SkinManager>
 {
     public bool[] isFishSkinUnlock;
 
-    [Header("Å×¸¶¼±ÅÃ »óÅÂ 0: default 1: paper 2: halloween")]
+    [Header("í…Œë§ˆì„ íƒ ìƒíƒœ 0: default 1: paper 2: halloween")]
     public int idx = 0;
     public RuntimeAnimatorController[] fishAnimtor;
     public RuntimeAnimatorController currentFishAnimtor;
-    [Header("ÇÃ·¹ÀÌ¾î ¾Ö´Ï¸ŞÀÌÅÍ")]
+    [Header("í”Œë ˆì´ì–´ ì• ë‹ˆë©”ì´í„°")]
     public RuntimeAnimatorController[] playerAnimtor;    
     public RuntimeAnimatorController currentPlayerAnimator;
 
-    [Header("¹°°í±â ½ºÇÁ¶óÀÌÆ®")]
+    [Header("ë¬¼ê³ ê¸° ìŠ¤í”„ë¼ì´íŠ¸")]
     public List<FishSkin> fishSprites;
 
-    [Header("¹è°æ ½ºÇÁ¶óÀÌÆ®")]
+    [Header("ë°°ê²½ ìŠ¤í”„ë¼ì´íŠ¸")]
     public List<BgSkin> bgSprites;
 
-    [Header("ÄÄÆ÷³ÍÆ®")]
+    [Header("ì»´í¬ë„ŒíŠ¸")]
     public PlayerMove player;
     public UIManager uIManager;
     protected override void Awake()
@@ -32,7 +32,7 @@ public class SkinManager : Singleton<SkinManager>
     {
         DataManager dt = DataManager.Instance;
         dt.LoadData();
-        // Å×¸¶ ¼±ÅÃ ¿©ºÎ¿¡ µû¶ó ´Ù¸¥ ¾ÀÀ¸·Î ÀÌµ¿        
+        // í…Œë§ˆ ì„ íƒ ì—¬ë¶€ì— ë”°ë¼ ë‹¤ë¥¸ ì”¬ìœ¼ë¡œ ì´ë™        
         foreach (var data in dt.themeList.themes)
         {
             if (data.isSelect == true)
@@ -45,37 +45,37 @@ public class SkinManager : Singleton<SkinManager>
     }
     public void SetSkin(int themeIdx)
     {   
-        // ¹°°í±â ½ºÅ² ¼³Á¤             
+        // ë¬¼ê³ ê¸° ìŠ¤í‚¨ ì„¤ì •             
         currentFishAnimtor = fishAnimtor[themeIdx];
-        // ÇÃ·¹ÀÌ¾î ¾Ö´Ï¸ŞÀÌÅÍ ¼³Á¤        
+        // í”Œë ˆì´ì–´ ì• ë‹ˆë©”ì´í„° ì„¤ì •        
         currentPlayerAnimator = playerAnimtor[themeIdx];
         player.playerAni.runtimeAnimatorController = currentPlayerAnimator; 
 
-        //¹°°í±â ÇÒ´ç ÀÌ¹ÌÁö ¼³Á¤
+        //ë¬¼ê³ ê¸° í• ë‹¹ ì´ë¯¸ì§€ ì„¤ì •
         uIManager.fishImages = fishSprites[themeIdx].fs.ToArray();
 
-        // ¹è°æ ½ºÅ² ¼³Á¤
+        // ë°°ê²½ ìŠ¤í‚¨ ì„¤ì •
         GameObject[] bgObj = GameObject.FindGameObjectsWithTag("Bg");
         foreach (var obj in bgObj)
         {
             obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[1];
         }
 
-        // ¹è°æ Àå½Ä ¼³Á¤
+        // ë°°ê²½ ì¥ì‹ ì„¤ì •
         GameObject[] bgDecoObj = GameObject.FindGameObjectsWithTag("BgDeco1");
         foreach (var obj in bgDecoObj)
         {
             obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[2];
         }
 
-        // ¹è°æ Àå½Ä ¼³Á¤2
+        // ë°°ê²½ ì¥ì‹ ì„¤ì •2
         GameObject[] bgDecoObj2 = GameObject.FindGameObjectsWithTag("BgDeco2");
         foreach (var obj in bgDecoObj2)
         {
             obj.GetComponent<SpriteRenderer>().sprite = bgSprites[themeIdx].bg[3];
         }
 
-        // ¹°¹æ¿ï ½ºÅ² ¼³Á¤
+        // ë¬¼ë°©ìš¸ ìŠ¤í‚¨ ì„¤ì •
         GameObject[] bubbleObj = GameObject.FindGameObjectsWithTag("Bubble");
         foreach (var obj in bubbleObj)
         {

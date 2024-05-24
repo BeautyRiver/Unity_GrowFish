@@ -84,26 +84,26 @@ public class RewardsBanner : Singleton<RewardsBanner>
 
     private void RegisterReloadHandler(RewardedAd ad)
     {
-        // ±¤°í°¡ ÀüÃ¼ È­¸é ÄÜÅÙÃ÷¸¦ ´İÀ» ¶§ ¹ß»ıÇÕ´Ï´Ù.
+        // ê´‘ê³ ê°€ ì „ì²´ í™”ë©´ ì½˜í…ì¸ ë¥¼ ë‹«ì„ ë•Œ ë°œìƒí•©ë‹ˆë‹¤.
         ad.OnAdFullScreenContentClosed += () =>
         {
             Debug.Log("Rewarded Ad full screen content closed.");
 
-            // ÃÖ´ëÇÑ »¡¸® ´Ù¸¥ ±¤°í¸¦ Ç¥½ÃÇÒ ¼ö ÀÖµµ·Ï ±¤°í¸¦ ´Ù½Ã ·ÎµåÇÏ¼¼¿ä.
+            // ìµœëŒ€í•œ ë¹¨ë¦¬ ë‹¤ë¥¸ ê´‘ê³ ë¥¼ í‘œì‹œí•  ìˆ˜ ìˆë„ë¡ ê´‘ê³ ë¥¼ ë‹¤ì‹œ ë¡œë“œí•˜ì„¸ìš”.
             LoadRewardedAd();
         };
-        // ±¤°í°¡ ÀüÃ¼ È­¸é ÄÜÅÙÃ÷¸¦ ¿­Áö ¸øÇßÀ» ¶§ ¹ß»ıÇÕ´Ï´Ù.
+        // ê´‘ê³ ê°€ ì „ì²´ í™”ë©´ ì½˜í…ì¸ ë¥¼ ì—´ì§€ ëª»í–ˆì„ ë•Œ ë°œìƒí•©ë‹ˆë‹¤.
         ad.OnAdFullScreenContentFailed += (AdError error) =>
         {
             Debug.LogError("Rewarded ad failed to open full screen content " +
                            "with error : " + error);
 
-            // ÃÖ´ëÇÑ »¡¸® ´Ù¸¥ ±¤°í¸¦ Ç¥½ÃÇÒ ¼ö ÀÖµµ·Ï ±¤°í¸¦ ´Ù½Ã ·ÎµåÇÏ¼¼¿ä.
+            // ìµœëŒ€í•œ ë¹¨ë¦¬ ë‹¤ë¥¸ ê´‘ê³ ë¥¼ í‘œì‹œí•  ìˆ˜ ìˆë„ë¡ ê´‘ê³ ë¥¼ ë‹¤ì‹œ ë¡œë“œí•˜ì„¸ìš”.
             LoadRewardedAd();
         };
     }
 
-    // ¹öÆ° ´©¸£¸é ±¤°í ½ÇÇà
+    // ë²„íŠ¼ ëˆ„ë¥´ë©´ ê´‘ê³  ì‹¤í–‰
     public void ShowRewardedAd(string themeName)
     {
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
@@ -116,14 +116,15 @@ public class RewardsBanner : Singleton<RewardsBanner>
                     {
                         player = FindObjectOfType<PlayerMove>();
                     }
-                    player.SawAd();
-                    Debug.Log($"ºÎÈ°ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+                    player.SawAd(); // ê´‘ê³ ë¥¼ ë³´ê³  ë¶€í™œ
+
+                    Debug.Log($"ë¶€í™œì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
                 }
                 else
                 {
-                    // Å×¸¶ ¾ğ¶ô
+                    // í…Œë§ˆ ì–¸ë½
                     DataManager.Instance.UnLockTheme(themeName);
-                    Debug.Log($"{themeName} Å×¸¶°¡ ÇØ±İµÇ¾ú½À´Ï´Ù.");
+                    Debug.Log($"{themeName} í…Œë§ˆê°€ í•´ê¸ˆë˜ì—ˆìŠµë‹ˆë‹¤.");
                 }
 
 
