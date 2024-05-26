@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/1.Sprites/EndImage.png.meta
 guid: 17badb3a827537547969d85f3e50d59b
+========
+guid: 01bf7bbb3bb8f3f4d8e66e4581c32ae2
+>>>>>>>> main:Assets/1.Sprites/UI/메인메뉴 애니/노랑물고기1.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
