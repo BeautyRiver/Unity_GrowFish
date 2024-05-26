@@ -78,6 +78,7 @@ public class FishAi : MonoBehaviour
 
     protected virtual void Update()
     {
+        anim.SetFloat("AnimSpeed", moveSpeed * 0.3f); // 애니메이션 속도 설정
         runAwaySpeed = moveSpeed * 1.5f; // 도망칠때 속도 설정
 
 
