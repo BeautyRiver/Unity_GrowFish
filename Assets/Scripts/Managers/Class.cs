@@ -2,6 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum FishType
+{
+    Lv1,
+    Lv2,
+    Lv3,
+    Lv4,
+};
+
+public enum EnemyType
+{
+    BlowFish,
+    Shark,
+};
 public class TargetFishInfo
 {
     public int targetFish;
@@ -14,8 +27,9 @@ public class TargetFishInfo
     }
 }
 [System.Serializable]
-public class EnemySpawnRange
+public class EnemySpawnRange  // 적 물고기 스폰 범위 클래스
 {
+    public EnemyType name;
     public float min;
     public float max;
 
@@ -26,11 +40,10 @@ public class EnemySpawnRange
     }
 }
 [System.Serializable]
-public class FishSpawnRange
-{
+public class FishSpawnRange // 물고기 스폰 범위 클래스 
+{    
     public float min;
     public float max;
-
     public FishSpawnRange(float min, float max)
     {
         this.min = min;
@@ -39,7 +52,7 @@ public class FishSpawnRange
 }
 [System.Serializable]
 public class FishSkin
-{
+{    
     public string name;
     public List<Sprite> fs;
 }

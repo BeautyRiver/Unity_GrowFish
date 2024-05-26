@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using SysRandom = System.Random; // System의 Random에 대해 별칭 설정
+using DarkTonic.MasterAudio;
+using System;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class PlayerMove : MonoBehaviour
     public float hp; // 플레이어 현재 체력
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
     private bool isMoveOk = true; //움직임 가능 체크 변수  
+    public Transform mouth;
+    public GameObject[] effects; 
+    public List<GameObject>[] effectList;
+
     // 플레이어 이동 관련 속성
     [Header("플레이어 이동")]
     public float maxSpeedNormal;    // 일반 이동 시 최대 속도
@@ -60,6 +66,12 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 컴포넌트 할당
         hp = maxHp; // 초기 체력 설정
         currentMaxSpeed = maxSpeedNormal; // 초기 최대 속도 설정
+
+        effectList = new List<GameObject>[effects.Length];
+        for (int i = 0; i < effects.Length; i++)
+        {
+            effectList[i] = new List<GameObject>();
+        }       
     }
     
     private void Update()
@@ -181,7 +193,9 @@ public class PlayerMove : MonoBehaviour
     // 물고기 먹기
     private void EatFish(Collider2D collision, int plusScore)
     {
+        ShowPlayerEffect(mouth.transform.position, "Eat"); // 먹는 이펙트 표시
         collision.gameObject.SetActive(false);
+        SoundManager.Instance.PlaySound("EatSound"); // 먹는 사운드 재생
         playerAni.Play("PlayerDoEat");
         gm.score += plusScore;
         uiManager.scoreText.text = gm.score.ToString();
@@ -206,9 +220,40 @@ public class PlayerMove : MonoBehaviour
         }
     }
  
+    // 플레이어 이펙트
+    private void ShowPlayerEffect(Vector3 pos, string type)
+    {
+        int idx = 0;
+        if (type == "Eat") idx = 0;
+        else if (type == "Hit") idx = 1;
+
+        GameObject select = null;
+
+        foreach (GameObject item in effectList[idx])
+        {
+            if (!item.activeSelf)
+            {
+                select = item;
+                break;
+            }
+        }
+
+        if (select == null)
+        {
+            select = Instantiate(effects[idx]);
+            effectList[idx].Add(select);
+        }
+        select.transform.position = pos;
+        select.SetActive(true);
+
+    }
+
     //플레이어가 데미지를 입었을때
     private void OnDamaged(Transform collision, float damage)
     {
+        ShowPlayerEffect(transform.position, "Hit"); // 맞았을때 이펙트 표시
+        SoundManager.Instance.PlaySound("HitSound"); // 맞았을때 사운드 재생    
+
         // 플레이어와 몬스터 간의 위치 차이를 계산
         Vector2 targetPos = transform.position - collision.transform.position;
         targetPos.Normalize(); // 방향 벡터를 정규화
@@ -236,7 +281,7 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator Hited(float canNotMoveTime, float immortalTime)
     {
         if (hp > 0)
-        {
+        {                    
             // canNotMoveTime 시간 만큼 움직일 수 없음
             yield return new WaitForSeconds(canNotMoveTime);
             joystick.enabled = true;
@@ -250,6 +295,8 @@ public class PlayerMove : MonoBehaviour
     //사망할때
     private void isDie()
     {
+        SoundManager.Instance.PausePlayListSound(); // 인게임 사운드 중지
+        SoundManager.Instance.PlaySound("GameOverSound"); // 사망 사운드 재생
         FishAi.DisableFish?.Invoke(); // 물고기 비활성화
         joystick.OnPointerUp(); // 조이스틱 초기화
         StopCoroutine(nameof(OnDamaged)); // 데미지 코루틴 중지
@@ -268,6 +315,7 @@ public class PlayerMove : MonoBehaviour
     // 광고보고 살아나기
     public void SawAd()
     {
+        SoundManager.Instance.UnpausePlaylistSound(); // 노래 다시 재생  
         gm.isGameOver = false; // 게임오버 상태 해제
         pm.StartSpawnFish(); // 물고기 스폰 재시작
         joystick.gameObject.SetActive(true); // 조이스틱 활성화
@@ -276,11 +324,13 @@ public class PlayerMove : MonoBehaviour
         hp = maxHp; // 체력 초기화
         uiManager.OffGameOverScreen(); // 게임오버 화면 비활성화
         StartCoroutine(Hited(0f, 1.7f)); // 무적시간 1.7초
+        FishAi.EnableFish?.Invoke();
     }
    
     // 대쉬 기능 
     public IEnumerator Dash()
     {
+        SoundManager.Instance.PlaySound("DashSound"); // 대쉬 사운드 재생
         isDashing = true; // 대쉬 상태 시작
         currentMaxSpeed = maxDashSpeed; // 대쉬 속도로 속도 변경
         dashDirection = lastDirection; // 플레이어가 바라보는 방향으로 대쉬 방향 설정

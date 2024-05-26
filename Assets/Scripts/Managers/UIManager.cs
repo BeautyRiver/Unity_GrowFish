@@ -8,92 +8,122 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
-    //Á¡¼ö°ü·Ã
+    //ì ìˆ˜ê´€ë ¨
     public TextMeshProUGUI scoreText;
 
-    //ÇÏÆ® °ü·Ã
+    //í•˜íŠ¸ ê´€ë ¨
     [SerializeField] private Image healthBarSlider;
 
     [SerializeField] private Text bestScore;
     [SerializeField] private Text lastScore;
 
-    // ¹°°í±â ¼·Ãë
-    [Header("¹°°í±â ¸ñÇ¥ ¼·Ãë")]
-    public Sprite[] fishImages; // ÀÌ ÀÌ¹ÌÁöµéÀ» ÇÒ´çÇÒ°Å¶ó´Â ¶æ      
-    [SerializeField] private TextMeshProUGUI[] fishTargetText; // ¸ñÇ¥ ¹°°í±â °³¼ö
-    [SerializeField] private Image[] fishTargetImg; // ÀÌ¹ÌÁö ÇÒ´çµÉ Àå¼Ò
-    public TextMeshProUGUI nowMissonText; // ÇöÀç ¹Ì¼Ç ´Ü°è ÅØ½ºÆ®
-    //GamePause°ü·Ã
+    // ë¬¼ê³ ê¸° ì„­ì·¨
+    [Header("ë¬¼ê³ ê¸° ëª©í‘œ ì„­ì·¨")]
+    public Sprite[] fishImages; // ì´ ì´ë¯¸ì§€ë“¤ì„ í• ë‹¹í• ê±°ë¼ëŠ” ëœ»      
+    [SerializeField] private TextMeshProUGUI[] fishTargetText; // ëª©í‘œ ë¬¼ê³ ê¸° ê°œìˆ˜
+    [SerializeField] private Image[] fishTargetImg; // ì´ë¯¸ì§€ í• ë‹¹ë  ì¥ì†Œ
+    public TextMeshProUGUI nowMissonText; // í˜„ì¬ ë¯¸ì…˜ ë‹¨ê³„ í…ìŠ¤íŠ¸
+    //GamePauseê´€ë ¨
     public bool isPauseScreenOn = false;
     [SerializeField] private GameObject pauseBtns;
     [SerializeField] private GameObject joyStick;
 
-    //GameOver°ü·Ã
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private GameObject abilityBtn; // ´É·Â¹öÆ°
+    [Header("í”Œë ˆì´ì–´ ëŠ¥ë ¥")]
+    [SerializeField] private GameObject abilityBtn; // ëŠ¥ë ¥ë²„íŠ¼
+
+    //GameOverê´€ë ¨
+    [Header("ê²Œì„ ì¢…ë£Œ ê´€ë ¨")]
+    [SerializeField] private GameObject gameOverPanelBg; // ê²Œì„ì˜¤ë²„ ë°°ê²½
+    [SerializeField] private GameObject gameOverPanel; // ê²Œì„ì˜¤ë²„ íŒ¨ë„
+    [SerializeField] private Button seeAdsButton; // ê´‘ê³ ë³´ê³  ë¶€í™œí•˜ê¸° ë²„íŠ¼
+    [SerializeField] private bool isCanAds = true; // ê´‘ê³  ì‹œì²­ ê°€ëŠ¥ ì—¬ë¶€ (ë¶€í™œ ê°€ëŠ¥ ì—¬ë¶€)
 
     //GameEnd
-    [SerializeField] private GameObject gameEndImg;
+    [Header("ê²Œì„ ì¢…ë£Œ(í´ë¦¬ì–´) ê´€ë ¨")]
+    [SerializeField] private GameObject gameEndImg; // ê²Œì„ ì¢…ë£Œ ì´ë¯¸ì§€
 
-    private void Update()
+    [Header("ì‚¬ìš´ë“œ ì„¤ì •UI")]
+    public GameObject BlackScreen; // ë°°ê²½(ê²€ì€ ë°°ê²½)
+    public GameObject SoundSettingScreen; // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´
+    public Slider sfxSlider; // íš¨ê³¼ìŒ ìŠ¬ë¼ì´ë”
+    public Slider bgmSlider; // ë°°ê²½ìŒ ìŠ¬ë¼ì´ë”
+
+    void Start()
     {
-        if (GameManager.Instance.isGameEnd == true)
-        {
-            gameEndImg.SetActive(true);
-            Time.timeScale = 0;
-        }
+        SoundManager.Instance.SoundSliderSetting(sfxSlider, bgmSlider); // ì‚¬ìš´ë“œ ìŠ¬ë¼ì´ë” ì„¤ì •
+        StartCoroutine(CheckFishTarget());
+    }
 
-        for (int i = 0; i < fishTargetImg.Length; i++)
+    // ë‚¨ì€ ë¬¼ê³ ê¸° ì´ë¯¸ì§€ ì—…ë°ì´íŠ¸
+    IEnumerator CheckFishTarget()
+    {
+        while (GameManager.Instance.isGameEnd == false)
         {
-            if (GameManager.Instance.missionTargets.TryGetValue(GameManager.Instance.currentMission, out List<TargetFishInfo> targetFishList)) // ¹Ì¼ÇÀÇ Å¸°Ù ¹°°í±â ¸®½ºÆ®¸¦ °¡Á®¿È
+            for (int i = 0; i < fishTargetImg.Length; i++)
             {
-                // ¹Ì¼ÇÀÇ Å¸°Ù ¹°°í±âº¸´Ù ÀÎµ¦½º°¡ Å©¸é ´õ ÀÌ»ó Ç¥½ÃÇÒ ¹°°í±â°¡ ¾ø´Ù´Â ÀÇ¹ÌÀÌ¹Ç·Î UI¸¦ ºñÈ°¼ºÈ­
-                if (i >= targetFishList.Count)
+                if (GameManager.Instance.missionTargets.TryGetValue(GameManager.Instance.currentMission, out List<TargetFishInfo> targetFishList)) // ë¯¸ì…˜ì˜ íƒ€ê²Ÿ ë¬¼ê³ ê¸° ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜´
                 {
-                    // ¹°°í±â ÀÌ¹ÌÁö¿Í ³²Àº °³¼ö¸¦ UI¿¡¼­ ºñÈ°¼ºÈ­
-                    for (int j = i; j < fishTargetImg.Length; j++)
+                    // ë¯¸ì…˜ì˜ íƒ€ê²Ÿ ë¬¼ê³ ê¸°ë³´ë‹¤ ì¸ë±ìŠ¤ê°€ í¬ë©´ ë” ì´ìƒ í‘œì‹œí•  ë¬¼ê³ ê¸°ê°€ ì—†ë‹¤ëŠ” ì˜ë¯¸ì´ë¯€ë¡œ UIë¥¼ ë¹„í™œì„±í™”
+                    if (i >= targetFishList.Count)
                     {
-                        fishTargetImg[j].gameObject.SetActive(false);
-                        fishTargetText[j].gameObject.SetActive(false);
+                        // ë¬¼ê³ ê¸° ì´ë¯¸ì§€ì™€ ë‚¨ì€ ê°œìˆ˜ë¥¼ UIì—ì„œ ë¹„í™œì„±í™”
+                        for (int j = i; j < fishTargetImg.Length; j++)
+                        {
+                            fishTargetImg[j].gameObject.SetActive(false);
+                            fishTargetText[j].gameObject.SetActive(false);
+                        }
+                    }
+                    else
+                    {
+                        // íƒ€ê²Ÿ ë¬¼ê³ ê¸°ì˜ ì´ë¯¸ì§€ì™€ ë‚¨ì€ ê°œìˆ˜ë¥¼ UIì— ì„¤ì •
+                        fishTargetImg[i].sprite = fishImages[targetFishList[i].targetFish];
+                        fishTargetText[i].text = targetFishList[i].targetFishCounts.ToString();
+                        fishTargetImg[i].gameObject.SetActive(true);
+                        fishTargetText[i].gameObject.SetActive(true);
                     }
                 }
-                else
-                {
-                    // Å¸°Ù ¹°°í±âÀÇ ÀÌ¹ÌÁö¿Í ³²Àº °³¼ö¸¦ UI¿¡ ¼³Á¤
-                    fishTargetImg[i].sprite = fishImages[targetFishList[i].targetFish];
-                    fishTargetText[i].text = targetFishList[i].targetFishCounts.ToString();
-                    fishTargetImg[i].gameObject.SetActive(true);
-                    fishTargetText[i].gameObject.SetActive(true);
-                }
+                yield return null;
             }
         }
+        nowMissonText.text = "ë¯¸ì…˜ ì™„ë£Œ!";
+        gameEndImg.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void UpdateHealthBar(float currentHp, int maxHp)
     {
-        // fiil amount °¨¼Ò·Î Ã¼·Â °¨¼Ò Ç¥½Ã
+        // fiil amount ê°ì†Œë¡œ ì²´ë ¥ ê°ì†Œ í‘œì‹œ
         float targetFillAmount = currentHp / maxHp;
-        // Ã¼·Â¹Ù°¡ ºÎµå·´°Ô °¨¼ÒÇÏµµ·Ï DOTweenÀ» »ç¿ë
-        healthBarSlider.DOFillAmount(targetFillAmount, 0.5f).SetEase(Ease.OutQuad); // SetEase(Ease.OutQuad) : ÃµÃµÈ÷ °¨¼ÒÇÏµµ·Ï ¼³Á¤
-        
+        // ì²´ë ¥ë°”ê°€ ë¶€ë“œëŸ½ê²Œ ê°ì†Œí•˜ë„ë¡ DOTweenì„ ì‚¬ìš©
+        healthBarSlider.DOFillAmount(targetFillAmount, 1f).SetEase(Ease.OutQuad); // SetEase(Ease.OutQuad) : ì²œì²œíˆ ê°ì†Œí•˜ë„ë¡ ì„¤ì •
+
     }
 
-    // °ÔÀÓ¿À¹ö½ºÅ©¸° ¶ç¿ì±â
+    // ê²Œì„ì˜¤ë²„ìŠ¤í¬ë¦° ë„ìš°ê¸°
     public void OnGameOverScreen()
     {
-        gameOverPanel.SetActive(true);
-        abilityBtn.SetActive(false);
+        gameOverPanelBg.SetActive(true); // ê²Œì„ì˜¤ë²„ ë°°ê²½ í™œì„±í™”(ê²€ì€ìƒ‰ íˆ¬ëª… ë°°ê²½)        
+        gameOverPanel.SetActive(true);  // ê²Œì„ì˜¤ë²„ íŒ¨ë„ í™œì„±í™”
+        gameOverPanel.transform.localScale = Vector3.zero; // ì´ˆê¸° ìŠ¤ì¼€ì¼ì„ 0ìœ¼ë¡œ ì„¤ì •
+        gameOverPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack); // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ë“±ì¥
+
+        abilityBtn.SetActive(false); // ëŠ¥ë ¥ ë²„íŠ¼ ë¹„í™œì„±í™”
+        seeAdsButton.interactable = isCanAds; // ê´‘ê³  ì‹œì²­ ê°€ëŠ¥ ì—¬ë¶€ì— ë”°ë¼ ë²„íŠ¼ í™œì„±í™” ì—¬ë¶€ ê²°ì •
     }
 
-    // °ÔÀÓ¿À¹ö½ºÅ©¸° ²ô±â
+    // ê²Œì„ì˜¤ë²„ìŠ¤í¬ë¦° ë„ê¸°
     public void OffGameOverScreen()
     {
-        gameOverPanel.SetActive(false);
+        gameOverPanel.transform.DOScale(0, 0.5f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            gameOverPanel.SetActive(false);
+            gameOverPanelBg.SetActive(false);
+        });
         abilityBtn.SetActive(true);
     }
 
-    //¹öÆ°µé
-    // ÀÏ½ÃÁ¤Áö ¹öÆ°
+    //ë²„íŠ¼ë“¤
+    // ì¼ì‹œì •ì§€ ë²„íŠ¼
     public void InputPause()
     {
         if (!isPauseScreenOn)
@@ -105,7 +135,7 @@ public class UIManager : MonoBehaviour
             abilityBtn.SetActive(false);
         }
     }
-    // °è¼ÓÇÏ±â ¹öÆ°
+    // ê³„ì†í•˜ê¸° ë²„íŠ¼
     public void InputContinue()
     {
         Time.timeScale = 1;
@@ -114,17 +144,44 @@ public class UIManager : MonoBehaviour
         isPauseScreenOn = false;
         abilityBtn.SetActive(true);
     }
-    // ¸ŞÀÎÈ­¸éÀ¸·Î ¹öÆ°
+    // ë©”ì¸í™”ë©´ìœ¼ë¡œ ë²„íŠ¼
     public void InputStop()
     {
-        SceneManager.LoadScene(0);
         Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
-    // ´Ù½ÃÇÏ±â ¹öÆ°
+    // ë‹¤ì‹œí•˜ê¸° ë²„íŠ¼
     public void InputRetry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Instance.isGameEnd = false;
         Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    // ê´‘ê³ ë³´ê³  ë¶€í™œí•˜ê¸°
+    public void InputSeeAdsBtn()
+    {
+        isCanAds = false;
+        RewardsBanner.Instance.ShowRewardedAd("Respawn");
+    }
+
+    // ì‚¬ìš´ë“œ ì„¤ì • ë²„íŠ¼
+    public void InputSoundSettingBtn()
+    {
+        BlackScreen.SetActive(true); // ê²€ì€ ë°°ê²½ í™œì„±í™”
+        BlackScreen.GetComponent<Image>().DOFade(1, 0.5f).SetUpdate(true);
+
+        SoundSettingScreen.SetActive(true); // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´ í™œì„±í™”
+        SoundSettingScreen.transform.localScale = Vector3.zero; // ì´ˆê¸° ìŠ¤ì¼€ì¼ì„ 0ìœ¼ë¡œ ì„¤ì •        
+        SoundSettingScreen.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetUpdate(true); // í†µí†µ íŠ€ëŠ” íš¨ê³¼ë¡œ ë“±ì¥
+    }
+
+    // ì‚¬ìš´ë“œ ì„¤ì • í™”ë©´ ë‹«ê¸° ë²„íŠ¼
+    public void InputSoundSettingCloseBtn()
+    {
+        BlackScreen.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() => BlackScreen.SetActive(false)).SetUpdate(true);
+
+        SoundSettingScreen.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
+        .OnComplete(() => SoundSettingScreen.SetActive(false)).SetUpdate(true);
+    }
 }

@@ -6,24 +6,29 @@ using UnityEngine;
 using Ran = UnityEngine.Random;
 public class FishAi : MonoBehaviour
 {
-    public static Action DisableFish;
-    public int turnCount = 2; // »ç°Å¸® ¹ş¾î³ª°í TurnÇÒ È½¼ö    
-    public float moveSpeed = 2f; // ±âº» ¼Óµµ
-    public float minSpeed = 2f; // ÃÖ¼Ò ¼Óµµ
-    public float maxSpeed = 4f; // ÃÖ´ë ¼Óµµ
-    public float runAwaySpeed; // µµ¸ÁÄ¥¶§ ¼Óµµ
-    public float detectionRadius = 5f; // ÇÃ·¹ÀÌ¾î °¨Áö °Å¸®
-    public float maxDistance; // ÇÃ·¹ÀÌ¾î¿¡¼­ ¸Ö¾îÁö¸é ºñÈ°¼ºÈ­ ÇÒ °Å¸®
-    public PlayerMove player;
+    public static Action DisableFish; // ë¬¼ê³ ê¸° ë¹„í™œì„±í™” ì´ë²¤íŠ¸
+    public static Action EnableFish; // ë¬¼ê³ ê¸° í™œì„±í™” ì´ë²¤íŠ¸
+    public static Action<bool> maxDistanceChange; // ìµœëŒ€ ê°ì§€ ê±°ë¦¬ ë³€ê²½ ì´ë²¤íŠ¸
+    public int turnCount = 2; // ì‚¬ê±°ë¦¬ ë²—ì–´ë‚˜ê³  Turní•  íšŸìˆ˜    
+    public float moveSpeed = 2f; // ê¸°ë³¸ ì†ë„
+    public float minSpeed = 2f; // ìµœì†Œ ì†ë„
+    public float maxSpeed = 4f; // ìµœëŒ€ ì†ë„
+    public float runAwaySpeed; // ë„ë§ì¹ ë•Œ ì†ë„
+    public float detectionRadius = 5f; // í”Œë ˆì´ì–´ ê°ì§€ ê±°ë¦¬
+    public float maxDistance; // í”Œë ˆì´ì–´ì—ì„œ ë©€ì–´ì§€ë©´ ë¹„í™œì„±í™” í•  ê±°ë¦¬
+    public PlayerMove player; // í”Œë ˆì´ì–´
 
-    [SerializeField] protected Vector2 currentDirection; // ÀÌµ¿ÇÒ ¹æÇâ
-    [SerializeField] public bool isRunningAway = false; // µµ¸ÁÄ¡´Â°¡
-    [SerializeField] protected float distanceToPlayer; // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®
+    [SerializeField] protected Vector2 currentDirection; // ì´ë™í•  ë°©í–¥
+    [SerializeField] public bool isRunningAway = false; // ë„ë§ ì¤‘ì¸ì§€ ì—¬ë¶€
+    [SerializeField] protected float distanceToPlayer; // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬
     [HideInInspector] public Animator anim;
+
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
     private bool isTurnDown = true;
     private bool isTurnUp = true;
+
+    private bool isAfterReward = false;
 
     public enum TypeOfFish
     {
@@ -34,97 +39,60 @@ public class FishAi : MonoBehaviour
     private Color originalColor;
 
     protected virtual void Awake()
-    {
+    {        
         if (player == null)
             player = FindAnyObjectByType<PlayerMove>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        SetNewDirection(); // ÃÊ±â ¹æÇâ ¼³Á¤
-        originalColor = spriteRenderer.color; // ¿ø·¡ »ö»ó ÀúÀå
-        InvokeRepeating(nameof(SetRandomY), 1f, 2.5f); // 2.5ÃÊ¸¶´Ù Y°ª  º¯°æ
+        SetNewDirection(); // ì´ˆê¸° ë°©í–¥ ì„¤ì •
+        originalColor = spriteRenderer.color; // ì›ë˜ ìƒ‰ìƒ ì €ì¥
+        InvokeRepeating(nameof(SetRandomY), 0.5f, 1.5f); // 1.5ì´ˆë§ˆë‹¤ Yê°’  ë³€ê²½
     }
 
     protected virtual void Start()
     {
-        anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor; // Å×¸¶¿¡ ¸Â´Â ¾Ö´Ï¸ŞÀÌÅÍ ¼³Á¤        
-        anim.SetBool(gameObject.tag, true); // ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+        anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor; // í…Œë§ˆì— ë§ëŠ” ì• ë‹ˆë©”ì´í„° ì„¤ì •        
+        anim.SetBool(gameObject.tag, true); // ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
     }
     protected virtual void OnEnable()
-    {
-        DisableFish += FadeOut; // ¹°°í±â ºñÈ°¼ºÈ­ ÀÌº¥Æ® µî·Ï
-        spriteRenderer.color = originalColor; // Åõ¸íµµ Á¦°Å
-        anim.SetBool(gameObject.tag, true); // ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
-        turnCount = 2; // ÅÏ Ä«¿îÆ® ÃÊ±âÈ­
-        RandomSpeed(2f, 3.7f); // ¼Óµµ ¹× Y À§Ä¡ ·£´ı ¼³Á¤
-    }
+    {        
+        DisableFish += FadeOut; // ë¬¼ê³ ê¸° ë¹„í™œì„±í™” ì´ë²¤íŠ¸ ë“±ë¡
+        EnableFish += FadeIn; // ë¬¼ê³ ê¸° í™œì„±í™” ì´ë²¤íŠ¸ ë“±ë¡
+        maxDistanceChange += MaxDistanceChange; // ìµœëŒ€ ê°ì§€ ê±°ë¦¬ ë³€ê²½ ì´ë²¤íŠ¸ ë“±ë¡
+        
+        maxDistance += GameManager.Instance.currentMission * GameManager.Instance.fishMaxDistance; // ë¯¸ì…˜ì— ë”°ë¼ ìµœëŒ€ ê±°ë¦¬ ì¦ê°€
 
-   private void OnDisable()
+        spriteRenderer.color = originalColor; // íˆ¬ëª…ë„ ì œê±°
+        anim.SetBool(gameObject.tag, true); // ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
+        turnCount = 2; // í„´ ì¹´ìš´íŠ¸ ì´ˆê¸°í™”
+        RandomSpeed(minSpeed, maxSpeed); // ì†ë„ ë° Y ìœ„ì¹˜ ëœë¤ ì„¤ì •
+    }
+   
+    private void OnDisable()
     {
-        DisableFish -= FadeOut; // ¹°°í±â ºñÈ°¼ºÈ­ ÀÌº¥Æ® Á¦°Å
+        DisableFish -= FadeOut; // ë¬¼ê³ ê¸° ë¹„í™œì„±í™” ì´ë²¤íŠ¸ ì œê±°
+        if(isAfterReward == false) DisableFish -= FadeIn;
+        maxDistanceChange -= MaxDistanceChange; // ìµœëŒ€ ê°ì§€ ê±°ë¦¬ ë³€ê²½ ì´ë²¤íŠ¸ ì œê±°
     }
 
     protected virtual void Update()
-    {        
-        runAwaySpeed = moveSpeed * 1.4f;
-        // ÀÌµ¿ ¹æÇâ¿¡ µû¶ó ½ºÇÁ¶óÀÌÆ® µÚÁı±â
-        Vector3 localScale = transform.localScale;
-        if (currentDirection.x > 0)
-        {
-            // ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÏ´Â °æ¿ì, localScale.x¸¦ À½¼ö·Î ¼³Á¤
-            localScale.x = -Mathf.Abs(localScale.x);
-        }
-        else if (currentDirection.x < 0)
-        {
-            // ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÏ´Â °æ¿ì, localScale.x¸¦ ¼ö·Î ¼³Á¤
-            localScale.x = Mathf.Abs(localScale.x);
-        }
+    {
+        runAwaySpeed = moveSpeed * 1.5f; // ë„ë§ì¹ ë•Œ ì†ë„ ì„¤ì •
 
-        transform.localScale = localScale;
 
-        // ¸Å ÇÁ·¹ÀÓ¸¶´Ù ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸® °è»ê
-        distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
-
-        // °Å¸®°¡ maxDistanceº¸´Ù Å©¸é ÀÌ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­
-        if (distanceToPlayer > maxDistance)
-        {
-            // ¸ó½ºÅÍ¸é ºñÈ°¼ºÈ­
-            if (fishType == TypeOfFish.Enemy)
-            {
-                gameObject.SetActive(false);
-            }
-            // ¹°°í±â¸é UÅÏ            
-            else
-            {
-                // ÅÏ Ä«¿îÆ®°¡ ³²¾ÆÀÖ´Â °æ¿ì À§Ä¡ ¾÷µ¥ÀÌÆ®
-                if (turnCount > 0)
-                {
-                    // ¹°°í±â À§Ä¡ ¾÷µ¥ÀÌÆ® ·ÎÁ÷
-                    float newPosX = CalculateNewPositionX(); // »õ·Î¿î X À§Ä¡ °è»ê
-                    float newPosY = transform.position.y; // Y À§Ä¡ À¯Áö
-
-                    transform.position = new Vector2(newPosX, newPosY); // »õ À§Ä¡ ¼³Á¤
-                    SetRandomY();
-                    RandomSpeed(2f, 3.7f); // ¼Óµµ ¹× Y À§Ä¡ ·£´ı ¼³Á¤
-                }
-                else
-                {
-                    // ÅÏ Ä«¿îÆ®°¡ ¾øÀ¸¸é ºñÈ°¼ºÈ­
-                    gameObject.SetActive(false);
-                }
-
-            }
-        }
+        FlipX(); // ì´ë™ ë°©í–¥ì— ë”°ë¼ ìŠ¤í”„ë¼ì´íŠ¸ ë’¤ì§‘ê¸°
+        DistanceCal(); // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ ê³„ì‚° í•¨ìˆ˜
     }
-       
+    
     protected virtual void FixedUpdate()
     {
-        // ÀÌµ¿ ·ÎÁ÷
+        // ì´ë™ ë¡œì§
         Vector2 targetPosition = rb.position + currentDirection * (isRunningAway ? runAwaySpeed : moveSpeed) * Time.fixedDeltaTime;
-        targetPosition.y = Mathf.Clamp(targetPosition.y, -player.maxClampBottom, player.maxClampTop); // y°ªÀ» Clamp ÇÔ¼ö·Î Á¦ÇÑÇÕ´Ï´Ù.
+        targetPosition.y = Mathf.Clamp(targetPosition.y, -player.maxClampBottom, player.maxClampTop); // yê°’ì„ Clamp í•¨ìˆ˜ë¡œ ì œí•œí•©ë‹ˆë‹¤.
         rb.MovePosition(targetPosition);
 
-        // ¹æÇâ ÀüÈ¯ ·ÎÁ÷, YÃà Á¦ÇÑ¿¡ µµ´ŞÇßÀ» ¶§ ¹æÇâÀ» ¹İÀü
+        // ë°©í–¥ ì „í™˜ ë¡œì§, Yì¶• ì œí•œì— ë„ë‹¬í–ˆì„ ë•Œ ë°©í–¥ì„ ë°˜ì „
         if (isTurnDown && transform.position.y > player.maxClampBottom)
         {
             currentDirection.y = -currentDirection.y;
@@ -138,79 +106,171 @@ public class FishAi : MonoBehaviour
             isTurnDown = true;
         }
     }
+    // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ ê³„ì‚° í•¨ìˆ˜
+    private void DistanceCal()
+    {
+        distanceToPlayer = Vector2.Distance(player.transform.position, transform.position); // ë§¤ í”„ë ˆì„ë§ˆë‹¤ í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ ê³„ì‚°
 
+        // ê±°ë¦¬ê°€ maxDistanceë³´ë‹¤ í¬ë©´ ë¬¼ê³ ê¸° ìœ„ì¹˜ ë‹¤ì‹œ ì˜¬ë°”ë¥´ê²Œ ì„¤ì •í•˜ê¸°(ìµœëŒ€ turnCount ë§Œí¼) / ëª¬ìŠ¤í„°ë©´ ë¹„í™œì„±í™”
+        if (distanceToPlayer > maxDistance)
+        {
+            // ëª¬ìŠ¤í„°ë©´ ë¹„í™œì„±í™”
+            if (fishType == TypeOfFish.Enemy)
+            {
+                gameObject.SetActive(false);
+            }
+            // ë¬¼ê³ ê¸°ë©´ Uí„´            
+            else
+            {
+                // í„´ ì¹´ìš´íŠ¸ê°€ ë‚¨ì•„ìˆëŠ” ê²½ìš° ìœ„ì¹˜ ì—…ë°ì´íŠ¸
+                if (turnCount > 0)
+                {
+                    // ë¬¼ê³ ê¸° ìœ„ì¹˜ ì—…ë°ì´íŠ¸ ë¡œì§
+                    float newPosX = CalculateNewPositionX(); // ìƒˆë¡œìš´ X ìœ„ì¹˜ ê³„ì‚°
+                    float newPosY = transform.position.y; // Y ìœ„ì¹˜ ìœ ì§€
+
+                    transform.position = new Vector2(newPosX, newPosY); // ìƒˆ ìœ„ì¹˜ ì„¤ì •
+                    SetRandomY();
+                    RandomSpeed(minSpeed, maxSpeed); // ì†ë„ ë° Y ìœ„ì¹˜ ëœë¤ ì„¤ì •
+                    turnCount--; // í„´ ì¹´ìš´íŠ¸ ê°ì†Œ
+                }
+                else
+                {
+                    // í„´ ì¹´ìš´íŠ¸ê°€ ì—†ìœ¼ë©´ ë¹„í™œì„±í™”
+                    gameObject.SetActive(false);
+                }
+
+            }
+        }
+    }
+
+    // ìµœëŒ€ ê°ì§€ ê±°ë¦¬ ë³€ê²½ í•¨ìˆ˜
+    private void MaxDistanceChange(bool boolean)
+    {
+        if (boolean == true)
+            maxDistance += GameManager.Instance.fishMaxDistance;
+        else
+            maxDistance -= GameManager.Instance.fishMaxDistance;
+    }
+    // ìŠ¤í”„ë¼ì´íŠ¸ ë’¤ì§‘ê¸° í•¨ìˆ˜
+    private void FlipX()
+    {
+        Vector3 localScale = transform.localScale; // ì´ë™ ë°©í–¥ì— ë”°ë¼ ìŠ¤í”„ë¼ì´íŠ¸ ë’¤ì§‘ê¸°
+        // ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™í•˜ëŠ” ê²½ìš°, localScale.xë¥¼ ìŒìˆ˜ë¡œ ì„¤ì •
+        if (currentDirection.x > 0)
+        {
+            localScale.x = -Mathf.Abs(localScale.x);
+        }
+        // ì™¼ìª½ìœ¼ë¡œ ì´ë™í•˜ëŠ” ê²½ìš°, localScale.xë¥¼ ì–‘ìˆ˜ë¡œ ì„¤ì •
+        else if (currentDirection.x < 0)
+        {
+            localScale.x = Mathf.Abs(localScale.x);
+        }
+
+        transform.localScale = localScale; // ìŠ¤í”„ë¼ì´íŠ¸ ë’¤ì§‘ê¸° ì ìš©
+    }
+
+
+    // í˜ì´ë“œ ì•„ì›ƒ í•¨ìˆ˜
     void FadeOut()
     {
-        // ½ºÇÁ¶óÀÌÆ®ÀÇ Åõ¸íµµ¸¦ Á¡Â÷ 0À¸·Î º¯°æ
-        spriteRenderer.DOFade(0, 1.0f).OnComplete(() =>
+        if (gameObject.activeSelf == true)
         {
-            gameObject.SetActive(false); // ÆäÀÌµå ¾Æ¿ô ÈÄ ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
-        });
+            isAfterReward = true;
+            // ìŠ¤í”„ë¼ì´íŠ¸ì˜ íˆ¬ëª…ë„ë¥¼ ì ì°¨ 0ìœ¼ë¡œ ë³€ê²½
+            spriteRenderer.DOFade(0, 1.0f).OnComplete(() =>
+            {
+                gameObject.SetActive(false); // í˜ì´ë“œ ì•„ì›ƒ í›„ ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
+                spriteRenderer.color = new Color(1, 1, 1, 1); // íˆ¬ëª…ë„ ì œê±°
+            });
+        }
     }
-    // »õ·Î¿î X À§Ä¡¸¦ °è»êÇÏ´Â ÇÔ¼ö
+
+    // í˜ì´ë“œ ì¸ í•¨ìˆ˜
+    private void FadeIn()
+    {
+        if (isAfterReward == true)
+        {
+            spriteRenderer.color = new Color(1, 1, 1, 0); // íˆ¬ëª…ë„ ì œê±°
+            gameObject.SetActive(true);
+            // í˜ì´ë“œ ì¸ í›„ ì˜¤ë¸Œì íŠ¸ í™œì„±í™”
+            spriteRenderer.DOFade(1, 10.0f).OnComplete(() =>
+            {
+                isAfterReward = false;
+            });
+        }
+    }
+
+
+    // ìƒˆë¡œìš´ X ìœ„ì¹˜ë¥¼ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜
     float CalculateNewPositionX()
     {
-        float newPosX = player.transform.position.x; // ÃÊ±â À§Ä¡ ¼³Á¤
-        float range = Ran.Range(27f, 38.5f);
+        float newPosX = player.transform.position.x; // ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
+        float range = Ran.Range(maxDistance - 11.5f, maxDistance - 1.5f);
 
-        // ÇÃ·¹ÀÌ¾î¿Í ¹°°í±âÀÇ »ó´ëÀû À§Ä¡ ¹× ¹æÇâ¿¡ µû¶ó X À§Ä¡ °áÁ¤
-        if (player.transform.localScale.x > 0 && currentDirection.x > 0)
+        // í”Œë ˆì´ì–´ì™€ ë¬¼ê³ ê¸°ì˜ ìƒëŒ€ì  ìœ„ì¹˜ ë° ë°©í–¥ì— ë”°ë¼ X ìœ„ì¹˜ ê²°ì • 
+        // í”Œë ˆì´ì–´ ë¡œì»¬ ìŠ¤ì¼€ì¼ì´ ì–‘ìˆ˜ë©´ ì™¼ìª½, ìŒìˆ˜ë©´ ì˜¤ë¥¸ìª½
+        if (player.transform.localScale.x > 0 && currentDirection.x < 0) // í”Œë ˆì´ì–´ê°€ ì™¼ìª½ì„ ë°”ë¼ë³´ê³  ë¬¼ê³ ê¸°ë„ ì™¼ìª½ìœ¼ë¡œ ì´ë™
         {
-            return player.transform.position.x - range; // µÑ ´Ù ¿ŞÂÊ ÀÌµ¿
+            SetReverseX(); // Xì¶• ë°˜ì „
+            return player.transform.position.x - range; // í”Œë ˆì´ì–´ ìœ„ì¹˜ì—ì„œ range ë§Œí¼ ì™¼ìª½ìœ¼ë¡œ ì´ë™
         }
-        else if (player.transform.localScale.x < 0 && currentDirection.x < 0)
+        else if (player.transform.localScale.x < 0 && currentDirection.x > 0) // í”Œë ˆì´ì–´ê°€ ì˜¤ë¥¸ìª½ì„ ë°”ë¼ë³´ê³  ë¬¼ê³ ê¸°ë„ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
         {
-            return player.transform.position.x + range; // µÑ ´Ù ¿À¸¥ÂÊ ÀÌµ¿
+            SetReverseX(); // Xì¶• ë°˜ì „
+            return player.transform.position.x + range; // í”Œë ˆì´ì–´ ìœ„ì¹˜ì—ì„œ range ë§Œí¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
         }
-        else if ((player.transform.localScale.x > 0 && currentDirection.x < 0) ||
-                 (player.transform.localScale.x < 0 && currentDirection.x > 0))
+        else if (player.transform.localScale.x > 0 && currentDirection.x > 0) // í”Œë ˆì´ì–´ê°€ ì™¼ìª½ì„ ë°”ë¼ë³´ê³  ë¬¼ê³ ê¸°ëŠ” ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
         {
-            SetReverseX(); // ¹æÇâ ¹İÀü
-            return player.transform.localScale.x > 0 ? player.transform.position.x - range : player.transform.position.x + range;
+            return player.transform.position.x - range; // í”Œë ˆì´ì–´ ìœ„ì¹˜ì—ì„œ range ë§Œí¼ ì™¼ìª½ìœ¼ë¡œ ì´ë™
+        }
+        else if (player.transform.localScale.x < 0 && currentDirection.x < 0) // í”Œë ˆì´ì–´ê°€ ì˜¤ë¥¸ìª½ì„ ë°”ë¼ë³´ê³  ë¬¼ê³ ê¸°ëŠ” ì™¼ìª½ìœ¼ë¡œ ì´ë™
+        {
+            return player.transform.position.x + range; // í”Œë ˆì´ì–´ ìœ„ì¹˜ì—ì„œ range ë§Œí¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
         }
         else
         {
-            // ¿¹¿Ü »óÈ² Ã³¸®
+            // ì˜ˆì™¸ ìƒí™© ì²˜ë¦¬
             gameObject.SetActive(false);
-            return newPosX; // ÃÊ±â À§Ä¡ ¹İÈ¯
+            return newPosX; // ì´ˆê¸° ìœ„ì¹˜ ë°˜í™˜
         }
     }
 
-    // ·£´ıÇÑ ¼Óµµ ÇÔ¼ö
+    // ëœë¤í•œ ì†ë„ í•¨ìˆ˜
     protected void RandomSpeed(float minSpeed, float maxSpeed)
     {
-        moveSpeed = Ran.Range(minSpeed, maxSpeed); // ·£´ı ¼Óµµ ¼³Á¤
+        moveSpeed = Ran.Range(minSpeed, maxSpeed); // ëœë¤ ì†ë„ ì„¤ì •
     }
-    // XÃà ¹İÀü
+    // Xì¶• ë°˜ì „
     protected void SetReverseX()
     {
         currentDirection = new Vector2(-currentDirection.x, Ran.Range(-0.2f, 0.2f)).normalized;
     }
-    // YÃà ·£´ı ¼³Á¤
+    // Yì¶• ëœë¤ ì„¤ì •
     protected void SetRandomY()
     {
         currentDirection = new Vector2(currentDirection.x, Ran.Range(-0.2f, 0.2f)).normalized;
     }
 
-    // ·£´ı ¹æÇâ ¼³Á¤
+    // ëœë¤ ë°©í–¥ ì„¤ì •
     protected void SetRandomDir()
     {
         SetRandomY();
         SetReverseX();
     }
-    // ¹«ÀÛÀ§ ÃÊ±â ¹æÇâ ¼³Á¤
+    // ë¬´ì‘ìœ„ ì´ˆê¸° ë°©í–¥ ì„¤ì •
     private void SetNewDirection()
     {
         currentDirection = new Vector2(Ran.Range(-1f, 1f), Ran.Range(-1f, 1f) * 0.1f).normalized;
     }
 
-    // ÇÃ·¹ÀÌ¾î¿Í °°Àº ¹æÇâÀ¸·Î ÀÌµ¿ °Ë»ç (¾ç¼ö = ÇÃ·¹ÀÌ¾î ÇâÇØ ÀÌµ¿)
+    // í”Œë ˆì´ì–´ì™€ ê°™ì€ ë°©í–¥ìœ¼ë¡œ ì´ë™ ê²€ì‚¬ (ì–‘ìˆ˜ = í”Œë ˆì´ì–´ í–¥í•´ ì´ë™)
     protected bool IsMovingTowardsPlayer()
     {
         Vector2 toPlayer = (player.transform.position - transform.position).normalized;
         float dotProduct = Vector2.Dot(toPlayer, currentDirection);
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¿òÁ÷ÀÌÁö ¾Ê´Â °æ¿ì, µ¿ÀÏ ¹æÇâ Ã¼Å©
+        // í”Œë ˆì´ì–´ê°€ ì›€ì§ì´ì§€ ì•ŠëŠ” ê²½ìš°, ë™ì¼ ë°©í–¥ ì²´í¬
         if (player.GetComponent<Rigidbody2D>().velocity.magnitude == 0)
         {
             return dotProduct > 0 && currentDirection.x == Mathf.Sign(player.transform.position.x - transform.position.x);
@@ -218,15 +278,16 @@ public class FishAi : MonoBehaviour
         return dotProduct > 0;
     }
 
+    // ë¬¼ê³ ê¸° ê°ì§€ ë²”ìœ„ ê·¸ë¦¬ê¸°
     void OnDrawGizmos()
     {
         if (player != null)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(player.transform.position, maxDistance); // ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ Áß½ÉÀ¸·Î ÇÏ´Â ¿øÀ» ±×¸²
+            Gizmos.DrawWireSphere(player.transform.position, maxDistance); // í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•˜ëŠ” ì›ì„ ê·¸ë¦¼
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, detectionRadius); // ¹°°í±â À§Ä¡¸¦ Áß½ÉÀ¸·Î ÇÏ´Â ¿øÀ» ±×¸² (°¨Áö°Å¸®)
+            Gizmos.DrawWireSphere(transform.position, detectionRadius); // ë¬¼ê³ ê¸° ìœ„ì¹˜ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•˜ëŠ” ì›ì„ ê·¸ë¦¼ (ê°ì§€ê±°ë¦¬)
         }
-    }
+    }    
 }

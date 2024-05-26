@@ -17,6 +17,8 @@ TagManager:
   - Bg
   - BgDeco1
   - BgDeco2
+  - SFX
+  - BGM
   layers:
   - Default
   - TransparentFX
@@ -62,4 +64,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 419682067
+    locked: 0
+  - name: Particle
+    uniqueID: 1915285541
     locked: 0
