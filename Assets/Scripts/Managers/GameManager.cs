@@ -344,5 +344,26 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+
+
+    // 할로윈 스킨 적용 토글
+    public void ToggleClick_Ink(bool boolean)
+    {
+        string skinName = "InkTheme";
+        if (boolean == true)
+        {
+            Debug.Log("Ink");
+            DataManager.Instance.UnLockTheme(skinName);
+            DataManager.Instance.SelectTheme(skinName);
+            SkinManager.Instance.SetSkin(3);
+            FishAi[] fishAis = FindObjectsOfType<FishAi>();
+            foreach (FishAi fishAi in fishAis)
+            {
+                fishAi.anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor;
+                fishAi.anim.SetBool(fishAi.gameObject.tag, true); // 애니메이션 실행
+
+            }
+        }
+    }
     #endregion
 }
