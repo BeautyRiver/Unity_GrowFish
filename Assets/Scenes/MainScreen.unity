@@ -4766,7 +4766,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoDestroyOnLoad: 1
+  _adUnitId: ca-app-pub-3940256099942544/5224354917
   player: {fileID: 0}
+  testMode: 1
   adState: 0
 --- !u!4 &357841224
 Transform:

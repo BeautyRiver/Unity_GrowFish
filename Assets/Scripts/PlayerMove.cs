@@ -111,7 +111,7 @@ public class PlayerMove : MonoBehaviour
         if (!uiManager.isPauseScreenOn && !gm.isGameOver)
         {
             // 물리적 이동 처리
-            rb.AddForce(playerDir * speed, ForceMode2D.Force);
+            rb.AddForce(playerDir * speed, ForceMode2D.Impulse);
 
             // 위치 제한
             rb.transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -maxClampBottom, maxClampTop));

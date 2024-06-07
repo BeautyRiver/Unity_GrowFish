@@ -68,8 +68,8 @@ public class FishAi : MonoBehaviour
         turnCount = 2; // 턴 카운트 초기화
         RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
     }
-   
-    private void OnDisable()
+
+    protected virtual void OnDisable()
     {
         DisableFish -= FadeOut; // 물고기 비활성화 이벤트 제거
         if(isAfterReward == false) DisableFish -= FadeIn;

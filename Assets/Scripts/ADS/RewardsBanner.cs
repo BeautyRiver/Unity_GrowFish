@@ -1,11 +1,25 @@
 using GoogleMobileAds.Api;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class RewardsBanner : Singleton<RewardsBanner>
-{
+{   
+    // These ad units are configured to always serve test ads.
+#if UNITY_ANDROID
+    private string testId = "ca-app-pub-3940256099942544/5224354917";
+    private string rewardId = "ca-app-pub-8914383313856846/2222262982";
+    [SerializeField] private string _adUnitId = "";
+#elif UNITY_IPHONE
+  private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
+#else
+  private string _adUnitId = "unused";
+#endif
+
+    private RewardedAd _rewardedAd;
     [SerializeField] private PlayerMove player;
+    [SerializeField] private bool testMode = true;
     public enum AdState
     {
         None,
@@ -14,36 +28,24 @@ public class RewardsBanner : Singleton<RewardsBanner>
     };
 
     public AdState adState;
-    // private void Awake()
-    // {
-    //     if (adState == AdState.InGame)
-    //     {
-    //         if (player == null)
-    //         {
-    //             player = FindObjectOfType<PlayerMove>();
-    //         }
-    //     }
-    //     else
-    //         player = null;
-    // }
+    protected override void Awake()
+    {
+        base.Awake();
+        if (testMode == true)
+        {
+            _adUnitId = testId;
+        }
+        else if (testMode == false)
+        {
+            _adUnitId = rewardId;
+        }
+    }
     public void Start()
     {
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(initStatus => { });
         LoadRewardedAd();
     }
-
-    // These ad units are configured to always serve test ads.
-#if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
-#elif UNITY_IPHONE
-  private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
-#else
-  private string _adUnitId = "unused";
-#endif
-
-    private RewardedAd _rewardedAd;
-
     /// <summary>
     /// Loads the rewarded ad.
     /// </summary>
