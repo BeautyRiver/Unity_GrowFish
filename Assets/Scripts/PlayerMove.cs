@@ -2,19 +2,17 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using SysRandom = System.Random; // System의 Random에 대해 별칭 설정
-using DarkTonic.MasterAudio;
-using System;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-
+    readonly int WARNINGHP = 60;
     // 플레이어의 기본 속성
     [Header("플레이어 속성")]
     public float playerScale = 0.3f; //플레이어 크기
     public int maxHp = 100; // 최대 체력값 
     public float hp; // 플레이어 현재 체력
+    public Image noHpWarningImg; // 플레이어 체력이 적을때 뜨는 붉은 화면
     private float healthDecreaseRate = 4f; // 체력이 감소하는 비율 (초당)
     private bool isMoveOk = true; //움직임 가능 체크 변수  
     public Transform mouth;
@@ -168,7 +166,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            OnDamaged(collision.gameObject.transform, 30); // 체력 30% 감소
+            OnDamaged(collision.gameObject.transform, 20); // 체력 30% 감소
         }
     }
     #endregion
@@ -199,7 +197,7 @@ public class PlayerMove : MonoBehaviour
         playerAni.Play("PlayerDoEat");
         gm.score += plusScore;
         uiManager.scoreText.text = gm.score.ToString();
-        hp += maxHp * 0.25f;
+        hp += maxHp * 0.15f;
         hp = Mathf.Min(hp, 100);
     }
 
@@ -209,7 +207,20 @@ public class PlayerMove : MonoBehaviour
         // 체력을 초당 healthDecreaseRate만큼 감소
         hp -= healthDecreaseRate * Time.deltaTime;
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 함.
-        
+
+        // 현재 HP에 따라 투명도 조절
+        if (hp <= WARNINGHP) // 60 밑으로 떨어지면
+        {
+            // 투명도 조절
+            float alpha = Mathf.Lerp(0, 1, (WARNINGHP - hp) / (WARNINGHP-10));
+            noHpWarningImg.DOFade(alpha, 0.3f); // 0.3초 동안 부드럽게 투명도 변경
+        }
+        else
+        {
+            // HP가 WARNINGHP 이상일 때 투명도를 0으로 설정
+            noHpWarningImg.DOFade(0, 0.5f); // 0.3초 동안 부드럽게 투명도 변경
+        }
+
         // 체력이 0 이하로 떨어지면 게임오버
         if (hp <= 0 && gm.isGameOver == false)
         {

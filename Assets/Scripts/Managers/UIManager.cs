@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     //점수관련
     public TextMeshProUGUI scoreText;
 
-    //하트 관련
+    [Header("체력, 점수 관련")]
     [SerializeField] private Image healthBarSlider;
 
     [SerializeField] private Text bestScore;
@@ -19,9 +19,11 @@ public class UIManager : MonoBehaviour
 
     // 물고기 섭취
     [Header("물고기 목표 섭취")]
-    public Sprite[] fishImages; // 이 이미지들을 할당할거라는 뜻      
+    public Sprite[] fishImages; // 이 이미지들을 할당할거라는 뜻 (Fish)
+    public Sprite[] enemyImages; // 이 이미지들을 할당할거라는 뜻 (Enemy)  
+    [SerializeField] private Image[] fishTargetImg; // 이미지 할당될 장소 (Fish)
     [SerializeField] private TextMeshProUGUI[] fishTargetText; // 목표 물고기 개수
-    [SerializeField] private Image[] fishTargetImg; // 이미지 할당될 장소
+    [SerializeField] private Image[] enemyTargetImg; // 이미지 할당될 장소 (Enemy)
     public TextMeshProUGUI nowMissonText; // 현재 미션 단계 텍스트
     //GamePause관련
     public bool isPauseScreenOn = false;
@@ -49,7 +51,7 @@ public class UIManager : MonoBehaviour
     public Slider bgmSlider; // 배경음 슬라이더
 
     void Start()
-    {
+    {        
         SoundManager.Instance.SoundSliderSetting(sfxSlider, bgmSlider); // 사운드 슬라이더 설정
         StartCoroutine(CheckFishTarget());
     }
@@ -88,6 +90,14 @@ public class UIManager : MonoBehaviour
         nowMissonText.text = "미션 완료!";
         gameEndImg.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    public void EnemyTargetImgChange()
+    {
+        for (int i = 0; i < enemyImages.Length; i++)
+        {
+            enemyTargetImg[i].sprite = enemyImages[i];
+        }
     }
 
     public void UpdateHealthBar(float currentHp, int maxHp)

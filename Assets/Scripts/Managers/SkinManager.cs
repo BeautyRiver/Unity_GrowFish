@@ -16,6 +16,8 @@ public class SkinManager : Singleton<SkinManager>
 
     [Header("물고기 스프라이트")]
     public List<FishSkin> fishSprites;
+    [Header("에너미(Enemy) 스프라이트")]
+    public List<FishSkin> enemySprites;
 
     [Header("배경 스프라이트")]
     public List<BgSkin> bgSprites;
@@ -53,6 +55,9 @@ public class SkinManager : Singleton<SkinManager>
 
         //물고기 할당 이미지 설정
         uIManager.fishImages = fishSprites[themeIdx].fs.ToArray();
+        uIManager.enemyImages = enemySprites[themeIdx].fs.ToArray();
+        uIManager.EnemyTargetImgChange();
+
 
         // 배경 스킨 설정
         GameObject[] bgObj = GameObject.FindGameObjectsWithTag("Bg");

@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine;
 using Ran = UnityEngine.Random;
+#if UNITY_EDITOR
+[ExecuteInEditMode]  //<- 이 부분이 에디터에서 작동되도록 선언하는 부분
+#endif
 public class FishAi : MonoBehaviour
 {
     public static Action DisableFish; // 물고기 비활성화 이벤트
@@ -39,13 +42,13 @@ public class FishAi : MonoBehaviour
     private Color originalColor;
 
     protected virtual void Awake()
-    {        
+    {
         if (player == null)
             player = FindAnyObjectByType<PlayerMove>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        SetNewDirection(); // 초기 방향 설정
+        //SetNewDirection(); // 초기 방향 설정
         originalColor = spriteRenderer.color; // 원래 색상 저장
         InvokeRepeating(nameof(SetRandomY), 0.5f, 1.5f); // 1.5초마다 Y값  변경
     }
@@ -56,23 +59,29 @@ public class FishAi : MonoBehaviour
         anim.SetBool(gameObject.tag, true); // 애니메이션 실행
     }
     protected virtual void OnEnable()
-    {        
+    {
         DisableFish += FadeOut; // 물고기 비활성화 이벤트 등록
         EnableFish += FadeIn; // 물고기 활성화 이벤트 등록
         maxDistanceChange += MaxDistanceChange; // 최대 감지 거리 변경 이벤트 등록
-        
+
         maxDistance += GameManager.Instance.currentMission * GameManager.Instance.fishMaxDistance; // 미션에 따라 최대 거리 증가
 
         spriteRenderer.color = originalColor; // 투명도 제거
         anim.SetBool(gameObject.tag, true); // 애니메이션 실행
         turnCount = 2; // 턴 카운트 초기화
         RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
+
+        // 플레이어가 오른쪽에 있으면
+        if (transform.position.x < player.transform.position.x)
+            currentDirection.x = 1f;
+        else if (transform.position.x > player.transform.position.x)
+            currentDirection.x = -1f;
     }
 
     protected virtual void OnDisable()
     {
         DisableFish -= FadeOut; // 물고기 비활성화 이벤트 제거
-        if(isAfterReward == false) DisableFish -= FadeIn;
+        if (isAfterReward == false) DisableFish -= FadeIn;
         maxDistanceChange -= MaxDistanceChange; // 최대 감지 거리 변경 이벤트 제거
     }
 
@@ -85,7 +94,7 @@ public class FishAi : MonoBehaviour
         FlipX(); // 이동 방향에 따라 스프라이트 뒤집기
         DistanceCal(); // 플레이어와의 거리 계산 함수
     }
-    
+
     protected virtual void FixedUpdate()
     {
         // 이동 로직
@@ -207,7 +216,7 @@ public class FishAi : MonoBehaviour
     float CalculateNewPositionX()
     {
         float newPosX = player.transform.position.x; // 초기 위치 설정
-        float range = Ran.Range(maxDistance - 11.5f, maxDistance - 1.5f);
+        float range = Ran.Range(maxDistance - 0.1f, maxDistance - 1.0f);
 
         // 플레이어와 물고기의 상대적 위치 및 방향에 따라 X 위치 결정 
         // 플레이어 로컬 스케일이 양수면 왼쪽, 음수면 오른쪽
@@ -280,6 +289,7 @@ public class FishAi : MonoBehaviour
     }
 
     // 물고기 감지 범위 그리기
+    #if UNITY_EDITOR
     void OnDrawGizmos()
     {
         if (player != null)
@@ -290,5 +300,6 @@ public class FishAi : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, detectionRadius); // 물고기 위치를 중심으로 하는 원을 그림 (감지거리)
         }
-    }    
+    }
+    #endif
 }

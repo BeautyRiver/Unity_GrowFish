@@ -39,10 +39,8 @@ public class BottomBanner : MonoBehaviour
             _bannerView.Destroy();
         }
 
-        AdSize adaptiveSize =
-                AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-
-        _bannerView = new BannerView(_adUnitId, adaptiveSize, AdPosition.Bottom);
+        AdSize adSize = new AdSize(728, 90);
+        _bannerView = new BannerView(_adUnitId, adSize, AdPosition.Bottom);
     }
 
     public void LoadAd()
@@ -69,5 +67,10 @@ public class BottomBanner : MonoBehaviour
             _bannerView.Destroy();
             _bannerView = null;
         }
+    }
+
+    void OnDisable()
+    {
+        DestroyBannerView();
     }
 }

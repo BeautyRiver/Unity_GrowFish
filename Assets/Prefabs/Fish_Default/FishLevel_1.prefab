@@ -151,17 +151,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnCount: 2
-  moveSpeed: 2
-  minSpeed: 2.5
-  maxSpeed: 3
-  runAwaySpeed: 0
-  detectionRadius: 5
-  maxDistance: 30
+  moveSpeed: 3.1396947
+  minSpeed: 2.8
+  maxSpeed: 3.5
+  runAwaySpeed: 4.7095423
+  detectionRadius: 4
+  maxDistance: 27
   player: {fileID: 0}
-  currentDirection: {x: 0, y: 0}
+  currentDirection: {x: -0.9994229, y: 0.03397041}
   isRunningAway: 0
-  distanceToPlayer: 0
-  anim: {fileID: 0}
+  distanceToPlayer: 6.231284
+  anim: {fileID: 8261576609333697613}
   fishType: 0
 --- !u!210 &5189267554783816751
 SortingGroup:

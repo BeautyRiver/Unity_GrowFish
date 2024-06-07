@@ -4,29 +4,47 @@ using UnityEngine;
 
 public class FishLevel_2 : FishAi
 {
-    float currentVelocity;
-    float tempSpeed;
-    
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     protected override void OnEnable() {
         base.OnEnable();
-        StartCoroutine(SleepTime());
-    }
-    protected override void OnDisable() {
-        StopCoroutine(SleepTime());
+        StartCoroutine(VelocityChange());
     }
 
-    IEnumerator SleepTime()
+    protected override void OnDisable()
     {
-        tempSpeed = moveSpeed;
-        while (true)
+        base.OnDisable();
+        StopCoroutine(VelocityChange());
+    }
+    IEnumerator VelocityChange()
+    {
+        while(true)
         {
-            moveSpeed = Mathf.SmoothDamp(moveSpeed, 0f, ref currentVelocity, 0.1f);
-            Debug.Log("감속중");
-            yield return new WaitForSeconds(Random.Range(1f, 1.5f));
-            moveSpeed = Mathf.SmoothDamp(moveSpeed, tempSpeed, ref currentVelocity, 0.3f);
-            Debug.Log("가속중");
+            float tempSpeed = moveSpeed;
+            if (moveSpeed <= 0)
+            {
+                moveSpeed -= 1f * Time.deltaTime;
+            }
+            yield return new WaitForSeconds(Random.Range(2f,4f));
 
-            yield return new WaitForSeconds(Random.Range(3f, 4f));
+            if (moveSpeed >= tempSpeed)
+            {
+                moveSpeed += 1f * Time.deltaTime;
+            }
+            yield return new WaitForSeconds(Random.Range(3f,5f));
+
         }
     }
 }

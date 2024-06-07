@@ -12,10 +12,11 @@ public class PoolManager : MonoBehaviour
     private bool isFishSpawnCor = false; // 물고기 스폰 코루틴 중복 실행 방지 변수
     private bool isBlowFishSpawnCor = false; // BlowFish 스폰 코루틴 중복 실행 방지 변수
     private bool isSharkSpawnCor = false; // Shark 스폰 코루틴 중복 실행 방지 변수
-    public FishSpawnRange fishSpawnRange = new FishSpawnRange(1.0f, 2.0f); // 물고기 스폰 범위
+    public FishSpawnRange fishSpawnTimeRange = new FishSpawnRange(1.0f, 2.0f); // 물고기 스폰 범위
     [ArrayElementTitle("name")]
-    public List<EnemySpawnRange> enemySpawnRangeList; // 적 물고기 스폰 범위 리스트
+    public List<EnemySpawnRange> enemySpawnTimeRangeList; // 적 물고기 스폰 범위 리스트
     private GameManager gm; // 게임 매니저 참조
+    private bool isEnemySpawnTimePlus;
 
     private void Awake()
     {
@@ -59,16 +60,17 @@ public class PoolManager : MonoBehaviour
         // 풀에서 사용 가능한 오브젝트를 찾지 못한 경우, 새로운 오브젝트를 생성하고 풀에 추가
         if (select == null)
         {
+            int ranSpawnPoint = Random.Range(0,spawnPoints.Length);
             if (isEnemy)
             {
-                select = Instantiate(enemyPrefabs[index], transform);
+                select = Instantiate(enemyPrefabs[index],spawnPoints[ranSpawnPoint].position, Quaternion.identity, transform);
                 enemyPools[index].Add(select);
             }
             else
             {
-                select = Instantiate(fishPrefabs[index], transform);
+                select = Instantiate(fishPrefabs[index], spawnPoints[ranSpawnPoint].position, Quaternion.identity, transform);
                 fishPools[index].Add(select);
-            }
+            }            
         }
 
         // 선택된 오브젝트를 무작위 스폰 포인트 위치로 이동
@@ -93,7 +95,7 @@ public class PoolManager : MonoBehaviour
         {
             Get(SelectFish(), false);
             //1초에서 5초사이 실수값으로 랜덤하게 등장
-            yield return new WaitForSeconds(Random.Range(fishSpawnRange.min, fishSpawnRange.max));
+            yield return new WaitForSeconds(Random.Range(fishSpawnTimeRange.min, fishSpawnTimeRange.max));
         }
         isFishSpawnCor = false; // 물고기 스폰 코루틴 중복 실행 방지 변수 false로 변경
     }
@@ -105,7 +107,7 @@ public class PoolManager : MonoBehaviour
         while (!gm.isGameOver)
         {
             Get(0, true); // BlowFish 스폰            
-            yield return new WaitForSeconds(Random.Range(enemySpawnRangeList[0].min, enemySpawnRangeList[0].max));
+            yield return new WaitForSeconds(Random.Range(enemySpawnTimeRangeList[0].min, enemySpawnTimeRangeList[0].max));
         }
         isBlowFishSpawnCor = false;
     }
@@ -117,7 +119,7 @@ public class PoolManager : MonoBehaviour
         {
             Get(1, true); // Shark 스폰
 
-            yield return new WaitForSeconds(Random.Range(enemySpawnRangeList[1].min, enemySpawnRangeList[1].max));
+            yield return new WaitForSeconds(Random.Range(enemySpawnTimeRangeList[1].min, enemySpawnTimeRangeList[1].max));
         }
         isSharkSpawnCor = false;
     }
@@ -132,31 +134,63 @@ public class PoolManager : MonoBehaviour
             if (randomNum < 70) return 0; // 70% 확률로 0번 물고기
             else return 1; // 30% 확률로 1번 물고기            
         }
+
         else if (gm.currentMission <= 3) // 미션 2, 3
         {
-            if (randomNum < 45) return 0; // 45% 확률로 0번 물고기            
-            else if (randomNum < 75) return 1; // 30% 확률로 1번 물고기
-            else return 2; // 25% 확률로 2번 물고기            
+            if (randomNum < 40) return 0; // 40% 확률로 0번 물고기            
+            else if (randomNum < 80) return 1; // 40% 확률로 1번 물고기
+            else return 2; // 20% 확률로 2번 물고기            
         }
-        else if (gm.currentMission <= 5) // 미션 4, 5
+
+        else if (gm.currentMission <= 4) // 미션 4
         {
             if (isBlowFishSpawnCor == false)
                 StartCoroutine(SpawnBlowFish()); // BlowFish 스폰 코루틴 시작
 
             if (randomNum < 30) return 0; // 30% 확률로 0번 물고기
-            else if (randomNum < 70) return 1; // 40% 확률로 1번 물고기
-            else if (randomNum < 90) return 2; // 20% 확률로 2번 물고기
-            else return 3; // 10% 확률로 3번 물고기
+            else if (randomNum < 60) return 1; // 30% 확률로 1번 물고기
+            else if (randomNum < 80) return 2; // 20% 확률로 2번 물고기
+            else return 3; // 20% 확률로 3번 물고기
         }
-        else // 미션 6,7,8
-        {
-            if (gm.currentMission <= 7 && isSharkSpawnCor == false)
-                StartCoroutine(SpawnShark()); // Shark 스폰 코루틴 시작
 
-            if (randomNum < 10) return 0; // 10% 확률로 0번 물고기
-            else if (randomNum < 40) return 1; // 30% 확률로 1번 물고기
-            else if (randomNum < 70) return 2; // 30% 확률로 2번 물고기
+        else if (gm.currentMission <= 5) // 미션 5
+        {
+            if (randomNum < 30) return 1; // 30% 확률로 0번 물고기
+            else if (randomNum < 70) return 2; // 40% 확률로 1번 물고기
             else return 3; // 30% 확률로 3번 물고기
+        }
+
+        else if (gm.currentMission <= 6) // 미션 6
+        {
+            if(isSharkSpawnCor == false)
+                StartCoroutine(SpawnShark());// Shark 스폰 코루틴 시작
+            if (randomNum < 35) return 1;  // 35% 확률로 1번 물고기
+            else if (randomNum < 65) return 2; // 35% 확률로 2번 물고기
+            else return 3; // 30% 확률로 3번 물고기
+        }
+
+        else if (gm.currentMission <= 7) // 미션 7
+        {
+            if (randomNum < 45) return 2; // 45% 확률로 2번 물고기     
+            else return 3; // 55% 확률로 3번 물고기
+        }
+
+        else // 미션 8
+        {
+            if (isEnemySpawnTimePlus == false)
+            {
+                // 스폰 시간 대폭 증가 적들
+                foreach (var item in enemySpawnTimeRangeList)
+                {
+                    item.min *= 0.5f;
+                    item.max *= 0.5f;
+                }
+                isEnemySpawnTimePlus = true;
+            }
+            
+            if (randomNum < 45) return 2; // 45% 확률로 2번 물고기     
+            else return 3; // 55% 확률로 3번 물고기
+            
         }
     }
 }
