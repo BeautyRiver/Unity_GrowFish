@@ -34,7 +34,7 @@ public class GameManager : Singleton<GameManager>
     public int level_3 = 2000;
     public int level_4 = 4500;
 
-    public float fishMaxDistance = 4f; // 물고기 최대 거리 증가치
+    public float fishMaxDistance = 3f; // 물고기 최대 거리 증가치
     public float changeCameraSize = 0.5f; // 카메라 변경 사이즈
     public float changeBGSizeY = 0.03f; // 배경 변경 사이즈
     public float changeSpawnSizeX; // 스포너 위치 변경

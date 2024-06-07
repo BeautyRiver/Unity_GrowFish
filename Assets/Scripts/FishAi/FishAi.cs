@@ -64,7 +64,7 @@ public class FishAi : MonoBehaviour
         EnableFish += FadeIn; // 물고기 활성화 이벤트 등록
         maxDistanceChange += MaxDistanceChange; // 최대 감지 거리 변경 이벤트 등록
 
-        maxDistance += GameManager.Instance.currentMission * GameManager.Instance.fishMaxDistance; // 미션에 따라 최대 거리 증가
+        maxDistance += GameManager.Instance.currentMission != 0 ? GameManager.Instance.fishMaxDistance : 0; // 미션에 따라 최대 거리 증가
 
         spriteRenderer.color = originalColor; // 투명도 제거
         anim.SetBool(gameObject.tag, true); // 애니메이션 실행
@@ -73,9 +73,9 @@ public class FishAi : MonoBehaviour
 
         // 플레이어가 오른쪽에 있으면
         if (transform.position.x < player.transform.position.x)
-            currentDirection.x = 1f;
+            currentDirection.x = 1.5f;
         else if (transform.position.x > player.transform.position.x)
-            currentDirection.x = -1f;
+            currentDirection.x = -1.5f;
     }
 
     protected virtual void OnDisable()
@@ -124,33 +124,27 @@ public class FishAi : MonoBehaviour
         // 거리가 maxDistance보다 크면 물고기 위치 다시 올바르게 설정하기(최대 turnCount 만큼) / 몬스터면 비활성화
         if (distanceToPlayer > maxDistance)
         {
-            // 몬스터면 비활성화
-            if (fishType == TypeOfFish.Enemy)
+
+            // 턴 카운트가 남아있는 경우 위치 업데이트
+            if (turnCount > 0)
             {
-                gameObject.SetActive(false);
+                SetReverseX();
+                // 물고기 위치 업데이트 로직
+                // float newPosX = CalculateNewPositionX(); // 새로운 X 위치 계산
+                // float newPosY = transform.position.y; // Y 위치 유지
+
+                // transform.position = new Vector2(newPosX, newPosY); // 새 위치 설정
+                SetRandomY();
+                RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
+                turnCount--; // 턴 카운트 감소
             }
-            // 물고기면 U턴            
             else
             {
-                // 턴 카운트가 남아있는 경우 위치 업데이트
-                if (turnCount > 0)
-                {
-                    // 물고기 위치 업데이트 로직
-                    float newPosX = CalculateNewPositionX(); // 새로운 X 위치 계산
-                    float newPosY = transform.position.y; // Y 위치 유지
-
-                    transform.position = new Vector2(newPosX, newPosY); // 새 위치 설정
-                    SetRandomY();
-                    RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
-                    turnCount--; // 턴 카운트 감소
-                }
-                else
-                {
-                    // 턴 카운트가 없으면 비활성화
-                    gameObject.SetActive(false);
-                }
-
+                // 턴 카운트가 없으면 비활성화
+                gameObject.SetActive(false);
             }
+
+
         }
     }
 
@@ -289,7 +283,7 @@ public class FishAi : MonoBehaviour
     }
 
     // 물고기 감지 범위 그리기
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         if (player != null)
@@ -301,5 +295,5 @@ public class FishAi : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, detectionRadius); // 물고기 위치를 중심으로 하는 원을 그림 (감지거리)
         }
     }
-    #endif
+#endif
 }

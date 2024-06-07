@@ -22565,16 +22565,19 @@ MonoBehaviour:
   - {fileID: 40961075}
   - {fileID: 2044472968}
   - {fileID: 51614892}
+  isFishSpawnCor: 0
+  isBlowFishSpawnCor: 0
+  isSharkSpawnCor: 0
   fishSpawnTimeRange:
     min: 1.5
     max: 2.5
   enemySpawnTimeRangeList:
   - name: 0
-    min: 2
-    max: 4
+    min: 4
+    max: 6
   - name: 1
-    min: 3.5
-    max: 5
+    min: 4
+    max: 6
 --- !u!4 &1499274141
 Transform:
   m_ObjectHideFlags: 0

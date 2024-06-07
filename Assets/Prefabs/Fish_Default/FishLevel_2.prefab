@@ -168,7 +168,7 @@ MonoBehaviour:
   maxSpeed: 4.5
   runAwaySpeed: 4
   detectionRadius: 5
-  maxDistance: 27
+  maxDistance: 26
   player: {fileID: 0}
   currentDirection: {x: 0, y: 0}
   isRunningAway: 0
