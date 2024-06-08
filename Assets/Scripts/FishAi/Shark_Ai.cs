@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Shark_Ai : FishAi
 {
     public bool findPlayer;
+    public float stopPlayerFindTime;
     protected override void Awake()
     {
         base.Awake();
@@ -39,7 +40,7 @@ public class Shark_Ai : FishAi
             // 현재 방향 업데이트
             currentDirection = directionToPlayer;
 
-            Invoke(nameof(FindPlayerOff), 3f);
+            Invoke(nameof(FindPlayerOff), stopPlayerFindTime);
         }
     }
 

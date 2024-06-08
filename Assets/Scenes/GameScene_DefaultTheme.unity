@@ -2348,7 +2348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -161, y: -126}
+  m_AnchoredPosition: {x: -160, y: -129.26}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &240449575
@@ -6339,7 +6339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6250763234456499135}
-  smoothing: 0.03
+  smoothing: 0.035
   topMax: 6.5
   bottomMax: -7
 --- !u!82 &519420034
@@ -8581,7 +8581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -451.59998, y: -126.00006}
+  m_AnchoredPosition: {x: -420, y: -129.26}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &723401912
@@ -9547,7 +9547,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 32.86}
+  m_AnchoredPosition: {x: 0, y: 33}
   m_SizeDelta: {x: 2000, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &796492609
@@ -10482,10 +10482,10 @@ MonoBehaviour:
   level_2: 500
   level_3: 2000
   level_4: 4500
-  fishMaxDistance: 4
+  fishMaxDistance: 1.5
   changeCameraSize: 0.5
   changeBGSizeY: 0.03
-  changeSpawnSizeX: 3
+  changeSpawnSizeX: 1.5
 --- !u!1 &916388489
 GameObject:
   m_ObjectHideFlags: 0
@@ -11384,11 +11384,11 @@ RectTransform:
   - {fileID: 1204440859}
   m_Father: {fileID: 1537099583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 607, y: 0}
-  m_SizeDelta: {x: 458.7, y: 90.1}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -200, y: 0}
+  m_SizeDelta: {x: 380, y: 90.1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1017357220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22569,15 +22569,15 @@ MonoBehaviour:
   isBlowFishSpawnCor: 0
   isSharkSpawnCor: 0
   fishSpawnTimeRange:
-    min: 1.5
-    max: 2.5
+    min: 0.5
+    max: 2.8
   enemySpawnTimeRangeList:
   - name: 0
-    min: 4
-    max: 6
+    min: 6
+    max: 7
   - name: 1
-    min: 4
-    max: 6
+    min: 6.5
+    max: 7
 --- !u!4 &1499274141
 Transform:
   m_ObjectHideFlags: 0
@@ -27639,7 +27639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -11.4001465}
+  m_AnchoredPosition: {x: 0, y: -11.5}
   m_SizeDelta: {x: 1463.67, y: 271.9}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1955459935
@@ -29285,8 +29285,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -177.56, y: 0}
-  m_SizeDelta: {x: 626.4, y: 90.1}
+  m_AnchoredPosition: {x: -222.1, y: 0}
+  m_SizeDelta: {x: 550, y: 90.099976}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1524451925136828998
 MonoBehaviour:
@@ -29306,7 +29306,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -29589,7 +29589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 233, y: 45}
+  m_AnchoredPosition: {x: 232.99976, y: 45}
   m_SizeDelta: {x: 576.3, y: 94.400024}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &2275348118451036365
@@ -29650,11 +29650,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7641833688147350425, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.89
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7641833688147350425, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.78
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7641833688147350425, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -41685,7 +41685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -128.4}
+  m_AnchoredPosition: {x: 0, y: -128.5}
   m_SizeDelta: {x: 1219.7241, y: 161.18506}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5307805383620120806
@@ -48726,7 +48726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchoredPosition: {x: 40, y: -40}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7779365839868096142

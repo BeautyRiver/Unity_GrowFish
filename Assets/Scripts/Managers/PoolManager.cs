@@ -167,30 +167,31 @@ public class PoolManager : MonoBehaviour
 
         if (gm.currentMission <= 1) // 미션 0, 1
         {
-            if (randomNum < 70) return 0; // 70% 확률로 0번 물고기
-            else return 1; // 30% 확률로 1번 물고기            
+            if (randomNum < 80) return 0; // 80% 확률로 0번 물고기
+            else if (randomNum < 95) return 1; // 15% 확률로 1번 물고기            
+            else return 2; // 5% 확률로 2번 물고기
         }
 
         else if (gm.currentMission <= 3) // 미션 2, 3
         {
-            if (randomNum < 40) return 0; // 40% 확률로 0번 물고기            
-            else if (randomNum < 80) return 1; // 40% 확률로 1번 물고기
-            else return 2; // 20% 확률로 2번 물고기            
+            if (randomNum < 45) return 0; // 45% 확률로 0번 물고기            
+            else if (randomNum < 85) return 1; // 40% 확률로 1번 물고기
+            else return 2; // 15% 확률로 2번 물고기            
         }
 
         else if (gm.currentMission <= 4) // 미션 4
         {
             if (randomNum < 30) return 0; // 30% 확률로 0번 물고기
-            else if (randomNum < 60) return 1; // 30% 확률로 1번 물고기
-            else if (randomNum < 80) return 2; // 20% 확률로 2번 물고기
-            else return 3; // 20% 확률로 3번 물고기
+            else if (randomNum < 65) return 1; // 35% 확률로 1번 물고기
+            else if (randomNum < 90) return 2; // 25% 확률로 2번 물고기
+            else return 3; // 10% 확률로 3번 물고기
         }
 
         else if (gm.currentMission <= 5) // 미션 5
         {
-            if (randomNum < 30) return 1; // 30% 확률로 1번 물고기
-            else if (randomNum < 70) return 2; // 40% 확률로 1번 물고기
-            else return 3; // 30% 확률로 3번 물고기
+            if (randomNum < 40) return 1; // 40% 확률로 1번 물고기
+            else if (randomNum < 80) return 2; // 40% 확률로 1번 물고기
+            else return 3; // 20% 확률로 3번 물고기
         }
 
         else if (gm.currentMission <= 6) // 미션 6
@@ -216,6 +217,10 @@ public class PoolManager : MonoBehaviour
                     item.min *= 0.5f;
                     item.max *= 0.5f;
                 }
+
+                // 스폰 시간 증가 물고기들
+                fishSpawnTimeRange.min *= 0.8f;
+                fishSpawnTimeRange.max *= 0.8f;
                 isEnemySpawnTimePlus = true;
             }
 

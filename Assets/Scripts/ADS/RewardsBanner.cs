@@ -5,16 +5,10 @@ using UnityEngine;
 
 public class RewardsBanner : Singleton<RewardsBanner>
 {   
-    // These ad units are configured to always serve test ads.
-#if UNITY_ANDROID
     private string testId = "ca-app-pub-3940256099942544/5224354917";
     private string rewardId = "ca-app-pub-8914383313856846/2222262982";
     [SerializeField] private string _adUnitId = "";
-#elif UNITY_IPHONE
-  private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
-#else
-  private string _adUnitId = "unused";
-#endif
+
 
     private RewardedAd _rewardedAd;
     [SerializeField] private PlayerMove player;
@@ -121,11 +115,12 @@ public class RewardsBanner : Singleton<RewardsBanner>
 
                     Debug.Log($"부활이 완료되었습니다.");
                 }
-                else
+                else // Store 스킨 잠금 해제
                 {
                     // 테마 언락
                     DataManager.Instance.UnLockTheme(themeName);
                     Debug.Log($"{themeName} 테마가 해금되었습니다.");
+                    FindObjectOfType<StoreTitleManager>().OpenPopUp();
                 }
 
 
