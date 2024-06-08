@@ -156,11 +156,11 @@ MonoBehaviour:
   maxSpeed: 3.5
   runAwaySpeed: 4.510747
   detectionRadius: 4
-  maxDistance: 26.9
+  maxDistance: 25
   player: {fileID: 0}
   currentDirection: {x: 0.999104, y: 0.042323783}
   isRunningAway: 0
-  distanceToPlayer: 22.752594
+  distanceToPlayer: 22
   anim: {fileID: 8261576609333697613}
   fishType: 0
 --- !u!210 &5189267554783816751

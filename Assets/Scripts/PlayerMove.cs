@@ -205,7 +205,7 @@ public class PlayerMove : MonoBehaviour
     private void DecreaseHealthSecond()
     {
         // 체력을 초당 healthDecreaseRate만큼 감소
-        hp -= healthDecreaseRate * Time.deltaTime;
+        hp -= healthDecreaseRate * Time.deltaTime * 0.8f;
         hp = Mathf.Max(hp, 0); // 체력이 0 이하로 떨어지지 않도록 함.
 
         // 현재 HP에 따라 투명도 조절

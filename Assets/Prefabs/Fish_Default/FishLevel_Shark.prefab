@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.8, y: -1.3, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3474636794350320298}
@@ -163,19 +163,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnCount: 1
-  moveSpeed: 2.5
+  moveSpeed: 4.0233426
   minSpeed: 3.5
   maxSpeed: 4.8
-  runAwaySpeed: 4
+  runAwaySpeed: 6.035014
   detectionRadius: 5
-  maxDistance: 26
+  maxDistance: 27
   player: {fileID: 0}
-  currentDirection: {x: 0, y: 0}
+  currentDirection: {x: -0.99439454, y: 0.10573289}
   isRunningAway: 0
-  distanceToPlayer: 0
-  anim: {fileID: 0}
+  distanceToPlayer: 10.377596
+  anim: {fileID: 6508471220079239666}
   fishType: 1
   findPlayer: 0
+  stopPlayerFindTime: 1.5
 --- !u!68 &3858387202451313373
 EdgeCollider2D:
   m_ObjectHideFlags: 0

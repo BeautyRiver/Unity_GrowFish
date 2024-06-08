@@ -60,8 +60,11 @@ public class FishAi : MonoBehaviour
     }
     protected virtual void OnEnable()
     {
-        DisableFish += FadeOut; // 물고기 비활성화 이벤트 등록
-        EnableFish += FadeIn; // 물고기 활성화 이벤트 등록
+        if (fishType != TypeOfFish.Enemy)
+        {
+            DisableFish += FadeOut; // 물고기 비활성화 이벤트 등록
+            EnableFish += FadeIn; // 물고기 활성화 이벤트 등록
+        }
         maxDistanceChange += MaxDistanceChange; // 최대 감지 거리 변경 이벤트 등록
 
         maxDistance += GameManager.Instance.currentMission != 0 ? GameManager.Instance.fishMaxDistance : 0; // 미션에 따라 최대 거리 증가
@@ -73,15 +76,21 @@ public class FishAi : MonoBehaviour
 
         // 플레이어가 오른쪽에 있으면
         if (transform.position.x < player.transform.position.x)
-            currentDirection.x = 1.5f;
+            currentDirection.x = 1.7f;
         else if (transform.position.x > player.transform.position.x)
-            currentDirection.x = -1.5f;
+            currentDirection.x = -1.7f;
     }
 
     protected virtual void OnDisable()
     {
-        DisableFish -= FadeOut; // 물고기 비활성화 이벤트 제거
-        if (isAfterReward == false) DisableFish -= FadeIn;
+        if (fishType != TypeOfFish.Enemy)
+        {
+            DisableFish -= FadeOut; // 물고기 비활성화 이벤트 제거
+            if (isAfterReward == false)
+            {
+                DisableFish -= FadeIn;
+            }
+        }
         maxDistanceChange -= MaxDistanceChange; // 최대 감지 거리 변경 이벤트 제거
     }
 
@@ -128,12 +137,12 @@ public class FishAi : MonoBehaviour
             // 턴 카운트가 남아있는 경우 위치 업데이트
             if (turnCount > 0)
             {
-                SetReverseX();
-                // 물고기 위치 업데이트 로직
-                // float newPosX = CalculateNewPositionX(); // 새로운 X 위치 계산
-                // float newPosY = transform.position.y; // Y 위치 유지
+                // SetReverseX();
+                //물고기 위치 업데이트 로직
+                float newPosX = CalculateNewPositionX(); // 새로운 X 위치 계산
+                float newPosY = transform.position.y; // Y 위치 유지
 
-                // transform.position = new Vector2(newPosX, newPosY); // 새 위치 설정
+                transform.position = new Vector2(newPosX, newPosY); // 새 위치 설정
                 SetRandomY();
                 RandomSpeed(minSpeed, maxSpeed); // 속도 및 Y 위치 랜덤 설정
                 turnCount--; // 턴 카운트 감소
@@ -198,7 +207,7 @@ public class FishAi : MonoBehaviour
             spriteRenderer.color = new Color(1, 1, 1, 0); // 투명도 제거
             gameObject.SetActive(true);
             // 페이드 인 후 오브젝트 활성화
-            spriteRenderer.DOFade(1, 10.0f).OnComplete(() =>
+            spriteRenderer.DOFade(1, 1.0f).OnComplete(() =>
             {
                 isAfterReward = false;
             });

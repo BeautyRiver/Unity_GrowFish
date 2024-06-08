@@ -54,7 +54,7 @@ public class StoreTitleManager : MonoBehaviour
     {
         selectedThemeIdx = idx; // 선택된 테마 인덱스 저장
         RewardsBanner.Instance.ShowRewardedAd(DataManager.Instance.themeNames[selectedThemeIdx]); // 광고 시청
-        OpenPopUp(); // 팝업창 활성화
+        // OpenPopUp(); // 팝업창 활성화
     }
 
     // 팝업창 활성화
