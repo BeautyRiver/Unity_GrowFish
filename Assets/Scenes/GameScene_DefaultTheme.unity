@@ -10485,7 +10485,7 @@ MonoBehaviour:
   fishMaxDistance: 4
   changeCameraSize: 0.5
   changeBGSizeY: 0.03
-  changeSpawnSizeX: 2.5
+  changeSpawnSizeX: 3
 --- !u!1 &916388489
 GameObject:
   m_ObjectHideFlags: 0
