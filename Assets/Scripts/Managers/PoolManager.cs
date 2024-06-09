@@ -167,9 +167,9 @@ public class PoolManager : MonoBehaviour
 
         if (gm.currentMission <= 1) // 미션 0, 1
         {
-            if (randomNum < 80) return 0; // 80% 확률로 0번 물고기
-            else if (randomNum < 95) return 1; // 15% 확률로 1번 물고기            
-            else return 2; // 5% 확률로 2번 물고기
+            if (randomNum < 85) return 0; // 80% 확률로 0번 물고기
+            else if (randomNum < 98) return 1; // 13% 확률로 1번 물고기            
+            else return 2; // 2% 확률로 2번 물고기
         }
 
         else if (gm.currentMission <= 3) // 미션 2, 3
