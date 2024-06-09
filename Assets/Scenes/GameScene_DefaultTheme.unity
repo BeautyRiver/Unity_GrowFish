@@ -29618,7 +29618,7 @@ PrefabInstance:
       objectReference: {fileID: 1499274140}
     - target: {fileID: 5869400729906601113, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: speed
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5869400729906601113, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: spawner
@@ -29634,7 +29634,7 @@ PrefabInstance:
       objectReference: {fileID: 1346944231}
     - target: {fileID: 5869400729906601113, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: maxSpeedNormal
-      value: 7.5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5869400729906601113, guid: b3399add1a800bb4992c6a721a89e13e, type: 3}
       propertyPath: noHpWarningImg
