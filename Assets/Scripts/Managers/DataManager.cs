@@ -49,7 +49,20 @@ public class DataManager : Singleton<DataManager>
     {
         base.Awake();
         path = Application.persistentDataPath + "/";
+        SetThemeNamesList();
         LoadData(); // 데이터 로드 시도
+    }
+
+    private void SetThemeNamesList()
+    {
+        if(themeNames == null)
+        {
+            themeNames.Add("PaperTheme");
+            themeNames.Add("HalloweenTheme");
+            themeNames.Add("InkTheme");
+
+
+        }
     }
 
     public void SaveData()
