@@ -26,6 +26,7 @@ Library: D:\202227042_KMG\Unity_GrowFish\Temp\BurstOutput\tempburstlibs\arm64-v8
 --assembly-defines=System;
 --assembly-defines=System.Xml;
 --assembly-defines=Unity.2D.Animation.Runtime;
+--assembly-defines=Unity.ArrayElementTitle.Runtime;
 --assembly-defines=Unity.Burst;
 --assembly-defines=Unity.Burst.Unsafe;
 --assembly-defines=Unity.Collections;
