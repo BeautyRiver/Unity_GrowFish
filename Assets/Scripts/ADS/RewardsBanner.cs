@@ -1,12 +1,14 @@
 using GoogleMobileAds.Api;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RewardsBanner : Singleton<RewardsBanner>
-{   
+{
     private string testId = "ca-app-pub-3940256099942544/5224354917";
     private string rewardId = "ca-app-pub-8914383313856846/2222262982";
+    public StoreTitleManager storeTitleManager;
     [SerializeField] private string _adUnitId = "";
 
 
@@ -115,16 +117,32 @@ public class RewardsBanner : Singleton<RewardsBanner>
 
                     Debug.Log($"부활이 완료되었습니다.");
                 }
-                else // Store 스킨 잠금 해제
-                {
-                    // 테마 언락
-                    DataManager.Instance.UnLockTheme(themeName);
-                    Debug.Log($"{themeName} 테마가 해금되었습니다.");
-                    FindObjectOfType<StoreTitleManager>().OpenPopUp();
-                }
-
-
             });
         }
+    }
+
+    public void ShowRewardedAd(string themeName, Action onAdCompletedInStore)
+    {
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
+        {
+            _rewardedAd.Show((Reward reward) =>
+            {
+                // 테마 언락
+                DataManager.Instance.UnLockTheme(themeName);
+                Debug.Log($"{themeName} 테마가 해금되었습니다.");
+
+                StartCoroutine(CallAfterDelay(onAdCompletedInStore, 0.3f));
+            });
+        }
+        else
+        {
+            Debug.Log("광고 오류");
+        }
+    }
+
+    private IEnumerator CallAfterDelay(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action?.Invoke();
     }
 }

@@ -365,5 +365,25 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+
+    // 나이트 스킨 적용 토글
+    public void ToggleClick_Night(bool boolean)
+    {
+        string skinName = "NightTheme";
+        if (boolean == true)
+        {
+            Debug.Log("NightTheme");
+            DataManager.Instance.UnLockTheme(skinName);
+            DataManager.Instance.SelectTheme(skinName);
+            SkinManager.Instance.SetSkin(4);
+            FishAi[] fishAis = FindObjectsOfType<FishAi>();
+            foreach (FishAi fishAi in fishAis)
+            {
+                fishAi.anim.runtimeAnimatorController = SkinManager.Instance.currentFishAnimtor;
+                fishAi.anim.SetBool(fishAi.gameObject.tag, true); // 애니메이션 실행
+
+            }
+        }
+    }
     #endregion
 }

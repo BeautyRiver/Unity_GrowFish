@@ -9,7 +9,7 @@ public class StoreTitleManager : MonoBehaviour
     public GameObject popUp;
     public TextMeshProUGUI popUpText;
     public int selectedThemeIdx;
-    private ThemeSelectManager themeSelectManager;
+    [SerializeField] private ThemeSelectManager themeSelectManager;
 
     [Header("사운드 설정UI")]
     public GameObject BlackScreen; // 배경(검은 배경)
@@ -19,7 +19,7 @@ public class StoreTitleManager : MonoBehaviour
 
     // 메인 화면으로 이동 버튼
     private void Awake()
-    {
+    {        
         themeSelectManager = gameObject.GetComponent<ThemeSelectManager>();
         SoundManager.Instance.SoundSliderSetting(sfxSlider, bgmSlider); // 사운드 슬라이더 설정
 
@@ -53,7 +53,9 @@ public class StoreTitleManager : MonoBehaviour
     public void UnlockThemeSawAdBtn(int idx)
     {
         selectedThemeIdx = idx; // 선택된 테마 인덱스 저장
-        RewardsBanner.Instance.ShowRewardedAd(DataManager.Instance.themeNames[selectedThemeIdx]); // 광고 시청
+        RewardsBanner.Instance.ShowRewardedAd(DataManager.Instance.themeNames[selectedThemeIdx], () =>{
+            OpenPopUp();
+        }); // 광고 시청
         // OpenPopUp(); // 팝업창 활성화
     }
 
@@ -66,7 +68,8 @@ public class StoreTitleManager : MonoBehaviour
         popUp.transform.localScale = Vector3.zero; // 초기 스케일을 0으로 설정        
 
         // 통통 튀는 효과로 등장, 구매 사운드 재생
-        popUp.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() => SoundManager.Instance.PlaySound("BuySound"));
+        SoundManager.Instance.PlaySound("BuySound");
+        popUp.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
         themeSelectManager.UpdateThemeStore(); // 상점 테마 선택 버튼 업데이트
     }
     // 팝업 닫기 버튼

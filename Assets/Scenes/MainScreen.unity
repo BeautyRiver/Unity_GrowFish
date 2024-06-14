@@ -672,7 +672,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 963236792}
-  m_Father: {fileID: 1620556934919223603}
+  m_Father: {fileID: 1090118509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -4358,6 +4358,140 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &325490544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 325490545}
+  - component: {fileID: 325490547}
+  - component: {fileID: 325490546}
+  m_Layer: 5
+  m_Name: Text_ItemTitle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &325490545
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325490544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1471367185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -72, y: -69.7}
+  m_SizeDelta: {x: 446.03644, y: 126.77295}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &325490546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325490544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uB098\uC774\uD2B8"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_sharedMaterial: {fileID: -5024697990898034077, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4291601819
+  m_fontColor: {r: 0.60784316, g: 0.64705884, b: 0.8000001, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 65.5
+  m_fontSizeBase: 65.5
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: -18.4
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &325490547
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325490544}
+  m_CullTransparentMesh: 0
 --- !u!1 &325602942
 GameObject:
   m_ObjectHideFlags: 0
@@ -4471,6 +4605,140 @@ RectTransform:
   m_AnchoredPosition: {x: 360.2743, y: -90}
   m_SizeDelta: {x: 720.5486, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &347964610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 347964611}
+  - component: {fileID: 347964613}
+  - component: {fileID: 347964612}
+  m_Layer: 5
+  m_Name: "\uD070\uD14D\uC2A4\uD2B8"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &347964611
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347964610}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1971573796}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175.39, y: -69.23187}
+  m_SizeDelta: {x: 350.78, y: 61.536243}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &347964612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347964610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uB098\uC774\uD2B8\uD14C\uB9C8 \uC138\uD2B8"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_sharedMaterial: {fileID: -5024697990898034077, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4290748310
+  m_fontColor: {r: 0.5882353, g: 0.62352943, b: 0.7490196, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 64
+  m_fontSizeBase: 64
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &347964613
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347964610}
+  m_CullTransparentMesh: 0
 --- !u!1 &350627939
 GameObject:
   m_ObjectHideFlags: 0
@@ -4766,9 +5034,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoDestroyOnLoad: 1
+  storeTitleManager: {fileID: 0}
   _adUnitId: ca-app-pub-3940256099942544/5224354917
   player: {fileID: 0}
-  testMode: 1
+  testMode: 0
   adState: 0
 --- !u!4 &357841224
 Transform:
@@ -7762,6 +8031,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515028986}
   m_CullTransparentMesh: 0
+--- !u!1 &519705866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 519705867}
+  - component: {fileID: 519705869}
+  - component: {fileID: 519705868}
+  m_Layer: 5
+  m_Name: "\uC791\uC740\uD14D\uC2A4\uD2B8"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &519705867
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519705866}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1971573796}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175.39, y: -19.231876}
+  m_SizeDelta: {x: 350.78, y: 38.463753}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &519705868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519705866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uD14C\uB9C8 \uBCC0\uACBD"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_sharedMaterial: {fileID: -5024697990898034077, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 40
+  m_fontSizeBase: 40
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &519705869
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519705866}
+  m_CullTransparentMesh: 0
 --- !u!1 &522567500
 GameObject:
   m_ObjectHideFlags: 0
@@ -7796,12 +8199,13 @@ RectTransform:
   - {fileID: 379084128}
   - {fileID: 1642109360}
   - {fileID: 1762022044}
+  - {fileID: 1471367185}
   m_Father: {fileID: 1719175383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -32.985653}
-  m_SizeDelta: {x: 3855, y: -57.57131}
+  m_SizeDelta: {x: 4800, y: -57.57131}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &522567502
 MonoBehaviour:
@@ -12063,6 +12467,7 @@ MonoBehaviour:
   - PaperTheme
   - HalloweenTheme
   - InkTheme
+  - NightTheme
   themeList:
     themes: []
 --- !u!4 &765826196
@@ -13305,6 +13710,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909679906}
   m_CullTransparentMesh: 0
+--- !u!1 &917726995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917726996}
+  - component: {fileID: 917726998}
+  - component: {fileID: 917726997}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &917726996
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917726995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1313894800}
+  - {fileID: 1971573796}
+  m_Father: {fileID: 1471367185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -0.000030517578, y: 85}
+  m_SizeDelta: {x: -401.25998, y: 105}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &917726997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917726995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
+--- !u!114 &917726998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917726995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 19.96
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &933040107
 GameObject:
   m_ObjectHideFlags: 0
@@ -15952,7 +16436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 78, y: -69.7}
+  m_AnchoredPosition: {x: 81.64, y: -69.7}
   m_SizeDelta: {x: 446.03644, y: 126.77295}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1087846050
@@ -16154,6 +16638,7 @@ RectTransform:
   - {fileID: 632813784580386441}
   - {fileID: 1843456780}
   - {fileID: 1868694615}
+  - {fileID: 95978553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -1, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -21889,6 +22374,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310463267}
   m_CullTransparentMesh: 0
+--- !u!1 &1313894799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1313894800}
+  - component: {fileID: 1313894802}
+  - component: {fileID: 1313894801}
+  m_Layer: 5
+  m_Name: Gem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1313894800
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313894799}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 917726996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 64, y: -52.5}
+  m_SizeDelta: {x: 128, y: 105}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1313894801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313894799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 398c7b6d378f94e96a4e89b2a85adc1c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1313894802
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313894799}
+  m_CullTransparentMesh: 0
 --- !u!1 &1315481203
 GameObject:
   m_ObjectHideFlags: 0
@@ -23879,6 +24439,1528 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467667508}
   m_CullTransparentMesh: 0
+--- !u!1 &1471367184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1471367185}
+  - component: {fileID: 1471367189}
+  - component: {fileID: 1471367188}
+  - component: {fileID: 1471367187}
+  - component: {fileID: 1471367186}
+  m_Layer: 5
+  m_Name: "\uB098\uC774\uD2B8\uD14C\uB9C8"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1471367185
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471367184}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1883872383}
+  - {fileID: 1934704553}
+  - {fileID: 1593262235}
+  - {fileID: 325490545}
+  - {fileID: 2024760971}
+  - {fileID: 917726996}
+  m_Father: {fileID: 522567501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 4290, y: -366.41345}
+  m_SizeDelta: {x: 900, y: 732.8269}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1471367186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471367184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d492d00279c38d04bbbd764b09166bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSpawnMode: 1
+  disableSounds: 0
+  showPoolManager: 0
+  showNGUI: 0
+  eventToGizmo:
+    actionName: Your action name
+    isExpanded: 1
+    soundType: '[None]'
+    allPlaylistControllersForGroupCmd: 0
+    allSoundTypesForGroupCmd: 0
+    allSoundTypesForBusCmd: 0
+    volume: 1
+    useFixedPitch: 0
+    pitch: 1
+    glidePitchType: 0
+    targetGlidePitch: 1
+    pitchGlideTime: 1
+    delaySound: 0
+    currentSoundFunctionType: 0
+    currentPlaylistCommand: 0
+    currentSoundGroupCommand: 0
+    currentBusCommand: 0
+    currentCustomEventCommand: 0
+    currentGlobalCommand: 0
+    currentMixerCommand: 0
+    snapshotToTransitionTo: {fileID: 0}
+    snapshotTransitionTime: 1
+    snapshotsToBlend:
+    - snapshot: {fileID: 0}
+      weight: 1
+    currentPersistentSettingsCommand: 0
+    busName: 
+    playlistName: 
+    playlistControllerName: 
+    startPlaylist: 1
+    fadeVolume: 0
+    fadeTime: 1
+    minAge: 1
+    stopAfterFade: 0
+    restoreVolumeAfterFade: 0
+    fireCustomEventAfterFade: 0
+    targetVolMode: 0
+    clipName: '[None]'
+    variationType: 1
+    variationName: 
+    colliderMaxDistance: 0
+    showSphereGizmo: 0
+    theCustomEventName: 
+    logDupeEventFiring: 1
+  unityUIMode: 1
+  logMissingEvents: 1
+  startSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  visibleSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  invisibleSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  collisionSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  collisionExitSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  triggerSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  triggerExitSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  triggerStaySound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  mouseEnterSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  mouseExitSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  mouseClickSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  mouseUpSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  mouseDragSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  spawnedSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  despawnedSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  enableSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  disableSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  collision2dSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  collisionExit2dSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  triggerEnter2dSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  triggerStay2dSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  triggerExit2dSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  particleCollisionSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  nguiOnClickSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  nguiMouseDownSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  nguiMouseUpSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  nguiMouseEnterSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  nguiMouseExitSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  codeTriggeredEvent1Sound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  codeTriggeredEvent2Sound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unitySliderChangedSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityButtonClickedSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents:
+    - actionName: Your action name
+      isExpanded: 1
+      soundType: ButtonSound_01
+      allPlaylistControllersForGroupCmd: 0
+      allSoundTypesForGroupCmd: 0
+      allSoundTypesForBusCmd: 0
+      volume: 1
+      useFixedPitch: 0
+      pitch: 1
+      glidePitchType: 0
+      targetGlidePitch: 1
+      pitchGlideTime: 1
+      delaySound: 0
+      currentSoundFunctionType: 0
+      currentPlaylistCommand: 0
+      currentSoundGroupCommand: 0
+      currentBusCommand: 0
+      currentCustomEventCommand: 0
+      currentGlobalCommand: 0
+      currentMixerCommand: 0
+      snapshotToTransitionTo: {fileID: 0}
+      snapshotTransitionTime: 1
+      snapshotsToBlend:
+      - snapshot: {fileID: 0}
+        weight: 1
+      currentPersistentSettingsCommand: 0
+      busName: 
+      playlistName: 
+      playlistControllerName: 
+      startPlaylist: 1
+      fadeVolume: 0
+      fadeTime: 1
+      minAge: 1
+      stopAfterFade: 0
+      restoreVolumeAfterFade: 0
+      fireCustomEventAfterFade: 0
+      targetVolMode: 0
+      clipName: '[None]'
+      variationType: 1
+      variationName: 
+      colliderMaxDistance: 0
+      showSphereGizmo: 0
+      theCustomEventName: 
+      logDupeEventFiring: 1
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityPointerDownSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityDragSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityPointerUpSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityPointerEnterSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityPointerExitSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityDropSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityScrollSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityUpdateSelectedSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unitySelectSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityDeselectSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityMoveSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityInitializePotentialDragSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityBeginDragSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityEndDragSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unitySubmitSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityCancelSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  unityToggleSound:
+    isExpanded: 1
+    useLayerFilter: 0
+    useTagFilter: 0
+    matchingLayers: 00000000
+    matchingTags:
+    - Default
+    customSoundActive: 0
+    isCustomEvent: 0
+    customEventName: 
+    mechanimEventActive: 0
+    isMechanimStateCheckEvent: 0
+    mechanimStateName: 
+    mechEventPlayedForState: 0
+    SoundEvents: []
+    mouseDragStopMode: 0
+    mouseDragFadeOutTime: 1
+    retriggerLimitMode: 0
+    limitPerXFrm: 0
+    limitPerXSec: 0
+    triggeredLastFrame: -100
+    triggeredLastTime: -100
+    triggerStayForTime: 0
+    doesTriggerStayRepeat: 1
+    sliderValue: 0
+  userDefinedSounds: []
+  mechanimStateChangedSounds: []
+  useStartSound: 0
+  useVisibleSound: 0
+  useInvisibleSound: 0
+  useCollisionSound: 0
+  useCollisionExitSound: 0
+  useTriggerEnterSound: 0
+  useTriggerExitSound: 0
+  useTriggerStaySound: 0
+  useMouseEnterSound: 0
+  useMouseExitSound: 0
+  useMouseClickSound: 0
+  useMouseUpSound: 0
+  useMouseDragSound: 0
+  useSpawnedSound: 0
+  useDespawnedSound: 0
+  useEnableSound: 0
+  useDisableSound: 0
+  useCollision2dSound: 0
+  useCollisionExit2dSound: 0
+  useTriggerEnter2dSound: 0
+  useTriggerStay2dSound: 0
+  useTriggerExit2dSound: 0
+  useParticleCollisionSound: 0
+  useNguiOnClickSound: 0
+  useNguiMouseDownSound: 0
+  useNguiMouseUpSound: 0
+  useNguiMouseEnterSound: 0
+  useNguiMouseExitSound: 0
+  useCodeTriggeredEvent1Sound: 0
+  useCodeTriggeredEvent2Sound: 0
+  useUnitySliderChangedSound: 0
+  useUnityButtonClickedSound: 1
+  useUnityPointerDownSound: 0
+  useUnityDragSound: 0
+  useUnityPointerUpSound: 0
+  useUnityPointerEnterSound: 0
+  useUnityPointerExitSound: 0
+  useUnityDropSound: 0
+  useUnityScrollSound: 0
+  useUnityUpdateSelectedSound: 0
+  useUnitySelectSound: 0
+  useUnityDeselectSound: 0
+  useUnityMoveSound: 0
+  useUnityInitializePotentialDragSound: 0
+  useUnityBeginDragSound: 0
+  useUnityEndDragSound: 0
+  useUnitySubmitSound: 0
+  useUnityCancelSound: 0
+  useUnityToggleSound: 0
+--- !u!114 &1471367187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471367184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1471367188}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1759819577}
+        m_TargetAssemblyTypeName: ThemeSelectManager, Assembly-CSharp
+        m_MethodName: SelectTheme
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: NightTheme
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1471367188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471367184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.15686275, g: 0.14509805, b: 0.34901962, a: 0.79607844}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 9edf88ae67e094b3cb3b788b80b98798, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1471367189
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471367184}
+  m_CullTransparentMesh: 0
 --- !u!1 &1482148910
 GameObject:
   m_ObjectHideFlags: 0
@@ -24283,6 +26365,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
+--- !u!1 &1593262234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593262235}
+  - component: {fileID: 1593262237}
+  - component: {fileID: 1593262236}
+  m_Layer: 5
+  m_Name: BorderFrame_Round03_Navy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1593262235
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593262234}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1471367185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 8.399902}
+  m_SizeDelta: {x: 895.58, y: 149.5}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1593262236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593262234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.4745098}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4c2ce05856cd94f96bda820d2353988c, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1593262237
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593262234}
+  m_CullTransparentMesh: 0
 --- !u!1 &1594800114
 GameObject:
   m_ObjectHideFlags: 0
@@ -27247,6 +29404,7 @@ MonoBehaviour:
   - {fileID: 379084129}
   - {fileID: 1642109361}
   - {fileID: 1762022045}
+  - {fileID: 1471367187}
   menu: 0
 --- !u!1 &1762022043
 GameObject:
@@ -30082,6 +32240,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873460633}
   m_CullTransparentMesh: 0
+--- !u!1 &1883872382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1883872383}
+  - component: {fileID: 1883872385}
+  - component: {fileID: 1883872384}
+  m_Layer: 5
+  m_Name: Checker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1883872383
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883872382}
+  m_LocalRotation: {x: -0, y: -0, z: -0.08760293, w: 0.9961555}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5000005, y: 2.5000005, z: 2.5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1471367185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10.051}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 800, y: -30}
+  m_SizeDelta: {x: 102, y: 114}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1883872384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883872382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 482701d7fe23a4094b9fa72ba3be7ccd, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1883872385
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883872382}
+  m_CullTransparentMesh: 1
 --- !u!1 &1898396040
 GameObject:
   m_ObjectHideFlags: 0
@@ -30231,6 +32464,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905166731}
+  m_CullTransparentMesh: 0
+--- !u!1 &1934704552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934704553}
+  - component: {fileID: 1934704555}
+  - component: {fileID: 1934704554}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1934704553
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934704552}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1471367185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -3, y: 37.00003}
+  m_SizeDelta: {x: 460, y: 460}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1934704554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934704552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b8561eea713159946b7fec8f8be094b4, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1934704555
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934704552}
   m_CullTransparentMesh: 0
 --- !u!1 &1955825867
 GameObject:
@@ -30628,6 +32936,70 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971440718}
   m_CullTransparentMesh: 0
+--- !u!1 &1971573795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1971573796}
+  - component: {fileID: 1971573797}
+  m_Layer: 5
+  m_Name: Value
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1971573796
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971573795}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 519705867}
+  - {fileID: 347964611}
+  m_Father: {fileID: 917726996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 323.34998, y: -52.5}
+  m_SizeDelta: {x: 350.78, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1971573797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971573795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1981492926
 GameObject:
   m_ObjectHideFlags: 0
@@ -30777,6 +33149,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016627521}
+  m_CullTransparentMesh: 0
+--- !u!1 &2024760970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2024760971}
+  - component: {fileID: 2024760973}
+  - component: {fileID: 2024760972}
+  m_Layer: 5
+  m_Name: Text_ItemTitle2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2024760971
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024760970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1471367185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 113.1, y: -69.7}
+  m_SizeDelta: {x: 446.03644, y: 126.77295}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2024760972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024760970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uD14C\uB9C8 \uC2A4\uD0A8"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_sharedMaterial: {fileID: -5024697990898034077, guid: fed9db1d9d9d5c748b754a5303e6a984, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 65.5
+  m_fontSizeBase: 65.5
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: -18.4
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &2024760973
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024760970}
   m_CullTransparentMesh: 0
 --- !u!1 &2048598285
 GameObject:
@@ -36314,7 +38820,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 95978553}
   - {fileID: 1620556934909572584}
   - {fileID: 1064492404}
   - {fileID: 1620556935630712389}
