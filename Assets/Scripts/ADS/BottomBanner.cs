@@ -5,6 +5,26 @@ using UnityEngine;
 
 public class BottomBanner : MonoBehaviour
 {
+    // 배너광고
+    // These ad units are configured to always serve test ads.
+    private string testId = "ca-app-pub-3940256099942544/6300978111";
+    private string bannerId = "ca-app-pub-8914383313856846/9471165210";
+    [SerializeField] private string _adUnitId = "";
+    [SerializeField] private bool testMode = true;
+
+
+    private void Awake() 
+    {
+        if (testMode == true)
+        {
+            _adUnitId = testId;
+        }
+        else if (testMode == false)
+        {
+            _adUnitId = bannerId;
+        }
+    }
+
     public void Start()
     {
         // Initialize the Google Mobile Ads SDK.
@@ -14,16 +34,6 @@ public class BottomBanner : MonoBehaviour
         });
         LoadAd();
     }
-
-    // These ad units are configured to always serve test ads.
-#if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/6300978111";
-#elif UNITY_IPHONE
-  private string _adUnitId = "ca-app-pub-3940256099942544/2934735716";
-#else
-  private string _adUnitId = "unused";
-#endif
-
     BannerView _bannerView;
 
     /// <summary>
@@ -73,4 +83,5 @@ public class BottomBanner : MonoBehaviour
     {
         DestroyBannerView();
     }
+
 }
