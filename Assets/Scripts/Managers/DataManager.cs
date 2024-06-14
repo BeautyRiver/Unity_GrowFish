@@ -25,22 +25,35 @@ public class ThemeList
     public List<ThemeData> themes = new List<ThemeData>();  // 테마 데이터 리스트
 
     // 기본 테마 데이터 생성
-    public void InitializeThemes()
+    public void InitializeThemes(List<string> initialThemeNames)
     {
         themes.Clear(); // 기존 데이터를 초기화
         themes.Add(new ThemeData("DefaultTheme", true, true));
-        int idx = 0;
-        foreach (var themeName in DataManager.Instance.themeNames)
-        {            
+
+        foreach (var themeName in initialThemeNames)
+        {
             themes.Add(new ThemeData(themeName, false, false));
-            idx++;
-        }                
+        }
+    }
+
+    public bool AddNewThemes(List<string> newThemeNames)
+    {
+        bool updated = false;
+        foreach (var themeName in newThemeNames)
+        {
+            if (!themes.Exists(t => t.themeName == themeName))
+            {
+                themes.Add(new ThemeData(themeName, false, false));
+                updated = true;
+            }
+        }
+        return updated;
     }
 }
 
 public class DataManager : Singleton<DataManager> 
 {
-    public List<string> themeNames = new List<String>();    // 테마 이름 리스트
+    public List<string> themeNames = new List<String> { "PaperTheme", "HalloweenTheme", "InkTheme", "NightTheme"};    // 테마 이름 리스트
     public ThemeList themeList = new ThemeList(); // 테마 데이터 리스트
     private string path; // 파일 경로
     private string fileName = "ThemeData.json"; // 파일 이름
@@ -49,7 +62,7 @@ public class DataManager : Singleton<DataManager>
     {
         base.Awake();
         path = Application.persistentDataPath + "/";
-        SetThemeNamesList();
+        // SetThemeNamesList();
         LoadData(); // 데이터 로드 시도
     }
 
@@ -60,8 +73,6 @@ public class DataManager : Singleton<DataManager>
             themeNames.Add("PaperTheme");
             themeNames.Add("HalloweenTheme");
             themeNames.Add("InkTheme");
-
-
         }
     }
 
@@ -76,12 +87,27 @@ public class DataManager : Singleton<DataManager>
         string fullPath = path + fileName;
         if (File.Exists(fullPath)) // 파일이 존재하면 로드
         {
-            string data = File.ReadAllText(fullPath);
+            string data = File.ReadAllText(fullPath);            
             themeList = JsonUtility.FromJson<ThemeList>(data);
+
+            // 기존 테마 목록에서 새로운 테마 요소 추가 확인 (Skin Update Check)
+            bool updated = false;
+            foreach (var themeName in themeNames)
+            {
+                if (!themeList.themes.Exists(t => t.themeName == themeName))
+                {
+                    themeList.themes.Add(new ThemeData(themeName, false, false));
+                    updated = true;
+                }
+            }
+            if (updated)
+            {
+                SaveData();
+            }            
         }
         else // 파일이 존재하지 않으면 초기 데이터 설정
         {
-            themeList.InitializeThemes();
+            themeList.InitializeThemes(themeNames);
             SaveData(); // 초기 데이터 저장
         }
     }
@@ -132,14 +158,5 @@ public class DataManager : Singleton<DataManager>
         {
             SaveData();  // 변경 사항이 있으면 데이터 저장
         }
-    }
-
-    // 디버그용 JSON 초기화
-    public void DebugJsonInit()
-    {
-        themeList.themes.Clear();
-        themeList.InitializeThemes();
-
-        SaveData();
     }
 }

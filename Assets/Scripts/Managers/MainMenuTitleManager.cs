@@ -82,5 +82,15 @@ public class MainMenuTitleManager : MonoBehaviour
         SoundSettingScreen.transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
         .OnComplete(() => SoundSettingScreen.SetActive(false));
     }
-    
+
+
+    // 디버그용 JSON 초기화
+    public void DebugJsonInit()
+    {
+        DataManager.Instance.themeList.themes.Clear();
+        DataManager.Instance.themeList.InitializeThemes(DataManager.Instance.themeNames);
+
+        DataManager.Instance.SaveData();
+    }
+
 }
