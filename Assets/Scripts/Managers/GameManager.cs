@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
     }
     private void Start()
-    {
+    {        
         InitMissionTargets(); // 목표 물고기 설정     
         SoundManager.Instance.ChangePlayListClip("InGame_bgm");   
     }
@@ -249,6 +249,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+#if UNITY_EDITOR
     // 디버그용 스테이지 다운
     public void LevelDown()
     {
@@ -385,5 +386,6 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
-    #endregion
+#endif
+#endregion
 }
