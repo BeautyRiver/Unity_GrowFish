@@ -24,7 +24,7 @@ android {
 android {
     ndkPath "**NDKPATH**"
 
-    compileSdkVersion **APIVERSION**
+    compileSdkVersion 32
     buildToolsVersion '**BUILDTOOLS**'
 
     compileOptions {
